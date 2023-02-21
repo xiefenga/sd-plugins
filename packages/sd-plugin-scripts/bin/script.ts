@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { SCRIPT_COMMANDS } from '../utils/constants'
+const SCRIPT_COMMANDS = ['init', 'start', 'build', 'pack']
 
 process.on('unhandledRejection', err => {
   throw err
@@ -13,7 +13,7 @@ const script = args[0]
 if (SCRIPT_COMMANDS.includes(args[0])) {
   require(`../scripts/${script}`)
 } else {
-  console.log(`no script ${script} in sd-plugin-script`)
+  throw new Error(`no script ${script} in sd-plugin-script`)
 }
 
 

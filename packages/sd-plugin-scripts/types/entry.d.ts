@@ -1,14 +1,18 @@
 type Render = () => void
 
 declare module '$$plugin-dev-entry$$' {
-  declare const render: Render
+  const render: Render
   export default render
 }
 
 
-type PluginRender<T> = (dom: HTMLElement, props: T) => void
+type PluginRender<T = any> = (dom: HTMLElement, props: T) => void
 
 declare module '$$plugin-pro-entry$$' {
-  declare const render: PluginRender<T>
+  const render: PluginRender
   export default render
+}
+
+interface Window {
+  CUSTOM_PLUGIN?: Map<string, PluginRender>
 }

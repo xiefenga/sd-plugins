@@ -2,43 +2,25 @@ import glob from 'glob'
 import fse from 'fs-extra'
 import AdmZip from 'adm-zip'
 import path from 'node:path'
-import { statSync } from 'node:fs'
-import { formatBytes } from '../utils/fmt'
-import { DIST_PATH, PLUGIN_CONFIG_PATH, PLUGIN_PATH, PLUGIN_TEMP_PATH } from '../utils/paths'
+import { PLUGIN_CONFIG_JSON } from '../utils/files'
+import { DIST_PATH, PLUGIN_CONFIG_TEMP_PATH, PLUGIN_PATH, PLUGIN_TEMP_PATH } from '../utils/paths'
 
 // 清空目录
-glob.sync(path.join(PLUGIN_TEMP_PATH, '*')).forEach(file => {
-  fse.removeSync(file)
-  console.log('removed:', file)
-})
+fse.removeSync(PLUGIN_TEMP_PATH)
 
-// copy
-glob.sync(path.join(DIST_PATH, '*')).forEach(file => {
-  const fileName = path.basename(file)
-  if (!['index.html', 'favicon.ico'].includes(fileName)) {
-    fse.copySync(file, path.join(PLUGIN_TEMP_PATH, fileName))
-    console.log('copyd:', file)
-  }
-})
+// 复制
+fse.copySync(DIST_PATH, PLUGIN_TEMP_PATH)
 
-const entry = path.basename(
+// 入口文件名
+const main = path.basename(
   glob.sync(path.resolve(PLUGIN_TEMP_PATH, 'js/*.js'))[0]
 )
 
 // 设置入口文件
-const configJson = require(PLUGIN_CONFIG_PATH)
+const configJson = Object.assign(PLUGIN_CONFIG_JSON, { main })
 
-configJson.main = entry
-
-fse.writeFileSync(
-  path.resolve(PLUGIN_TEMP_PATH, 'config.json'),
-  JSON.stringify(configJson, null, 2),
-  'utf8'
-)
-
-console.log('config.json 修改完成')
-
-console.log('开始打包...')
+// 写入 config.json 
+fse.writeJsonSync(PLUGIN_CONFIG_TEMP_PATH, configJson)
 
 const zip = new AdmZip()
 
@@ -50,6 +32,7 @@ const pluginPath = path.resolve(PLUGIN_PATH, pluginName)
 
 zip.writeZip(pluginPath)
 
-console.log('打包完成...', pluginName, formatBytes(statSync(pluginPath).size))
+console.log(pluginName)
+
 
 

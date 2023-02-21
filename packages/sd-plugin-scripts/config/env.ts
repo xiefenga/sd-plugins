@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import dotenv from 'dotenv'
 import { Env } from '../types'
 import { DOT_ENV_PATH } from '../utils/paths'
-import { PLUGIN_JSON } from '../utils/constants'
+import { PLUGIN_CONFIG_JSON } from '../utils/files'
 
 export default function (env: Env) {
   
@@ -28,8 +28,8 @@ export default function (env: Env) {
     }, {})
 
   const pluginEnvs = {
-    PLUGIN_ID: PLUGIN_JSON.id,
-    PLUGIN_TYPE: PLUGIN_JSON.type,
+    PLUGIN_ID: PLUGIN_CONFIG_JSON.id,
+    PLUGIN_TYPE: PLUGIN_CONFIG_JSON.type,
   }
 
   Object.entries(pluginEnvs).forEach(([key, value]) => process.env[key] = value)

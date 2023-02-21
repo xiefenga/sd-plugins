@@ -1,15 +1,16 @@
 {
   "name": "sd-plugin-scripts",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
   "bin": {
     "sd-plugin-scripts": "./lib/bin/script.js"
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "scripts": {},
+  "scripts": {
+    "dev": "tsc --watch"
+  },
   "keywords": [],
   "author": {
     "name": "xiefeng",
@@ -31,7 +32,9 @@
     "glob": "^8.1.0",
     "html-webpack-plugin": "^5.5.0",
     "react-refresh": "^0.14.0",
+    "sd-dev-login": "workspace:^0.0.1",
     "style-loader": "^3.3.1",
+    "tslib": "^2.5.0",
     "uuid": "^9.0.0",
     "webpack": "^5.75.0",
     "webpack-dev-server": "^4.11.1",

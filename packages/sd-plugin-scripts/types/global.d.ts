@@ -21,8 +21,4 @@ declare module 'dynamic-public-path-plugin' {
   }
 }
 
-interface Window {
-  CUSTOM_PLUGIN?: Map<string, PluginRender>
-}
-
 

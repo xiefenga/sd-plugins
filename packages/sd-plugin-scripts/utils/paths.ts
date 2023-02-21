@@ -49,3 +49,6 @@ export const PLUGIN_PUBLIC_PATH = resolvePlugin('public')
 export const PLUGIN_CONFIG_PATH = resolvePlugin('plugin.json')
 
 export const PLUGIN_TEMP_PATH = resolvePlugin('node_modules/.sd-plugin-0x1461a0/plugin')
+
+export const PLUGIN_CONFIG_TEMP_PATH = path.resolve(PLUGIN_TEMP_PATH, 'config.json')
+

@@ -1,4 +1,3 @@
-import fs from 'node:fs'
 import WebpackBar from 'webpackbar'
 import CopyPlugin from 'copy-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
@@ -10,16 +9,9 @@ import { DefinePlugin, type Configuration, type WebpackPluginInstance } from 'we
 
 import initEnv from './env'
 import { Env } from '../types'
+import { PKG } from '../utils/files'
 import * as paths from '../utils/paths'
-import { PKG } from '../utils/constants'
-
-const useTypeScript = fs.existsSync(paths.TS_CONFIG_PATH)
-
-const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
-
-const imageInlineSizeLimit = parseInt(
-  process.env.IMAGE_INLINE_SIZE_LIMIT ?? `${4 * 1024}`
-)
+import { imageInlineSizeLimit, shouldUseSourceMap, useTypeScript } from '../utils/config'
 
 const createWebpackConfiguration = (webpackEnv: Env): Configuration => {
   const isEnvDevelopment = webpackEnv === 'development'
@@ -34,7 +26,7 @@ const createWebpackConfiguration = (webpackEnv: Env): Configuration => {
     : 'cheap-module-source-map'
 
   const outputFilename = isEnvDevelopment ? 'bundle.js' : '[name].[contenthash:8].js'
-
+  
   return {
     // target: ['browserslist'], default 
     mode: webpackEnv,
