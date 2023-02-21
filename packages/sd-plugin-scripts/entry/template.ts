@@ -15,15 +15,14 @@ const detectLogin = async () => {
 }
 
 if (process.env.NODE_ENV === 'development') {
-  devRender()
-  // if (process.env.NEED_LOGIN === 'true') {
-  //   detectLogin().then((status) => {
-  //     console.log(`[detectLogin] login ${status ? 'success' : 'faild'}!!!`)
-  //     devRender()
-  //   })
-  // } else {
-  //   devRender()
-  // }
+  if (process.env.NEED_LOGIN === 'true') {
+    detectLogin().then((status) => {
+      console.log(`[detectLogin] login ${status ? 'success' : 'faild'}!!!`)
+      devRender()
+    })
+  } else {
+    devRender()
+  }
 } else if (process.env.NODE_ENV === 'production') {
   window.CUSTOM_PLUGIN ??= new Map()
   window.CUSTOM_PLUGIN.set(process.env.PLUGIN_ID!, proRender)

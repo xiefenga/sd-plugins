@@ -2,7 +2,7 @@ import fs from 'fs-extra'
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import configFactory from '../config/webpack.config'
-import devServerConfig from '../config/devServer.config'
+import getDevServerConfig from '../config/devServer.config'
 import { PLUGIN_ENTRY_TEMPLATE_FILE } from '../utils/files'
 import { PLUGIN_INDEX, PLUGIN_DEV_INDEX, PLUGIN_PRO_INDEX, PLUGIN_NODE_MODULES_STORE } from '../utils/paths'
 
@@ -28,6 +28,8 @@ process.env.NEED_LOGIN = 'true'
 const config = configFactory('development')
 
 const compiler = webpack(config)
+
+const devServerConfig = getDevServerConfig()
 
 const devServer = new WebpackDevServer(devServerConfig, compiler)
 
