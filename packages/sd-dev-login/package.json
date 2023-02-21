@@ -1,0 +1,17 @@
+{
+  "name": "sd-dev-login",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "module": "lib/index.mjs",
+  "scripts": {
+    "build": "tsup"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsencrypt": "3.2.1",
+    "sd-plugin-request": "workspace:^0.0.1",
+    "tsup": "^6.6.3"
+  }
+}
