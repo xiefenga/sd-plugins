@@ -26,7 +26,7 @@ const createWebpackConfiguration = (webpackEnv: Env, entry: string): Configurati
     : 'cheap-module-source-map'
 
   const outputFilename = isEnvDevelopment ? 'bundle.js' : '[name].[contenthash:8].js'
-  
+
   return {
     // target: ['browserslist'], default 
     mode: webpackEnv,
@@ -67,6 +67,14 @@ const createWebpackConfiguration = (webpackEnv: Env, entry: string): Configurati
     performance: {
       hints: false,  // 解决入口点 > 250KB 警告的问题
     },
+    externals: isEnvProduction
+      ? {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+        jsencrypt: 'JSEncrypt',
+        antd: 'antd',
+        moment: 'moment',
+      } : {},
     module: {
       rules: [
         {
