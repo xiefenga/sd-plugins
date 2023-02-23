@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { ConfigContext, StoreContext } from '@/context'
+import { ConfigContext, StoreContext } from '@/utils/context'
 
 export const usePluginConfig = () => {
   return useContext(ConfigContext)

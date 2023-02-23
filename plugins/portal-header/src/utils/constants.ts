@@ -1,5 +1,5 @@
-import '@/runtime'
-import defaultLogo from './assets/Logo.png'
+import '@/utils/runtime'
+import defaultLogo from '@/assets/Logo.png'
 import { DefaultTheme } from 'styled-components'
 
 export const defaultThemeColor: DefaultTheme = {

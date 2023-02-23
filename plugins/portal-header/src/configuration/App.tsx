@@ -2,8 +2,8 @@ import { Button } from 'antd'
 import styled from 'styled-components'
 import NiceModal from '@ebay/nice-modal-react'
 
-import { PluginConfig } from '../types'
-import ConfigModal from './ConfigModal'
+import { PluginConfig } from '@/types'
+import ConfigModal from './components/ConfigModal'
 
 
 const Wrapper = styled.div`

@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import { PluginConfig, Store } from './types'
+import { PluginConfig, Store } from '@/types'
 
 export const ConfigContext = createContext<Partial<PluginConfig>>({})
 

@@ -1,4 +1,3 @@
-import './runtime'
 import { createRoot } from 'react-dom/client'
 import { PluginConfig } from './types'
 import App from './App'

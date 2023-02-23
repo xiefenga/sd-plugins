@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client'
-import Setting from './setting/index'
-import { PluginConfig } from './types'
+import Setting from './App'
+import { PluginConfig } from '@/types'
 
 interface PluginPropsOfConfig {
   isConfig: true

@@ -4,7 +4,7 @@ import { createGlobalStyle } from 'styled-components'
 import 'antd/dist/antd.css'
 import App from './App'
 import { PluginConfig } from './types'
-import { DEFAULT_THEME } from './constants'
+import { DEFAULT_THEME } from './utils/constants'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -52,7 +52,6 @@ export default () => {
     <React.StrictMode>
       <GlobalStyle />
       <App pluginConfig={pluginConfig} />
-      {/* <Setting pluginConfig={{}} onConfigChange={() => {}} /> */}
     </React.StrictMode>
   )
 }

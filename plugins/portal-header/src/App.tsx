@@ -9,8 +9,8 @@ import { PluginConfig } from './types'
 import HeaderTop from './components/HeaderTop'
 import GlobalStyle from './components/GlobalStyle'
 import HeaderBottom from './components/HeaderBottom'
-import { DEFAULT_THEME_KEY, DEFAULT_THEME } from './constants'
-import { PluginConfigProvider, StoreProvider } from './context'
+import { DEFAULT_THEME_KEY, DEFAULT_THEME } from './utils/constants'
+import { PluginConfigProvider, StoreProvider } from './utils/context'
 
 const Header = styled.header`
   padding: 0 60px;
