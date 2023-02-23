@@ -36,6 +36,7 @@ export default function (env: Env) {
 
   const defaultEnvs = {
     NODE_ENV: process.env.NODE_ENV,
+    WITH_SETTING: process.env.WITH_SETTING,
   }
 
   const envs = Object.assign({}, envsFromDovEnv, pluginEnvs, defaultEnvs)
