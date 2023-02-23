@@ -1,0 +1,35 @@
+{
+  "name": "portal-header",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "refresh": "sd-plugin-scripts init",
+    "start": "sd-plugin-scripts start",
+    "build": "sd-plugin-scripts build",
+    "plugin:build": "npm run build && sd-plugin-scripts pack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@types/styled-components": "^5.1.26",
+    "@types/webpack-env": "^1.18.0",
+    "antd": "4.21.6",
+    "css-loader": "^6.7.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sd-dev-login": "workspace:*",
+    "style-loader": "^3.3.1"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.0.1",
+    "@ebay/nice-modal-react": "^1.2.8",
+    "ahooks": "^3.7.4",
+    "moment": "2.29.1",
+    "sd-plugin-request": "workspace:*",
+    "sd-plugin-scripts": "workspace:*",
+    "styled-components": "^5.3.6"
+  }
+}

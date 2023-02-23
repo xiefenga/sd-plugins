@@ -1,0 +1,10 @@
+{
+  "id": "5dce659c-f9b7-45a5-9da2-ddccca265d00",
+  "type": "head",
+  "main": "",
+  "version": "2",
+  "props": {
+    "type": "head",
+    "customconf": []
+  }
+}
