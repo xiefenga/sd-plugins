@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2018",
+    "module": "CommonJS",
+    "importHelpers": true,
+    "baseUrl": ".",
+    "rootDir": ".",
+    "esModuleInterop": true,
+    "outDir": "../../lib/node"
+  },
+}

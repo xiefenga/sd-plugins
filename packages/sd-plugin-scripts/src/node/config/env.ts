@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import dotenv from 'dotenv'
 import { Env } from '../types'
-import { DOT_ENV_PATH } from '../utils/paths'
+import { DOT_ENV_PATH } from './paths'
 import { PLUGIN_CONFIG_JSON } from '../utils/files'
 
 export default function (env: Env) {

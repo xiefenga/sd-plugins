@@ -1,5 +1,5 @@
 import fs from 'node:fs'
-import * as paths from './paths'
+import * as paths from '../config/paths'
 
 export const useTypeScript = fs.existsSync(paths.TS_CONFIG_PATH)
 

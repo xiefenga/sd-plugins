@@ -2,7 +2,7 @@ import WebpackBar from 'webpackbar'
 import CopyPlugin from 'copy-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CleanTerminalPlugin from 'clean-terminal-webpack-plugin'
-import dynamicPublicPathPlugin from 'dynamic-public-path-plugin'
+// import dynamicPublicPathPlugin from 'dynamic-public-path-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import { DefinePlugin, type Configuration, type WebpackPluginInstance } from 'webpack'
@@ -10,10 +10,10 @@ import { DefinePlugin, type Configuration, type WebpackPluginInstance } from 'we
 import initEnv from './env'
 import { Env } from '../types'
 import { PKG } from '../utils/files'
-import * as paths from '../utils/paths'
+import * as paths from './paths'
 import { imageInlineSizeLimit, shouldUseSourceMap, useTypeScript } from '../utils/config'
 
-const createWebpackConfiguration = (webpackEnv: Env): Configuration => {
+const createWebpackConfiguration = (webpackEnv: Env, entry: string): Configuration => {
   const isEnvDevelopment = webpackEnv === 'development'
   const isEnvProduction = webpackEnv === 'production'
 
@@ -30,7 +30,8 @@ const createWebpackConfiguration = (webpackEnv: Env): Configuration => {
   return {
     // target: ['browserslist'], default 
     mode: webpackEnv,
-    entry: paths.PLUGIN_INDEX,
+    // entry: paths.PLUGIN_INDEX,
+    entry,
     stats: 'errors-warnings',
     devtool: webpackDevtool,
     resolve: {
@@ -53,7 +54,7 @@ const createWebpackConfiguration = (webpackEnv: Env): Configuration => {
     cache: {
       type: 'filesystem',
       version: process.env.NODE_ENV,
-      cacheDirectory: paths.PLUGIN_WEBPACK_CACHE,
+      cacheDirectory: paths.WEBPACK_CACHE_DIR,
       store: 'pack',
       // buildDependencies: {
       //   defaultWebpack: ['webpack/lib/'],
@@ -109,24 +110,24 @@ const createWebpackConfiguration = (webpackEnv: Env): Configuration => {
             {
               test: /\.css$/,
               use: [
-                'style-loader',
-                'css-loader',
+                require.resolve('style-loader'),
+                require.resolve('css-loader'),
               ],
             },
             {
               test: /\.less$/,
               use: [
-                'style-loader',
-                'css-loader',
-                'less-loader',
+                require.resolve('style-loader'),
+                require.resolve('css-loader'),
+                require.resolve('less-loader'),
               ],
             },
             {
               test: /\.(scss|sass)$/,
               use: [
-                'style-loader',
-                'css-loader',
-                'sass-loader',
+                require.resolve('style-loader'),
+                require.resolve('css-loader'),
+                require.resolve('sass-loader'),
               ],
             },
             {
@@ -188,10 +189,10 @@ const createWebpackConfiguration = (webpackEnv: Env): Configuration => {
           configFile: paths.TS_CONFIG_PATH,
         },
       }),
-      isEnvProduction && new dynamicPublicPathPlugin({
-        // eslint-disable-next-line no-useless-escape, @typescript-eslint/quotes
-        dynamicPublicPath: `document.currentScript?.src.replace(window.location.origin, '').replace(/\/js\/.*/, '/') ?? '/'`,
-      }),
+      // isEnvProduction && new dynamicPublicPathPlugin({
+      //   // eslint-disable-next-line no-useless-escape, @typescript-eslint/quotes
+      //   dynamicPublicPath: `document.currentScript?.src.replace(window.location.origin, '').replace(/\/js\/.*/, '/') ?? '/'`,
+      // }),
       new WebpackBar(),
       new CleanTerminalPlugin(),
     ].filter(Boolean) as WebpackPluginInstance[],

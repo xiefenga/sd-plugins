@@ -1,7 +1,7 @@
 import fs from 'fs-extra'
 import { v4 as uuidv4 } from 'uuid'
 import { PLUGIN_CONFIG_JSON } from '../utils/files'
-import { PLUGIN_CONFIG_PATH } from '../utils/paths'
+import { PLUGIN_CONFIG_PATH } from '../config/paths'
 
 const id = uuidv4()
 

@@ -3,7 +3,7 @@ import fse from 'fs-extra'
 import AdmZip from 'adm-zip'
 import path from 'node:path'
 import { PLUGIN_CONFIG_JSON } from '../utils/files'
-import { DIST_PATH, PLUGIN_CONFIG_TEMP_PATH, PLUGIN_PATH, PLUGIN_TEMP_PATH } from '../utils/paths'
+import { DIST_PATH, PLUGIN_CONFIG_TEMP_PATH, PLUGIN_PATH, PLUGIN_TEMP_PATH } from '../config/paths'
 
 // 清空目录
 fse.removeSync(PLUGIN_TEMP_PATH)
@@ -13,7 +13,7 @@ fse.copySync(DIST_PATH, PLUGIN_TEMP_PATH)
 
 // 入口文件名
 const main = path.basename(
-  glob.sync(path.resolve(PLUGIN_TEMP_PATH, 'js/*.js'))[0]
+  glob.sync(path.resolve(PLUGIN_TEMP_PATH, 'js/main*.js'))[0]
 )
 
 // 设置入口文件

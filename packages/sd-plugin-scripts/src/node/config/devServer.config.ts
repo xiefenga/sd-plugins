@@ -1,8 +1,15 @@
 import fs from 'node:fs'
 import { Configuration } from 'webpack-dev-server'
-import { PROXY_SETUP_PATH } from '../utils/paths'
+import { PROXY_SETUP_PATH } from './paths'
 
-const getDevServerConfig = () => {
+
+// todo: 
+//  1. proxy 文件支持多种格式, json, js, ts
+//  2. proxy 文件更改自动应用
+//  3. 智能打开浏览器
+
+const getDevServerConfig = (port = 3000) => {
+
   const proxy = fs.existsSync(PROXY_SETUP_PATH)
     ? require(PROXY_SETUP_PATH)
     : {}
@@ -16,7 +23,8 @@ const getDevServerConfig = () => {
     },
     compress: true,
     hot: true,
-    port: 3000,
+    port,
+    // port: 3000,
     open: true,
   // static: {
   //   directory: paths.appPublic,
