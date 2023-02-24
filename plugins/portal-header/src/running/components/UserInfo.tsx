@@ -6,7 +6,7 @@ import { Dropdown, Avatar, message } from 'antd'
 
 import { logout, queryUser } from '@/api'
 import { Optional, User } from '@/types'
-import { usePluginConfig } from '@/hooks'
+import { usePluginConfig } from '@/running/hooks'
 import ThemedMenu from './styled/AntdMenu'
 import DownOutlined from './icons/DownOutlined.svg'
 import defaultAvatar from '@/assets/default-avatar.png'

@@ -3,13 +3,13 @@ import styled from 'styled-components'
 import { ThemeProvider } from 'styled-components'
 import { useLocalStorageState, useRequest } from 'ahooks'
 
-import { querySSOCode } from './api'
-import { PluginConfig } from './types'
+import { querySSOCode } from '@/api'
+import { PluginConfig } from '@/types'
 import HeaderTop from './components/HeaderTop'
 import GlobalStyle from './components/GlobalStyle'
 import HeaderBottom from './components/HeaderBottom'
-import { DEFAULT_THEME, STORAGE_KEY } from './utils/constants'
-import { PluginConfigProvider, StoreProvider } from './utils/context'
+import { DEFAULT_THEME, STORAGE_KEY } from '@/utils/constants'
+import { PluginConfigProvider, StoreProvider } from '@/utils/context'
 import { message } from 'antd'
 
 const Header = styled.header`

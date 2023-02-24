@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { usePluginConfig, useStore } from '@/hooks'
+import { usePluginConfig, useStore } from '@/running/hooks'
 import ArrowRightOutlined from './icons/ArrowRightOutlined.svg'
 
 const NavigationWrapper = styled.div`

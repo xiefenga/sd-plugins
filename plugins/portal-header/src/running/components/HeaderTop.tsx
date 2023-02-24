@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import UserInfo from './UserInfo'
-import { useStore } from '@/hooks'
+import { useStore } from '@/running/hooks'
 import SubNavigation from './SubNavigation'
 
 const HeaderTopWrapper = styled.div`

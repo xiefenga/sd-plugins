@@ -5,9 +5,9 @@ import { useLocalStorageState } from 'ahooks'
 import { createGlobalStyle } from 'styled-components'
 
 import App from './App'
-import { PluginProps } from './types'
-import { registerMessage } from './utils/message'
-import { PLUGIN_CONFIG, DEFAULT_THEME, STORAGE_KEY } from './utils/constants'
+import { PluginProps } from '@/types'
+import { registerMessage } from '@/utils/message'
+import { PLUGIN_CONFIG, DEFAULT_THEME, STORAGE_KEY } from '@/utils/constants'
 
 const GlobalStyle = createGlobalStyle`
   body {
