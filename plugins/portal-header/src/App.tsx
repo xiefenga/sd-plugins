@@ -1,16 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
-import { useLocalStorageState } from 'ahooks'
 import { ThemeProvider } from 'styled-components'
+import { useLocalStorageState, useRequest } from 'ahooks'
 
 import { querySSOCode } from './api'
 import { PluginConfig } from './types'
 import HeaderTop from './components/HeaderTop'
 import GlobalStyle from './components/GlobalStyle'
 import HeaderBottom from './components/HeaderBottom'
-import { DEFAULT_THEME_KEY, DEFAULT_THEME } from './utils/constants'
+import { DEFAULT_THEME, STORAGE_KEY } from './utils/constants'
 import { PluginConfigProvider, StoreProvider } from './utils/context'
+import { message } from 'antd'
 
 const Header = styled.header`
   padding: 0 60px;
@@ -28,16 +28,22 @@ const App: React.FC<AppProps> = (props) => {
 
   const { pluginConfig } = props
 
-  const [theme, setTheme] = useLocalStorageState(DEFAULT_THEME_KEY, { defaultValue: DEFAULT_THEME })
+  const [
+    theme,
+    setTheme,
+  ] = useLocalStorageState(
+    STORAGE_KEY.DEFAULT_THEME,
+    { defaultValue: DEFAULT_THEME }
+  )
 
-  const [ssoCode, setSSOCode] = useState('')
-
-  useEffect(() => {
-    querySSOCode()
-      .then(res => res.data)
-      .then(code => setSSOCode(code))
-      .catch()
-  }, [])
+  const { 
+    data: ssoCode = '', 
+  } = useRequest(querySSOCode, { 
+    retryCount: 3, 
+    onError: (error) => {
+      message.error('sso code 请求失败' + error.message)
+    },
+  })
 
   return (
     <PluginConfigProvider value={pluginConfig}>

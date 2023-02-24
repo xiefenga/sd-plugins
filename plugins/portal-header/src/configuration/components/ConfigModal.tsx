@@ -6,7 +6,6 @@ import { Button, Form, Input, Modal, Switch } from 'antd'
 import { useModal, antdModal } from '@ebay/nice-modal-react'
 
 import { PluginConfig } from '@/types'
-import ImageUpload from './ImageUpload'
 import SubNavDrawer from './SubNavDrawer'
 
 const ConfigButton = styled(Button).attrs({ type: 'primary', size: 'small' })``
@@ -21,8 +20,6 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
   const { submitConfig, pluginConfig } = props
 
   const modal = useModal()
-
-  const [logo, setLogo] = useState(pluginConfig.logo ?? '')
 
   // 本级
   const [isLevel, setIsLevel] = useState(pluginConfig.isLevel ?? false)
@@ -40,7 +37,7 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
   }
 
   const onOk = () => {
-    const config = { logo, isLevel, searchUrl, workbanchName, workbanchUrl, subNavs }
+    const config = { isLevel, searchUrl, workbanchName, workbanchUrl, subNavs }
     const currentConfig = Object.entries(config)
       .filter(([_, val]) => !!val)
       .reduce((memo, [key, val]) => Object.assign({}, memo, { [key]: val }), {} as any)
@@ -64,13 +61,13 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
       onOk={onOk}
     >
       <Form labelCol={{ span: 3 }} wrapperCol={{ span: 6 }}>
-        <Form.Item label='Logo'>
+        {/* <Form.Item label='Logo'>
           <ImageUpload
             url={logo}
             tip='上传logo'
             setUrl={setLogo}
           />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item label='本级'>
           <Switch
             checked={isLevel}
@@ -111,6 +108,13 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
           />
         </Form.Item>
         <Form.Item label='工作台地址'>
+          <Input
+            size='small'
+            value={workbanchUrl}
+            onChange={e => setWorkbanchUrl(e.target.value)}
+          />
+        </Form.Item>
+        <Form.Item label='导航资产ID'>
           <Input
             size='small'
             value={workbanchUrl}

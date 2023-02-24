@@ -1,24 +1,64 @@
-import { createRoot } from 'react-dom/client'
 import 'antd/dist/antd.css'
+import { createRoot } from 'react-dom/client'
+import { useLocalStorageState } from 'ahooks'
 
-import Setting from './App'
-// import { PluginConfig } from '@/types'
+import { PluginPropsOfConfig } from '@/types'
+import { postMessage } from '@/utils/message'
+import ConfigButton from './components/ConfigButton'
+import { PLUGIN_CONFIG, STORAGE_KEY } from '@/utils/constants'
 
-// interface PluginPropsOfConfig {
-//   isConfig: true
-//   onConfigChange: (config: any) => void
-//   customConfig: Partial<PluginConfig>
-// }
+const PluginRender = () => {
+
+  const onConfigChange = (config: any) => {
+
+    postMessage(config)
+
+    setPluginProps({
+      isConfig: true,
+      onConfigChange,
+      customConfig: {
+        appId: '',
+        componentId: '',
+        [PLUGIN_CONFIG]: config,
+      },
+    })
+  }
+
+  const [
+    pluginProps,
+    setPluginProps,
+  ] = useLocalStorageState<PluginPropsOfConfig>(
+    STORAGE_KEY.PLUGIN_PROPS,
+    {
+      defaultValue: {
+        isConfig: true,
+        onConfigChange,
+        customConfig: {
+          appId: '',
+          componentId: '',
+        },
+      },
+    }
+  )
+
+  console.log(pluginProps)
+
+  const { customConfig } = pluginProps
+
+  const pluginConfig = customConfig[PLUGIN_CONFIG] ?? {}
+
+  return (
+    <ConfigButton
+      pluginConfig={pluginConfig}
+      onConfigChange={onConfigChange}
+    />
+  )
+}
 
 export default () => {
 
-  // const { onConfigChange, customConfig } = props
-  // console.log(props)
-
-  createRoot(document.getElementById('root')!).render(
-    <Setting 
-      pluginConfig={{}} 
-      onConfigChange={() => {}} 
-    />
-  )
+  createRoot(document.getElementById('root')!)
+    .render(
+      <PluginRender />
+    )
 }

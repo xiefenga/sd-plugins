@@ -1,21 +1,19 @@
 import { createRoot } from 'react-dom/client'
-import { PluginConfig } from './types'
+
 import App from './App'
+import { PluginProps } from './types'
+import { PLUGIN_CONFIG } from './utils/constants'
 
-interface PluginPropsRender {
-  appId: string
-  componentId: string
-  customConfig: Partial<PluginConfig>
-}
 
-export default (dom: HTMLDivElement, props: PluginPropsRender) => {
-  const root = createRoot(dom)
+export default (dom: HTMLDivElement, props: PluginProps) => {
 
   console.log(props)
 
   const { customConfig } = props
 
-  root.render(
-    <App pluginConfig={customConfig} />
+  const pluginConfig = customConfig[PLUGIN_CONFIG] ?? {}
+
+  createRoot(dom).render(
+    <App pluginConfig={pluginConfig} />
   )
 }

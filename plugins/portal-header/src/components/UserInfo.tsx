@@ -1,6 +1,7 @@
 import React from 'react'
+import { useState } from 'react'
+import { useRequest } from 'ahooks'
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
 import { Dropdown, Avatar, message } from 'antd'
 
 import { logout, queryUser } from '@/api'
@@ -38,10 +39,6 @@ const UserInfoWrapper = styled.div`
 `
 const appid = new URLSearchParams(window.location.search).get('appid')
 
-// companyName 组织
-// userName 身份
-// name 姓名
-// photo 头像
 
 const UserInfo: React.FC = () => {
 
@@ -51,27 +48,23 @@ const UserInfo: React.FC = () => {
 
   const [user, setUser] = useState<Optional<User>>()
 
-  const request = async () => {
-    try {
-      const { data } = await queryUser()
+  useRequest(queryUser, {
+    retryCount: 3,
+    onError(error) {
+      message.error('请求用户数据失败' + error.message)
+    },
+    onSuccess(data) {
       const {
         photo: avatar,
         name: userName,
         userName: identity,
         companyName: organization,
       } = data
-
       setUser({ organization, identity, avatar, userName })
-    } catch (_error) {
-      // 
-    }
-  }
+    },
+  })
 
-  useEffect(() => {
-    request()
-  }, [])
-
-  const logoutAccout = async () => {
+  const logoutSys = async () => {
     try {
       const { status, data } = await logout()
       if (status === 200) {
@@ -101,7 +94,7 @@ const UserInfo: React.FC = () => {
       {
         key: 'logout',
         label: (
-          <span onClick={logoutAccout}>
+          <span onClick={logoutSys}>
             退出登录
           </span>
         ),
@@ -109,28 +102,28 @@ const UserInfo: React.FC = () => {
     ]
 
     return (
-      <ThemedMenu 
-        items={menuItems} 
-        style={{ fontSize: 12 }} 
+      <ThemedMenu
+        items={menuItems}
+        style={{ fontSize: 12 }}
       />
     )
   }
 
   return (
     <UserInfoWrapper>
-      { user && (
+      {user && (
         <React.Fragment>
           <span>{user?.organization} · {user?.identity} · </span>
-          <Avatar 
+          <Avatar
             size={30}
-            draggable={false} 
+            draggable={false}
             className='avatar'
-            src={user?.avatar ?? defaultAvatar} 
+            src={user?.avatar ?? defaultAvatar}
           />
-          <Dropdown 
-            visible={visible} 
-            destroyPopupOnHide 
-            overlay={renderUserMenu()} 
+          <Dropdown
+            visible={visible}
+            destroyPopupOnHide
+            overlay={renderUserMenu()}
             onVisibleChange={visible => setVisible(visible)}
           >
             <div className='account'>

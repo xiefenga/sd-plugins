@@ -1,3 +1,4 @@
+import '@/utils/runtime'
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import HarmonyOS_Sans_SC from '@/assets/HarmonyOS_Sans_SC_Light.ttf'
@@ -37,7 +38,6 @@ export const ThemedAntdTabsDropdownStyle = createGlobalStyle`
   }
 `
 
-// font-size: ${props => props.fontSize ?? ''}px;
 export const ThemedAntdDropdownMenuStyle = createGlobalStyle`
   .themed-ant-dropdown-menu {
     border: 1px solid ${props => props.theme.border.color};

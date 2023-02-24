@@ -1,3 +1,4 @@
+import { PLUGIN_CONFIG } from '@/utils/constants'
 import { DefaultTheme } from 'styled-components'
 
 export type Optional<T> = T | undefined
@@ -27,13 +28,16 @@ interface BusinessNav {
 }
 
 export interface PluginConfig {
-  logo: string
   isLevel: boolean
   subNavs: SubNav[]
   searchUrl: string
   workbanchUrl: string
   workbanchName: string
-  themes: Theme[] 
+  workbanch: {
+    url: string
+    text: string
+  }
+  themes: Theme[]
   currentTheme: Theme
   busninessNavs: BusinessNav[]
 }
@@ -41,7 +45,7 @@ export interface PluginConfig {
 export interface Store {
   ssoCode: string
   theme: Theme
-  setTheme: (_:Theme) => void
+  setTheme: (_: Theme) => void
 }
 
 export interface Notice {
@@ -51,4 +55,25 @@ export interface Notice {
   info_content: string
   info_url_title?: string
   last_modify_time: string
+}
+
+export interface PluginPropsOfConfig {
+  isConfig: true,
+  onConfigChange: (config: any) => void,
+  customConfig: {
+    appId: string
+    componentId: string
+    [PLUGIN_CONFIG]?: Partial<PluginConfig>
+  }
+}
+
+export interface PluginProps {
+  appId: string
+  componentId: string
+  customConfig: {
+    appId: string
+    componentId: string
+    [PLUGIN_CONFIG]?: Partial<PluginConfig>
+  },
+  [PLUGIN_CONFIG]?: Partial<PluginConfig>
 }

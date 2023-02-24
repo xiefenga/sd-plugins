@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import NiceModal from '@ebay/nice-modal-react'
 
 import { PluginConfig } from '@/types'
-import ConfigModal from './components/ConfigModal'
+import ConfigModal from './ConfigModal'
 
 
 const Wrapper = styled.div`
@@ -27,14 +27,12 @@ const ModalButton = attrd`
   border-radius: 5px!important;
 `
 
-interface SettingProps {
+interface ConfigButtonProps {
   pluginConfig: Partial<PluginConfig>
   onConfigChange: (_: any) => void
 }
 
-const Setting: React.FC<SettingProps> = (props) => {
-
-  console.log(props)
+const ConfigButton: React.FC<ConfigButtonProps> = (props) => {
 
   const { onConfigChange, pluginConfig } = props
 
@@ -58,4 +56,4 @@ const Setting: React.FC<SettingProps> = (props) => {
   )
 }
 
-export default Setting
+export default ConfigButton

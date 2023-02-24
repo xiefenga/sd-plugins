@@ -1,14 +1,16 @@
+import { User } from '@/types/api'
 import request from 'sd-plugin-request'
 
 export const logout = () => {
   return request.get('/system/authority/logout')
 }
 
-export const queryUser = () => {
-  return request.get('system/authority/user')
+export const queryUser = async () => {
+  const resp = await request.get<User>('system/authority/user')
+  return resp.data
 }
 
-export const queryNotification = () =>  {
+export const queryNotification = () => {
   return request.post('/sysInfo/queryList', {
     pageSize: 5,
     pageNum: 1,
@@ -18,6 +20,7 @@ export const queryNotification = () =>  {
   })
 }
 
-export const querySSOCode = () => {
-  return request.get('systhirdapp/user/getCode')
+export const querySSOCode = async () => {
+  const resp = await request.get<string>('systhirdapp/user/getCode')
+  return resp.data
 }
