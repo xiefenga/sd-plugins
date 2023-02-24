@@ -41,8 +41,8 @@ export const PLUGIN_ENTRY_TEMPLATE = {
 
 // source 文件入口
 export const PLUGIN_SOURCE = {
-  PLUGIN_DEV: resolveModule(resolvePlugin, 'src/main-dev'),
-  PLUGIN_PRO: resolveModule(resolvePlugin, 'src/main-pro'),
+  PLUGIN_DEV: resolveModule(resolvePlugin, 'src/running/dev'),
+  PLUGIN_PRO: resolveModule(resolvePlugin, 'src/running/pro'),
   SETTING_DEV: resolveModule(resolvePlugin, 'src/configuration/dev'),
   SETTING_PRO: resolveModule(resolvePlugin, 'src/configuration/pro'),
 }
