@@ -42,7 +42,7 @@ const appid = new URLSearchParams(window.location.search).get('appid')
 
 const UserInfo: React.FC = () => {
 
-  const { workbanchName = '个人工作台', workbanchUrl } = usePluginConfig()
+  const { workbanch } = usePluginConfig()
 
   const [visible, setVisible] = useState(false)
 
@@ -86,8 +86,8 @@ const UserInfo: React.FC = () => {
       {
         key: 'workbanch',
         label: (
-          <a href={workbanchUrl} target='_blank' rel="noreferrer">
-            {workbanchName}
+          <a href={workbanch?.url} target='_blank' rel="noreferrer">
+            {workbanch?.text || '个人工作台'}
           </a>
         ),
       },

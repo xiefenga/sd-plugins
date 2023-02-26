@@ -49,6 +49,7 @@ export const ThemedAntdDropdownMenuStyle = createGlobalStyle`
     .ant-dropdown-menu-item {
       font-size: inherit;
       text-align: center;
+      word-break: keep-all;
     }
 
     .ant-dropdown-menu-item-active {

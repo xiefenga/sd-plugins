@@ -1,17 +1,20 @@
-import { FC, ReactNode, useState } from 'react'
+import { useControllableValue } from 'ahooks'
 import { Image, message, Upload } from 'antd'
+import { FC, ReactNode, useState } from 'react'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import { RcFile, UploadChangeParam, UploadFile } from 'antd/lib/upload'
 
 interface ImageUploadProps {
   tip: ReactNode
-  url: string
-  setUrl: (url: string) => void
+  value?: string
+  onChange?: (url: string) => void
 }
 
 const ImageUpload: FC<ImageUploadProps> = (props) => {
 
-  const { tip, url: imageUrl, setUrl: setImageUrl } = props
+  const { tip } = props
+
+  const [imageUrl, setImageUrl] = useControllableValue(props)
 
   const [loading, setLoading] = useState(false)
 

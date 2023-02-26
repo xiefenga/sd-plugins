@@ -10,18 +10,18 @@ export interface User {
   organization: string
 }
 
-interface SubNav {
+export interface SubNav {
   name: string
   url: string
 }
 
-interface Theme {
+export interface Theme {
   name: string
   logo: string
   color: DefaultTheme
 }
 
-interface BusinessNav {
+export interface BusinessNav {
   name: string
   url: string
   params?: Record<string, string>
@@ -31,8 +31,6 @@ export interface PluginConfig {
   isLevel: boolean
   subNavs: SubNav[]
   searchUrl: string
-  workbanchUrl: string
-  workbanchName: string
   workbanch: {
     url: string
     text: string
@@ -40,6 +38,7 @@ export interface PluginConfig {
   themes: Theme[]
   currentTheme: Theme
   busninessNavs: BusinessNav[]
+  navAssetId: string
 }
 
 export interface Store {

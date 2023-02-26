@@ -4,6 +4,7 @@ import NiceModal from '@ebay/nice-modal-react'
 
 import { PluginConfig } from '@/types'
 import ConfigModal from './ConfigModal'
+import GlobalStyle from './GlobalStyle'
 
 
 const Wrapper = styled.div`
@@ -47,6 +48,7 @@ const ConfigButton: React.FC<ConfigButtonProps> = (props) => {
 
   return (
     <NiceModal.Provider>
+      <GlobalStyle />
       <Wrapper>
         <ModalButton onClick={openConfigModal}>
           打开配置弹窗

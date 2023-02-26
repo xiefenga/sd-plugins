@@ -14,10 +14,12 @@
   "license": "ISC",
   "devDependencies": {
     "@types/react": "^18.0.28",
+    "@types/react-color": "^3.0.6",
     "@types/react-dom": "^18.0.11",
     "@types/styled-components": "^5.1.26",
     "@types/webpack-env": "^1.18.0",
     "antd": "4.21.6",
+    "moment": "2.29.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sd-dev-login": "workspace:^*",
@@ -27,7 +29,7 @@
     "@ant-design/icons": "^5.0.1",
     "@ebay/nice-modal-react": "^1.2.8",
     "ahooks": "^3.7.4",
-    "moment": "2.29.1",
+    "react-color": "^2.19.3",
     "sd-plugin-request": "workspace:*",
     "styled-components": "^5.3.6"
   }

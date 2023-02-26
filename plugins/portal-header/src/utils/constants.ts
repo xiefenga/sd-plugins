@@ -4,12 +4,12 @@ import { DefaultTheme } from 'styled-components'
 
 export const defaultThemeColor: DefaultTheme = {
   font: {
-    active: '#fff',
+    active: '#FFFFFF',
     hover: '#00B8B4',
     default: '#212121',
   },
   bg: {
-    default: '#fff',
+    default: '#FFFFFF',
     active: '#00B8B4',
     hover: '#00B8B410',
   },

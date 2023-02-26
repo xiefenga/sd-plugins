@@ -1,12 +1,25 @@
 import React from 'react'
-import { useState } from 'react'
+import { useSetState } from 'ahooks'
 import styled from 'styled-components'
 import NiceModal from '@ebay/nice-modal-react'
 import { Button, Form, Input, Modal, Switch } from 'antd'
 import { useModal, antdModal } from '@ebay/nice-modal-react'
 
-import { PluginConfig } from '@/types'
-import SubNavDrawer from './SubNavDrawer'
+import ThemeDrawer from './drawer/ThemeDrawer'
+import SysNavDrawer from './drawer/SysNavDrawer'
+import StyledNavDrawer from './drawer/SubNavDrawer'
+import { BusinessNav, PluginConfig, SubNav, Theme } from '@/types'
+
+const StyledMoal = styled(Modal).attrs({
+  width: 800,
+  okText: '确认',
+  centered: true,
+  closable: false,
+  title: '配置插件',
+  cancelText: '取消',
+  destroyOnClose: true,
+})``
+
 
 const ConfigButton = styled(Button).attrs({ type: 'primary', size: 'small' })``
 
@@ -17,57 +30,87 @@ interface ConfigModalProps {
 
 const ConfigModal: React.FC<ConfigModalProps> = (props) => {
 
-  const { submitConfig, pluginConfig } = props
-
   const modal = useModal()
 
-  // 本级
-  const [isLevel, setIsLevel] = useState(pluginConfig.isLevel ?? false)
+  const { submitConfig, pluginConfig } = props
 
-  const [searchUrl, setSearchUrl] = useState(pluginConfig.searchUrl)
+  const [state, setState] = useSetState(pluginConfig)
 
-  const [workbanchName, setWorkbanchName] = useState(pluginConfig.workbanchName)
-
-  const [workbanchUrl, setWorkbanchUrl] = useState(pluginConfig.workbanchUrl)
-
-  const [subNavs, setSubNavs] = useState(pluginConfig.subNavs ?? [])
+  const {
+    themes, // 主题列表
+    isLevel,  // 本级
+    workbanch,  // 工作台
+    searchUrl,
+    subNavs,
+    navAssetId,  // 导航资产ID
+    busninessNavs,
+  } = state
 
   const onSwitchChange = (checked: boolean) => {
-    setIsLevel(checked)
+    setState({ isLevel: checked })
   }
 
-  const onOk = () => {
-    const config = { isLevel, searchUrl, workbanchName, workbanchUrl, subNavs }
-    const currentConfig = Object.entries(config)
+  const onModalClickOk = () => {
+    const currentConfig = Object.entries(state)
       .filter(([_, val]) => !!val)
       .reduce((memo, [key, val]) => Object.assign({}, memo, { [key]: val }), {} as any)
     submitConfig(currentConfig)
     modal.hide()
   }
 
-  const openSubNavConfigDrawer = () => {
-    NiceModal.show(SubNavDrawer, {
-      subNavs,
-      setSubNavs,
+  const setWorkbachName = (value: string) => {
+    setState({
+      workbanch: {
+        url: workbanch?.url ?? '',
+        text: value,
+      },
     })
   }
 
+  const setWorkbachUrl = (value: string) => {
+    setState({
+      workbanch: {
+        url: value,
+        text: workbanch?.text ?? '',
+      },
+    })
+  }
+
+  const openSubNavDrawer = () => {
+    NiceModal.show(StyledNavDrawer, {
+      navs: subNavs ?? [],
+      onChaneg(navs: SubNav[]) {
+        setState({ subNavs: navs })
+      },
+    })
+  }
+
+  const openSysNavDrawer = () => {
+    NiceModal.show(SysNavDrawer, {
+      navs: busninessNavs ?? [],
+      onChange(navs: BusinessNav[]) {
+        setState({ busninessNavs: navs })
+      },
+    })
+  }
+
+  const openThemeDrawer = () => {
+    NiceModal.show(ThemeDrawer, {
+      themes: themes ?? [],
+      onThemesChange(themes: Theme[]) {
+        setState({ themes })
+      },
+    })
+  }
+
+  const modalProps = {
+    ...antdModal(modal),
+    onOk: onModalClickOk,
+  }
+
   return (
-    <Modal
-      title="配置插件"
-      destroyOnClose
-      width={800}
-      {...antdModal(modal)}
-      onOk={onOk}
-    >
+    <StyledMoal {...modalProps}>
       <Form labelCol={{ span: 3 }} wrapperCol={{ span: 6 }}>
-        {/* <Form.Item label='Logo'>
-          <ImageUpload
-            url={logo}
-            tip='上传logo'
-            setUrl={setLogo}
-          />
-        </Form.Item> */}
         <Form.Item label='本级'>
           <Switch
             checked={isLevel}
@@ -78,18 +121,18 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
         </Form.Item>
         {isLevel && (
           <Form.Item label='下级导航'>
-            <ConfigButton onClick={openSubNavConfigDrawer}>
+            <ConfigButton onClick={openSubNavDrawer}>
               点击配置
             </ConfigButton>
           </Form.Item>
         )}
         <Form.Item label='导航按钮'>
-          <ConfigButton>
+          <ConfigButton onClick={openSysNavDrawer}>
             点击配置
           </ConfigButton>
         </Form.Item>
         <Form.Item label='主题配置'>
-          <ConfigButton>
+          <ConfigButton onClick={openThemeDrawer}>
             点击配置
           </ConfigButton>
         </Form.Item>
@@ -97,32 +140,32 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
           <Input
             size='small'
             value={searchUrl}
-            onChange={e => setSearchUrl(e.target.value)}
+            onChange={e => setState({ searchUrl: e.target.value })}
           />
         </Form.Item>
         <Form.Item label='工作台名称'>
           <Input
             size='small'
-            value={workbanchName}
-            onChange={e => setWorkbanchName(e.target.value)}
+            value={workbanch?.text}
+            onChange={e => setWorkbachName(e.target.value)}
           />
         </Form.Item>
         <Form.Item label='工作台地址'>
           <Input
             size='small'
-            value={workbanchUrl}
-            onChange={e => setWorkbanchUrl(e.target.value)}
+            value={workbanch?.url}
+            onChange={e => setWorkbachUrl(e.target.value)}
           />
         </Form.Item>
         <Form.Item label='导航资产ID'>
           <Input
             size='small'
-            value={workbanchUrl}
-            onChange={e => setWorkbanchUrl(e.target.value)}
+            value={navAssetId}
+            onChange={e => setState({ navAssetId: e.target.value })}
           />
         </Form.Item>
       </Form>
-    </Modal>
+    </StyledMoal>
   )
 }
 
