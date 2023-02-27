@@ -1,14 +1,15 @@
 import styled from 'styled-components'
 import { useEffect, useState } from 'react'
-import { Dropdown, Tabs, Popover, Badge, Spin, MenuProps } from 'antd'
+import { Dropdown, Popover, Badge, Spin, MenuProps, message, Tabs } from 'antd'
 
 import { Notice } from '@/types'
 import NoticeList from './NoticeList'
 import { queryNotification } from '@/api'
-import { DEFAULT_THEME } from '@/utils/constants'
-import { ThemedMenu } from './styled/AntdMenu'
 import { ThemedTabs } from './styled/AntdTabs'
+import { ThemedMenu } from './styled/AntdMenu'
+import { DEFAULT_THEME } from '@/utils/constants'
 import { usePluginConfig, useStore } from '@/running/hooks'
+
 import BellOutlined from './icons/BellOutlined.svg'
 import ThemeOutlined from './icons/ThemeOutlined.svg'
 import SearchOutlined from './icons/SearchOutlined.svg'
@@ -21,22 +22,33 @@ const BusinessWrapper = styled.div`
   font-size: 16px;
   box-sizing: content-box;
 
+  .index-button {
+    /* cursor: pointer; */
+    padding: 0 25px;
+    line-height: 58px;
+    color: ${props => props.theme.font.active};
+    background: ${props => props.theme.bg.active};
+    flex-shrink: 0;
+  }
+
   .business-navs {
-    max-width: calc(100% - 232px);
+    max-width: calc(100% - 232px - 82px);
 
     a {
       color: inherit;
       font-family: inherit;
       font-size: inherit;
       transition: color .1s;
+      line-height: 58px;
+      padding: 0 25px;
     }
   }
 
   .operation-btns {
     display: flex;
-    margin-left: auto;
     border-top: 1px solid #EEE;
     border-bottom: 1px solid #EEE;
+    /* margin-left: auto; */
 
     .btn-item {
       cursor: pointer;
@@ -120,13 +132,13 @@ const NavLink = styled.a.attrs({ target: '_blank' })`
 
 const HeaderBottom = () => {
 
-  const { 
+  const {
     searchUrl,
-    themes = [], 
+    themes = [],
     busninessNavs = [],
   } = usePluginConfig()
 
-  const activeBusiness = busninessNavs[0]?.name ?? ''
+  // const activeBusiness = busninessNavs[0]?.name ?? ''
 
   const { theme, setTheme } = useStore()
 
@@ -155,12 +167,12 @@ const HeaderBottom = () => {
   }
 
   const renderNavButtons = () => {
-    return busninessNavs.map(button => {
+    return busninessNavs.map((button, index) => {
       // todo: 拼接参数
       const target = button.url
       return (
         <Tabs.TabPane
-          key={button.name}
+          key={button.name + index}
           tab={
             <NavLink href={target}>
               {button.name}
@@ -184,7 +196,15 @@ const HeaderBottom = () => {
       if (key !== theme.name) {
         const targetTheme = themeList.find(item => item.name === key) ?? DEFAULT_THEME
         // 图片预加载
-        setTheme(targetTheme)
+        const image = new Image()
+        image.addEventListener('load', () => {
+          setTheme(targetTheme)
+        })
+        image.addEventListener('error', (e) => {
+          message.error('logo加载失败', e.error)
+          setTheme(targetTheme)
+        })
+        image.src = targetTheme.logo
       }
     }
 
@@ -229,8 +249,12 @@ const HeaderBottom = () => {
 
   return (
     <BusinessWrapper>
+      <div className='index-button'>
+        概览
+      </div>
       <div className='business-navs'>
-        <ThemedTabs activeKey={activeBusiness}>
+        {/* activeKey={activeBusiness} */}
+        <ThemedTabs activeKey=''>
           {renderNavButtons()}
         </ThemedTabs>
       </div>

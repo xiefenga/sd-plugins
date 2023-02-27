@@ -23,7 +23,7 @@ export const ThemedTabs = styled(Tabs).attrs({
 
     .ant-tabs-tab {
       height: 58px;
-      padding: 0 25px;
+      padding: 0;
       margin: 0;
 
       color: ${props => props.theme.font.default};
