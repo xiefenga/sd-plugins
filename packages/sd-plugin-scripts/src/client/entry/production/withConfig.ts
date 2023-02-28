@@ -2,12 +2,12 @@ import proRender from '$$plugin-pro-entry$$'
 
 window.CUSTOM_PLUGIN ??= new Map()
 
-const rendeWithSetting = async (dom: HTMLElement, props: any) => {
+const render = async (dom: HTMLElement, props: any) => {
   if (props.isConfig) {
     try {
       const {
         default: settingRender,
-      } = await import('$$plugin-setting-entry$$')
+      } = await import('$$plugin-config-entry$$')
       settingRender(dom, props)
     } catch (error) {
       console.log(error)
@@ -17,7 +17,5 @@ const rendeWithSetting = async (dom: HTMLElement, props: any) => {
     proRender(dom, props)
   }
 }
-
-const render = process.env.WITH_SETTING ? rendeWithSetting : proRender
 
 window.CUSTOM_PLUGIN.set(process.env.PLUGIN_ID!, render)

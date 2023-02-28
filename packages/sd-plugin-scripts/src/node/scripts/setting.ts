@@ -4,6 +4,7 @@ import { resolve } from 'node:path'
 import { randomUUID } from 'node:crypto'
 import WebpackDevServer from 'webpack-dev-server'
 
+import { choosePort } from '../utils/port'
 import { ENTRY_TEMPLATE } from '../utils/files'
 import configFactory from '../config/webpack.config'
 import getDevServerConfig from '../config/devServer.config'
@@ -28,20 +29,23 @@ const pluginEntry = resolve(WEBPACK_ENTRY_DIR, `entry-${randomUUID()}.js`)
 
 fs.writeFileSync(
   pluginEntry,
-  ENTRY_TEMPLATE.PLUGIN_SETTING
-    .replace(/\$\$plugin-setting-entry\$\$/, PLUGIN_SOURCE.SETTING_DEV)
+  ENTRY_TEMPLATE.DEV.CONFIG
+    .replace(/\$\$plugin-config-entry\$\$/, PLUGIN_SOURCE.SETTING_DEV)
 )
 
 const config = configFactory('development', pluginEntry)
 
 const compiler = webpack(config)
 
-const devServerConfig = getDevServerConfig(3001)
+choosePort().then(port => {
 
-const devServer = new WebpackDevServer(devServerConfig, compiler)
+  const devServerConfig = getDevServerConfig(port)
 
-const runServer = async () => {
-  await devServer.start()
-}
+  const devServer = new WebpackDevServer(devServerConfig, compiler)
 
-runServer()
+  const runServer = async () => {
+    await devServer.start()
+  }
+
+  runServer()
+})

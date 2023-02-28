@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import process from 'node:process'
 
 const PLUGIN_DIR = fs.realpathSync(process.cwd())
 
@@ -34,9 +35,14 @@ export const WEBPACK_ENTRY_DIR = resolvePlugin('node_modules/.sd-plugin-0x1461a0
 
 // 入口 template 文件
 export const PLUGIN_ENTRY_TEMPLATE = {
-  PLUGIN_DEV: path.resolve(__dirname, '../../client/entry/dev.js'),
-  PLUGIN_PRO: path.resolve(__dirname, '../../client/entry/pro.js'),
-  PLUGIN_SETTING: path.resolve(__dirname, '../../client/entry/setting.js'),
+  DEV: {
+    PLUGIN: path.resolve(__dirname, '../../client/entry/development/plugin.js'),
+    CONFIG: path.resolve(__dirname, '../../client/entry/development/config.js'),
+  },
+  PRO: {
+    ONLY_PLUGIN: path.resolve(__dirname, '../../client/entry/production/onlyPlugin.js'),
+    WITH_CONFIG: path.resolve(__dirname, '../../client/entry/production/withConfig.js'),
+  },
 }
 
 // source 文件入口

@@ -15,7 +15,7 @@ declare module '$$plugin-pro-entry$$' {
   export default render
 }
 
-declare module '$$plugin-setting-entry$$' {
+declare module '$$plugin-config-entry$$' {
   const render: (dom?: HTMLElement, props?: T) => void
   export default render
 }

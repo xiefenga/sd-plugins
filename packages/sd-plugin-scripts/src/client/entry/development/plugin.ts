@@ -1,7 +1,7 @@
 import { isLogin, login } from 'sd-dev-login'
 import pluginRender from '$$plugin-dev-entry$$'
 
-export const detectLogin = async () => {
+const detectLogin = async () => {
   const loginStatus = await isLogin()
   if (!loginStatus) {
     console.log('[sd-plugin-scripts]', 'logining...')

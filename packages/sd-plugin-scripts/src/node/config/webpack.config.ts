@@ -47,6 +47,7 @@ const createWebpackConfiguration = (webpackEnv: Env, entry: string): Configurati
     },
     output: {
       clean: true,
+      // path: paths.DIST_PATH,
       publicPath: '/',
       filename: `js/${outputFilename}`,
       assetModuleFilename: 'static/[name].[hash][ext]',
