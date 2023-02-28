@@ -14,10 +14,3 @@ declare module '*.svg' {
   export default src
 }
 
-// declare module 'styled-components' {
-// export interface DefaultTheme {
-//   colors: {
-//     body: string;
-//   };
-// }
-// }

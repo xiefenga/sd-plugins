@@ -1,11 +1,11 @@
-import React, { MouseEventHandler } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 import styled from 'styled-components'
 
 const Panel = styled.div`
+  overflow: hidden;
   position: relative;
   transition: width .1s linear;
-  overflow: hidden;
 
   &.collapse {
 
@@ -16,10 +16,18 @@ const Panel = styled.div`
   }
 `
 
-const PreviewImage = styled.img<{collapse: boolean}>`
+interface PreviewImageProps {
+  width: number
+  collapse: boolean
+}
+
+const PreviewImage = styled.img<PreviewImageProps>`
   position: absolute;
   left: 0;
   top: 0;
+  height: 100%;
+  object-fit: cover;
+  width: ${props => props.width}px;
   display: ${props => props.collapse ? 'block' : 'none'};
 `
 
@@ -65,7 +73,7 @@ const Block = styled.div`
 
   &:hover::before {
     opacity: .9;
-    background-color: #00B8B4;
+    background-color: ${props => props.theme.bg.active};
   }
 
   &::before {
@@ -112,9 +120,7 @@ const BlockLink = (props: BlockLinkPorps) => {
 
   return (
     <Block>
-      <span>
-        {props.text}
-      </span>
+      <span>{props.text}</span>
     </Block>
   )
 }
@@ -128,10 +134,9 @@ export interface CollapsePanelProps {
   collapse?: boolean
   description: string
   buttons: ButtonLink[]
-  background: {
-    expand: string
-    collapse: string
-  }
+  collapseWidth: number
+  background: string
+  preview: string
 }
 
 const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
@@ -140,17 +145,20 @@ const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
     description, 
     background, 
     buttons, 
+    preview,
     collapse = false,
+    collapseWidth,
   } = props
 
   return (
     <Panel className={classNames({ collapse })}>
-      <Description>
-        {description}
-      </Description>
-      {/*<Background src={background} />*/}
-      <Background src={background.expand} />
-      <PreviewImage collapse={collapse} src={background.collapse} />
+      <Description>{description}</Description>
+      <Background src={background} />
+      <PreviewImage 
+        src={preview}
+        collapse={collapse} 
+        width={collapseWidth}
+      />
       <BlockContainer>
         {buttons.map((button, index) => (
           <BlockLink

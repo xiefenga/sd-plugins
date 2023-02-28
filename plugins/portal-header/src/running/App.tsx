@@ -1,16 +1,17 @@
 import React from 'react'
+import { message } from 'antd'
+import { useRequest } from 'ahooks'
 import styled from 'styled-components'
+import { useTheme } from 'portal-shared'
 import { ThemeProvider } from 'styled-components'
-import { useLocalStorageState, useRequest } from 'ahooks'
 
 import { querySSOCode } from '@/api'
 import { PluginConfig } from '@/types'
+import { defaultLogo } from '@/utils/assets'
 import HeaderTop from './components/HeaderTop'
 import GlobalStyle from './components/GlobalStyle'
 import HeaderBottom from './components/HeaderBottom'
-import { DEFAULT_THEME, STORAGE_KEY } from '@/utils/constants'
 import { PluginConfigProvider, StoreProvider } from '@/utils/context'
-import { message } from 'antd'
 
 const Header = styled.header`
   padding: 0 60px;
@@ -27,14 +28,8 @@ interface AppProps {
 const App: React.FC<AppProps> = (props) => {
 
   const { pluginConfig } = props
-
-  const [
-    theme,
-    setTheme,
-  ] = useLocalStorageState(
-    STORAGE_KEY.DEFAULT_THEME,
-    { defaultValue: DEFAULT_THEME }
-  )
+  
+  const [theme, setTheme] = useTheme(defaultLogo)
 
   const { 
     data: ssoCode = '', 

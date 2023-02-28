@@ -9,7 +9,8 @@ import { Theme } from '@/types'
 import PlusButton from '../PlusButton'
 import ThemeCard from '../theme/ThemeCard'
 import ThemeModal from '../theme/ThemeModal'
-import { DEFAULT_THEME } from '@/utils/constants'
+import { DEFAULT_THEME  } from '@/utils/assets'
+
 
 const ThemeConfigDrawer = styled(Drawer).attrs({
   width: 450,

@@ -1,7 +1,5 @@
-import React from 'react'
-import { useState } from 'react'
 import styled from 'styled-components'
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 
 interface CollapseContainerProps {
   width: number
@@ -20,11 +18,13 @@ interface CollapsePanelProps {
   width: number
   height: number
   z: number
+  pointer: boolean
 }
 
 const CollapsePanel = styled.div<CollapsePanelProps>`
   position: absolute;
   top: 0;
+  cursor: ${props => props.pointer ? 'pointer': 'default'};
   z-index: ${props => props.z};
   left: ${props => props.left}px;
   width: ${props => props.width}px;
@@ -32,15 +32,15 @@ const CollapsePanel = styled.div<CollapsePanelProps>`
   transition: left .3s ease-in-out;
 `
 
-interface PictureCollapseProps<T extends { collapse?: boolean }> {
+interface PictureCollapseProps<T> {
   width: number
   height: number
   collapseWidth: number
   panelProps: T[]
-  renderPanelContent: (props: T) => ReactNode
+  renderPanelContent: (props: T & { collapseWidth: number, collapse: boolean }) => ReactNode
 }
 
-const PictureCollapse = <T extends { collapse?: boolean }, >(props: PictureCollapseProps<T>) => {
+const PictureCollapse = <T, >(props: PictureCollapseProps<T>) => {
 
   const {
     width,
@@ -66,6 +66,7 @@ const PictureCollapse = <T extends { collapse?: boolean }, >(props: PictureColla
           width={width}
           height={height}
           left={panelLeft}
+          pointer={index === panelProps.length - 1}
           onClick={() => {
             if (index === panelProps.length - 1) {
               window.open('/more')
@@ -77,7 +78,11 @@ const PictureCollapse = <T extends { collapse?: boolean }, >(props: PictureColla
             }
           }}
         >
-          {renderPanelContent({ ...props, collapse: index !== expandIndex })}
+          {renderPanelContent({ 
+            ...props,
+            collapseWidth,  
+            collapse: index !== expandIndex, 
+          })}
         </CollapsePanel>
       )
     })

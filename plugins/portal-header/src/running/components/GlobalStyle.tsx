@@ -1,12 +1,11 @@
-import '@/utils/runtime'
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
-import HarmonyOS_Sans_SC from '@/assets/HarmonyOS_Sans_SC_Light.ttf'
+import { Font_HarmonyOS_Sans_SC } from '@/utils/assets'
 
 export const CustomeFontStyle =  createGlobalStyle`
   @font-face {
     font-family: HarmonyOS_Sans_SC;
-    src: url(${HarmonyOS_Sans_SC});
+    src: url(${Font_HarmonyOS_Sans_SC});
   }
 
   body {

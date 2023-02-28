@@ -7,7 +7,7 @@ import NoticeList from './NoticeList'
 import { queryNotification } from '@/api'
 import { ThemedTabs } from './styled/AntdTabs'
 import { ThemedMenu } from './styled/AntdMenu'
-import { DEFAULT_THEME } from '@/utils/constants'
+import { DEFAULT_THEME } from '@/utils/assets'
 import { usePluginConfig, useStore } from '@/running/hooks'
 
 import BellOutlined from './icons/BellOutlined.svg'

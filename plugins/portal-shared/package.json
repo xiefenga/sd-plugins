@@ -1,0 +1,25 @@
+{
+  "name": "portal-shared",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "module": "lib/index.mjs",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsup"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": ">= 16.8"
+  },
+  "dependencies": {
+    "ahooks": "^3.7.4",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "tsup": "^6.6.3"
+  }
+}

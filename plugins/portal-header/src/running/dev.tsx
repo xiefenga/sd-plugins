@@ -7,7 +7,8 @@ import { createGlobalStyle } from 'styled-components'
 import App from './App'
 import { PluginProps } from '@/types'
 import { registerMessage } from '@/utils/message'
-import { PLUGIN_CONFIG, DEFAULT_THEME, STORAGE_KEY } from '@/utils/constants'
+import { PLUGIN_CONFIG, STORAGE_KEY } from '@/utils/constants'
+
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -67,36 +68,6 @@ const PluginRender = () => {
 }
 
 export default () => {
-
-  const _pluginConfig = {
-    isLevel: true,
-    themes: [
-      { ...DEFAULT_THEME, name: '主题1' },
-      { ...DEFAULT_THEME, name: '主题2' },
-      { ...DEFAULT_THEME, name: '主题3' },
-      { ...DEFAULT_THEME, name: '主题4' },
-    ],
-    subNavs: [
-      { name: '21基地', url: '/' },
-      { name: '信通基地', url: '/' },
-      { name: '网空部队', url: '/' },
-      { name: '军航部队', url: '/' },
-    ],
-    busninessNavs: [
-      { name: '概览', url: 'xx' },
-      { name: '综合态势', url: 'xx' },
-      { name: '军事训练', url: 'xx' },
-      { name: '军事教育', url: 'xx' },
-      { name: '部队管理', url: 'xx' },
-      { name: '航天发射', url: 'xx' },
-      { name: '技侦训练', url: 'xx' },
-      { name: '任务针对性训练', url: 'xx' },
-      { name: '技术干部培养', url: 'xx' },
-      { name: '数据资源', url: 'xx' },
-      { name: '论坛中心', url: 'xx' },
-      { name: '门户管理后台', url: 'xx' },
-    ],
-  }
 
   createRoot(document.getElementById('root')!)
     .render(

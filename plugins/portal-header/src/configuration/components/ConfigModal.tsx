@@ -79,7 +79,7 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
   const openSubNavDrawer = () => {
     NiceModal.show(StyledNavDrawer, {
       navs: subNavs ?? [],
-      onChaneg(navs: SubNav[]) {
+      onChange(navs: SubNav[]) {
         setState({ subNavs: navs })
       },
     })
