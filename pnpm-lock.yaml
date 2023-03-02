@@ -151,6 +151,35 @@ importers:
       sd-dev-login: link:../../packages/sd-dev-login
       sd-plugin-scripts: link:../../packages/sd-plugin-scripts
 
+  plugins/portal-carousel:
+    specifiers:
+      '@types/react': ^18.0.28
+      '@types/react-dom': ^18.0.11
+      '@types/styled-components': ^5.1.26
+      '@types/webpack-env': ^1.18.0
+      ahooks: ^3.7.4
+      antd: 4.21.6
+      react: ^18.2.0
+      react-dom: ^18.2.0
+      sd-dev-login: workspace:^*
+      sd-plugin-request: workspace:*
+      sd-plugin-scripts: workspace:^*
+      styled-components: ^5.3.6
+    dependencies:
+      ahooks: 3.7.4_react@18.2.0
+      sd-plugin-request: link:../../packages/sd-plugin-request
+      styled-components: 5.3.6_biqbaboplfbrettd7655fr4n2y
+    devDependencies:
+      '@types/react': 18.0.28
+      '@types/react-dom': 18.0.11
+      '@types/styled-components': 5.1.26
+      '@types/webpack-env': 1.18.0
+      antd: 4.21.6_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      sd-dev-login: link:../../packages/sd-dev-login
+      sd-plugin-scripts: link:../../packages/sd-plugin-scripts
+
   plugins/portal-header:
     specifiers:
       '@ant-design/icons': ^5.0.1

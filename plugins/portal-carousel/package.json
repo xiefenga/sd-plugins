@@ -1,0 +1,32 @@
+{
+  "name": "portal-carousel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "refresh": "sd-plugin-scripts init",
+    "start": "sd-plugin-scripts start",
+    "setting": "sd-plugin-scripts setting",
+    "build": "sd-plugin-scripts build",
+    "plugin:build": "npm run build && sd-plugin-scripts pack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@types/styled-components": "^5.1.26",
+    "@types/webpack-env": "^1.18.0",
+    "antd": "4.21.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sd-dev-login": "workspace:^*",
+    "sd-plugin-scripts": "workspace:^*"
+  },
+  "dependencies": {
+    "ahooks": "^3.7.4",
+    "sd-plugin-request": "workspace:*",
+    "styled-components": "^5.3.6"
+  }
+}

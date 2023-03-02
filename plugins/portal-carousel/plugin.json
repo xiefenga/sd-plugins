@@ -1,0 +1,14 @@
+{
+  "id": "b02fa842-e7cd-4b59-85f5-ec4660f9ab61",
+  "type": "app",
+  "main": "",
+  "version": "2",
+  "props": {
+    "type": "customize",
+    "customconf": [
+      "assetId",
+      "speedTime",
+      "detailsUrl"
+    ]
+  }
+}
