@@ -31,7 +31,7 @@ const PortalCarousel: React.FC<PortalCarouselProps> = (props) => {
   }
 
   return (
-    <StyledCarousel autoplay autoplaySpeed={speed}>
+    <StyledCarousel  autoplaySpeed={speed}>
       {renderCarouselList()}
     </StyledCarousel>
   )

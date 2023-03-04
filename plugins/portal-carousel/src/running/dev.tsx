@@ -7,7 +7,7 @@ export default () => {
   createRoot(
     document.getElementById('root')!
   ).render(
-    <div style={{ width: '642px' }}>
+    <div style={{ width: 642, height: 360 }}>
       <App
         speedTime='2'
         detailsUrl='/'

@@ -14,6 +14,7 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "skipLibCheck": true,
+    "jsx": "react-jsx",
     "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true, // for devlopment debugger tsx source

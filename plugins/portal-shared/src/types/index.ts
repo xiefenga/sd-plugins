@@ -1,22 +1,14 @@
-export interface ThemeColor {
-  font: {
-    active: string
-    hover: string
-    default: string
-  }
-  bg: {
-    active: string
-    hover: string
-    default: string
-  }
-  border: {
-    color: string
-  }
-}
+export * from './config/accordion'
 
+export * from './config/header'
 
-export interface Theme {
-  name: string
-  logo: string
-  color: ThemeColor
+import { ThemeEventCenter } from '@/event/EventCenter'
+
+declare global {
+  interface Window {
+    PROTAL_THEME_EVENT_CENTER: ThemeEventCenter
+    PROTAL_CONFIGGURATION: {
+      [key: string]: any
+    }
+  }
 }

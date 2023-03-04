@@ -2,7 +2,9 @@ import { createRoot } from 'react-dom/client'
 
 import App from './App'
 import { PluginProps } from '@/types'
-import { PLUGIN_CONFIG } from '@/utils/constants'
+import { PORTAL_ACCORDION_PLUGIN, PORTAL_HEADER_PLUGIN } from 'portal-shared'
+
+import { setConfiguration } from 'portal-shared'
 
 
 export default (dom: HTMLDivElement, props: PluginProps) => {
@@ -11,7 +13,9 @@ export default (dom: HTMLDivElement, props: PluginProps) => {
 
   const { customConfig } = props
 
-  const pluginConfig = customConfig[PLUGIN_CONFIG] ?? {}
+  setConfiguration(PORTAL_ACCORDION_PLUGIN, customConfig[PORTAL_ACCORDION_PLUGIN])
+
+  const pluginConfig = customConfig[PORTAL_HEADER_PLUGIN] ?? {}
 
   createRoot(dom).render(
     <App pluginConfig={pluginConfig} />

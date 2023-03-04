@@ -33,3 +33,9 @@ export interface User {
 	userName: string
 	user_type: number
 }
+
+export interface MenuGroupResp {
+  data_id: string
+  menuType: string
+  menuTypeTitle: string
+}

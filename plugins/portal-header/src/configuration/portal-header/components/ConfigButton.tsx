@@ -8,18 +8,6 @@ import ConfigModal from './ConfigModal'
 import GlobalStyle from './GlobalStyle'
 
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
-const _Title = styled.p`
-  font-weight: 700;
-  font-size: 18px;
-  margin-right: auto;
-`
-
 const attrd = styled(Button).attrs({ type: 'primary' })
 
 const ModalButton = attrd`
@@ -50,11 +38,9 @@ const ConfigButton: React.FC<ConfigButtonProps> = (props) => {
   return (
     <NiceModal.Provider>
       <GlobalStyle />
-      <Wrapper>
-        <ModalButton onClick={openConfigModal}>
-          打开配置弹窗
-        </ModalButton>
-      </Wrapper>
+      <ModalButton onClick={openConfigModal}>
+        打开配置弹窗
+      </ModalButton>
     </NiceModal.Provider>
   )
 }

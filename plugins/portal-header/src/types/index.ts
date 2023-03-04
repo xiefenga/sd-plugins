@@ -1,5 +1,7 @@
 import { PLUGIN_CONFIG } from '@/utils/constants'
 import { DefaultTheme } from 'styled-components'
+import { HeaderConfig, AccordionConfig } from 'portal-shared'
+import { PORTAL_HEADER_PLUGIN, PORTAL_ACCORDION_PLUGIN } from 'portal-shared'
 
 export type Optional<T> = T | undefined
 
@@ -63,6 +65,8 @@ export interface PluginPropsOfConfig {
     appId: string
     componentId: string
     [PLUGIN_CONFIG]?: Partial<PluginConfig>
+    [PORTAL_HEADER_PLUGIN]?: Partial<HeaderConfig>
+    [PORTAL_ACCORDION_PLUGIN]?: Partial<AccordionConfig>
   }
 }
 
@@ -73,6 +77,8 @@ export interface PluginProps {
     appId: string
     componentId: string
     [PLUGIN_CONFIG]?: Partial<PluginConfig>
+    [PORTAL_HEADER_PLUGIN]?: Partial<HeaderConfig>
+    [PORTAL_ACCORDION_PLUGIN]?: Partial<AccordionConfig>
   },
   [PLUGIN_CONFIG]?: Partial<PluginConfig>
 }

@@ -24,8 +24,11 @@
     "sd-plugin-scripts": "workspace:*"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.0.8",
+    "@dnd-kit/sortable": "^7.0.2",
+    "@dnd-kit/utilities": "^3.2.1",
+    "@ebay/nice-modal-react": "^1.2.8",
     "ahooks": "^3.7.4",
-    "classnames": "^2.3.2",
     "portal-shared": "workspace:*",
     "sd-plugin-request": "workspace:*",
     "styled-components": "^5.3.6"

@@ -1,8 +1,9 @@
 import { createRoot } from 'react-dom/client'
 
 import { PluginPropsOfConfig } from '@/types'
-import { PLUGIN_CONFIG } from '@/utils/constants'
-import ConfigButton from './components/ConfigButton'
+// import { PLUGIN_CONFIG } from '@/utils/constants'
+// import ConfigButton from './components/ConfigButton'
+import Configuration from './Configuration'
 
 export default (dom: HTMLElement, props: PluginPropsOfConfig) => {
 
@@ -10,19 +11,16 @@ export default (dom: HTMLElement, props: PluginPropsOfConfig) => {
 
   console.log(props)
 
-  // @ts-ignore
-  window.xxx = props
+  // const wrapperConfigChange = (config: any) => {
+  //   onConfigChange({ [PLUGIN_CONFIG]: config })
+  // }
 
-  const wrapperConfigChange = (config: any) => {
-    onConfigChange({ [PLUGIN_CONFIG]: config })
-  }
-
-  const pluginConfig = customConfig[PLUGIN_CONFIG] ?? {}
+  // const pluginConfig = customConfig[PLUGIN_CONFIG] ?? {}
 
   createRoot(dom).render(
-    <ConfigButton
-      pluginConfig={pluginConfig}
-      onConfigChange={wrapperConfigChange}
+    <Configuration
+      customConfig={customConfig}
+      onConfigChange={onConfigChange}
     />
   )
 }

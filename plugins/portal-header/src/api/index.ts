@@ -1,5 +1,5 @@
-import { User } from '@/types/api'
 import request from 'sd-plugin-request'
+import { MenuGroupResp, User } from '@/types/api'
 
 export const logout = () => {
   return request.get('/system/authority/logout')
@@ -22,5 +22,10 @@ export const queryNotification = () => {
 
 export const querySSOCode = async () => {
   const resp = await request.get<string>('systhirdapp/user/getCode')
+  return resp.data
+}
+
+export const getMenuGroup = async () => {
+  const resp = await request<MenuGroupResp[]>('/28s/datapp/queryMenuGroup')
   return resp.data
 }

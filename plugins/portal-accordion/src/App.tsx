@@ -1,15 +1,27 @@
 import React from 'react'
+import { useRequest } from 'ahooks'
 import { useCurrentTheme } from 'portal-shared'
 import { ThemeProvider } from 'styled-components'
 import { useState, useRef, useEffect } from 'react'
+import { AccordionConfig as PluginConfig } from 'portal-shared'
 
-import { panelList } from './utils/config'
+import { getCommonlyUsedApp } from '@/api'
 import CollapsePanel from './components/CollapsePanel'
 import PictureCollapse from './components/PictureCollapse'
 
-const App: React.FC = () => {
+interface AppProps {
+  pluginConfig: Partial<PluginConfig>
+}
 
-  const panelProps = panelList
+const App: React.FC<AppProps> = (props) => {
+
+  const {
+    pluginConfig: {
+      otherHeight = 360,
+      moreLink = '',
+      menuConfigList = [],
+    },
+  } = props
 
   const theme = useCurrentTheme()
 
@@ -21,52 +33,49 @@ const App: React.FC = () => {
   })
 
   useEffect(() => {
-    if (divRef.current) {
+    if (divRef.current && menuConfigList.length) {
       const x = divRef.current.clientWidth
       console.log(x)
       setState(prev => {
         const { width, collapseWidth } = prev
-        const left = x - width - collapseWidth * (panelList.length - 1)
-        const offset = left / panelList.length
+        const left = x - width - collapseWidth * (menuConfigList.length - 1)
+        const offset = left / menuConfigList.length
         const next = {
           width: width + offset,
           collapseWidth: collapseWidth + offset,
         }
         return next
       })
-
     }
-  }, [])
+  }, [menuConfigList.length])
+
+  const { data } = useRequest(async () => {
+    const apps = await getCommonlyUsedApp()
+    return menuConfigList.map(menu => {
+      const buttons = apps
+        .filter(app => app.menuType === menu.type)
+        .map(app => ({ text: app.name, link: app.url }))
+      return {
+        ...menu,
+        buttons,
+      }
+    })
+  })
+
 
 
   return (
     <ThemeProvider theme={theme.color}>
       <div ref={divRef}>
         <PictureCollapse
+          moreLink={moreLink}
           width={state.width}
-          height={360}
+          otherHeight={otherHeight}
           collapseWidth={state.collapseWidth}
-          panelProps={panelProps}
+          panelProps={data ?? []}
           renderPanelContent={props => {
-            const {
-              background: {
-                expand: background,
-                collapse: preview,
-              },
-              collapse,
-              collapseWidth,
-              description,
-              buttons,
-            } = props
             return (
-              <CollapsePanel
-                buttons={buttons}
-                preview={preview}
-                collapse={collapse}
-                background={background}
-                description={description}
-                collapseWidth={collapseWidth}
-              />
+              <CollapsePanel {...props} />
             )
           }}
         />

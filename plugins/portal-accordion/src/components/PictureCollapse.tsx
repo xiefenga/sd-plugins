@@ -3,20 +3,20 @@ import { useState, type ReactNode } from 'react'
 
 interface CollapseContainerProps {
   width: number
-  height: number
+  otherHeight: number
 }
 
 const CollapseContainer = styled.div<CollapseContainerProps>`
   position: relative;
   overflow: hidden;
   width: ${props => props.width}px;
-  height: ${props => props.height}px;
+  height: calc(100vh - ${props => props.otherHeight}px);
 `
 
 interface CollapsePanelProps {
   left: number
   width: number
-  height: number
+  // height: number
   z: number
   pointer: boolean
 }
@@ -28,15 +28,18 @@ const CollapsePanel = styled.div<CollapsePanelProps>`
   z-index: ${props => props.z};
   left: ${props => props.left}px;
   width: ${props => props.width}px;
-  height: ${props => props.height}px;
+  height: 100%;
   transition: left .3s ease-in-out;
 `
+/* height: ${props => props.height}px; */
+
 
 interface PictureCollapseProps<T> {
   width: number
-  height: number
+  otherHeight: number
   collapseWidth: number
   panelProps: T[]
+  moreLink: string
   renderPanelContent: (props: T & { collapseWidth: number, collapse: boolean }) => ReactNode
 }
 
@@ -44,9 +47,10 @@ const PictureCollapse = <T, >(props: PictureCollapseProps<T>) => {
 
   const {
     width,
-    height,
+    otherHeight,
     collapseWidth,
     panelProps,
+    moreLink,
     renderPanelContent,
   } = props
 
@@ -64,12 +68,12 @@ const PictureCollapse = <T, >(props: PictureCollapseProps<T>) => {
           z={index}
           key={index}
           width={width}
-          height={height}
+          // height={height}
           left={panelLeft}
           pointer={index === panelProps.length - 1}
           onClick={() => {
             if (index === panelProps.length - 1) {
-              window.open('/more')
+              window.open(moreLink)
             }
           }}
           onMouseEnter={() => {
@@ -91,7 +95,7 @@ const PictureCollapse = <T, >(props: PictureCollapseProps<T>) => {
   const containerWidth = width + collapseWidth * (panelProps.length - 1)
 
   return (
-    <CollapseContainer width={containerWidth} height={height}>
+    <CollapseContainer width={containerWidth} otherHeight={otherHeight}>
       {renderPanel()}
     </CollapseContainer>
   )
