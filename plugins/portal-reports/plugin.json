@@ -1,0 +1,22 @@
+{
+  "id": "cd63bf36-f64d-4ead-8f9f-0087c9b7643e",
+  "type": "bigscreen",
+  "main": "",
+  "version": "2",
+  "process": true,
+  "props": {
+    "configuration": [
+      "data"
+    ],
+    "configurationComponents": {
+      "data": [
+        "dataSource",
+        "condition"
+      ]
+    },
+    "img": "custom_table.png",
+    "disableimg": "disabled_custom_table.png",
+    "name": "滚动页签",
+    "className": "className-demo"
+  }
+}

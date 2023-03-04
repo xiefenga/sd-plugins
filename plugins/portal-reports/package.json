@@ -1,0 +1,37 @@
+{
+  "name": "portal-reports",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "refresh": "sd-plugin-scripts init",
+    "start": "sd-plugin-scripts start",
+    "setting": "sd-plugin-scripts setting",
+    "build": "sd-plugin-scripts build",
+    "plugin:build": "npm run build && sd-plugin-scripts pack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@njsdata/bigscreen-sdk": "^1.1.0",
+    "@types/lodash": "^4.14.191",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@types/styled-components": "^5.1.26",
+    "@types/webpack-env": "^1.18.0",
+    "antd": "^4.23.0",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sd-dev-login": "workspace:^*",
+    "sd-plugin-scripts": "workspace:^*"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.0.1",
+    "ahooks": "^3.7.4",
+    "lodash": "^4.17.21",
+    "portal-shared": "workspace:*",
+    "sd-plugin-request": "workspace:*",
+    "styled-components": "^5.3.6"
+  }
+}
