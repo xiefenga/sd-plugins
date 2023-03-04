@@ -8,6 +8,7 @@ import ConfigButton from './components/ConfigButton'
 import { PLUGIN_CONFIG, STORAGE_KEY } from '@/utils/constants'
 
 import Configuration from './Configuration'
+import { ConfigRender } from 'portal-shared'
 
 const _PluginRender = () => {
 
@@ -57,7 +58,7 @@ const _PluginRender = () => {
   )
 }
 
-const PluginRender2 = () => {
+const _PluginRender2 = () => {
 
   const onConfigChange = (config: any) => {
 
@@ -94,10 +95,12 @@ const PluginRender2 = () => {
 
 
   return (
-    <Configuration
-      customConfig={customConfig}
-      onConfigChange={onConfigChange}
-    />
+    <div style={{ width: 228, marginLeft: 'auto', paddingTop: 100 }}>
+      <Configuration
+        customConfig={customConfig}
+        onConfigChange={onConfigChange}
+      />
+    </div>
   )
 }
 
@@ -106,6 +109,6 @@ export default () => {
 
   createRoot(document.getElementById('root')!)
     .render(
-      <PluginRender2 />
+      <ConfigRender Configuration={Configuration} />
     )
 }

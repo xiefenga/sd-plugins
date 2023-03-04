@@ -8,6 +8,7 @@ import App from './App'
 import { PluginProps } from '@/types'
 import { registerMessage } from '@/utils/message'
 import { PLUGIN_CONFIG, STORAGE_KEY } from '@/utils/constants'
+import { PluginRender, PORTAL_HEADER_PLUGIN } from 'portal-shared'
 
 
 const GlobalStyle = createGlobalStyle`
@@ -25,7 +26,7 @@ const defaultPluginProps = {
   },
 }
 
-const PluginRender = () => {
+const _PluginRender = () => {
 
   const [
     pluginProps,
@@ -71,6 +72,9 @@ export default () => {
 
   createRoot(document.getElementById('root')!)
     .render(
-      <PluginRender />
+      <PluginRender 
+        PluginApp={App}
+        configId={PORTAL_HEADER_PLUGIN}
+      />
     )
 }

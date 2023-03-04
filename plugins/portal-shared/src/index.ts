@@ -23,3 +23,4 @@ export const getConfiguration = (key: string): Promise<any> => {
     })
   })
 }
+
