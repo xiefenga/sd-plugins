@@ -7,6 +7,8 @@ export * from './components'
 
 export * from './types'
 
+export * from './store'
+
 window.PROTAL_CONFIGGURATION ??= reactive({})
 
 export const setConfiguration = (key: string, val: any) => {

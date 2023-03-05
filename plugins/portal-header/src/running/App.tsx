@@ -2,7 +2,7 @@ import React from 'react'
 import { message } from 'antd'
 import { useRequest } from 'ahooks'
 import styled from 'styled-components'
-import { useTheme } from 'portal-shared'
+import { useStore } from 'portal-shared'
 import { ThemeProvider } from 'styled-components'
 
 import { querySSOCode } from '@/api'
@@ -27,9 +27,22 @@ interface AppProps {
 
 const App: React.FC<AppProps> = (props) => {
 
+  const theme = useStore(state => {
+    if (state.theme.logo === '') {
+      return {
+        ...state.theme,
+        logo: defaultLogo,
+      }
+    } else {
+      return state.theme
+    }
+  })
+
+  const setTheme = useStore(state => state.changeTheme)
+
   const { pluginConfig } = props
   
-  const [theme, setTheme] = useTheme(defaultLogo)
+  // const [theme, setTheme] = useTheme(defaultLogo)
 
   const { 
     data: ssoCode = '', 

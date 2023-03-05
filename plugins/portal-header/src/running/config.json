@@ -1,0 +1,285 @@
+{
+  "appId": "",
+  "componentId": "",
+  "customConfig": {
+    "appId": "",
+    "componentId": "",
+    "@0x1461A0::CUSTOMIZE_CONFIG_KEY": {
+      "searchUrl": "/search",
+      "workbanchName": "工作台",
+      "workbanchUrl": "afds",
+      "subNavs": [
+        {
+          "name": "21基地",
+          "url": "/fsda"
+        },
+        {
+          "name": "信通基地",
+          "url": "/fsad"
+        },
+        {
+          "name": "网空部队",
+          "url": "/fads"
+        },
+        {
+          "name": "军航部队",
+          "url": "/fda"
+        }
+      ],
+      "workbanch": {
+        "url": "/workbanch",
+        "text": "工作台"
+      },
+      "navAssetId": "fdsa-fasd1432-fsda1234-fsad",
+      "themes": [
+        {
+          "name": "测试主题",
+          "logo": "/storage_area/form/1234567890/b9b068ba500746aa91c36873bf0cc737.png",
+          "color": {
+            "font": {
+              "active": "#946868",
+              "hover": "#dcb5b5",
+              "default": "#453f3f"
+            },
+            "bg": {
+              "active": "#272020",
+              "hover": "#472929",
+              "default": "#6d6060"
+            },
+            "border": {
+              "color": "#212121"
+            }
+          }
+        }
+      ],
+      "busninessNavs": [
+        {
+          "name": "综合态势",
+          "url": "/fasdj;"
+        },
+        {
+          "name": "军事训练",
+          "url": "fads"
+        },
+        {
+          "name": "军事训练",
+          "url": "fdas"
+        },
+        {
+          "name": "军事训练",
+          "url": "fsda"
+        },
+        {
+          "name": "军事训练",
+          "url": "军事训练"
+        },
+        {
+          "name": "军事训练",
+          "url": "军事训练"
+        },
+        {
+          "name": "军事训练",
+          "url": "军事训练"
+        },
+        {
+          "name": "军事训练",
+          "url": "军事训练"
+        }
+      ],
+      "isLevel": true
+    },
+    "@0x1461A0::PORTAL_ACCORDION_PLUGIN::PLUGIN_CONFIG": {
+      "menuConfigList": [
+        {
+          "id": "1",
+          "type": "1",
+          "title": "任务针对性",
+          "description": "任务针对性",
+          "background": "/storage_area/form/1234567890/78290c738bf24c19a8b7dc5851a680d9.png",
+          "preview": "/storage_area/form/1234567890/c00b6bd2952042bdabf4b87b198c4b56.png"
+        },
+        {
+          "id": "2",
+          "type": "2",
+          "title": "专业技术干部",
+          "description": "专业技术干部",
+          "background": "/storage_area/form/1234567890/800e423186324e5883af480e204f91dd.png",
+          "preview": "/storage_area/form/1234567890/41bac32414cb404c88fef3b0935497ba.png"
+        },
+        {
+          "id": "3",
+          "type": "3",
+          "title": "航天预测分析",
+          "description": "航天预测分析",
+          "background": "/storage_area/form/1234567890/22aad1931f3746cf9c187be0ea342a03.png",
+          "preview": "/storage_area/form/1234567890/e778adaae3f046c2bb9e0a4fcc8987c5.png"
+        },
+        {
+          "id": "4",
+          "type": "4",
+          "title": "技侦领域测评",
+          "description": "技侦领域测评",
+          "background": "/storage_area/form/1234567890/bf476d45e6f442949ad321f4f8bfabc2.png",
+          "preview": "/storage_area/form/1234567890/d5b5e5470b2d444c9f0d3bce13427c5f.png"
+        },
+        {
+          "id": "5",
+          "type": "5",
+          "title": "军事训练",
+          "description": "军事训练",
+          "background": "/storage_area/form/1234567890/932745d8ca074a14a10fc41ab1558451.png",
+          "preview": "/storage_area/form/1234567890/21bf781258d54c06899f25653195d607.png"
+        },
+        {
+          "id": "6",
+          "type": "6",
+          "title": "军事教育",
+          "description": "军事教育",
+          "background": "/storage_area/form/1234567890/25ab9e9e1cd04114af61d509c597418d.png",
+          "preview": "/storage_area/form/1234567890/4ae33fef3bc0427aa3bfc858ab4cfc4f.png"
+        },
+        {
+          "id": "7",
+          "type": "7",
+          "title": "部队管理",
+          "description": "部队管理",
+          "background": "/storage_area/form/1234567890/cf50474ba3ed492d961fcbee57e07601.png",
+          "preview": "/storage_area/form/1234567890/da55cf0714604ab8ab6f1683a255134a.png"
+        },
+        {
+          "id": "8",
+          "type": "8",
+          "title": "工具",
+          "description": "工具",
+          "background": "/storage_area/form/1234567890/998033a7b6f74657859824f1e07405e7.png",
+          "preview": "/storage_area/form/1234567890/c35d28fe1986498db1da604254e2f3b3.png"
+        },
+        {
+          "id": "@0x1461A0::PORTAL_ACCORDION::MENU_ITEM_MORE_ID",
+          "type": "",
+          "title": "查看更多",
+          "description": "查看更多",
+          "background": "/storage_area/form/1234567890/1221149c3f0c4feea98b14ffd99458a2.png",
+          "preview": "/storage_area/form/1234567890/cc521ef1a654483c89cf9faa730fe1e6.png"
+        }
+      ],
+      "height": 360,
+      "moreLink": "/more/asdf"
+    },
+    "@0x1461A0::PORTAL_HEADER_PLUGIN::PLUGIN_CONFIG": {
+      "isLevel": true,
+      "searchUrl": "/fdsa",
+      "workbanch": {
+        "url": "/fasddas",
+        "text": "工作台"
+      },
+      "navAssetId": "fdsa-fasd1432-fsda1234-fsad",
+      "themes": [
+        {
+          "name": "测试主题",
+          "logo": "/storage_area/form/1234567890/d8f5bd8ac7c14049aeceaa95615297a8.png",
+          "color": {
+            "font": {
+              "active": "#dc9393",
+              "hover": "#cbb0b0",
+              "default": "#2d2a2a"
+            },
+            "bg": {
+              "active": "#9e8b8b",
+              "hover": "#d3c0c0",
+              "default": "#FFFFFF"
+            },
+            "border": {
+              "color": "#212121"
+            }
+          }
+        }
+      ],
+      "busninessNavs": []
+    }
+  },
+  "@0x1461A0::CUSTOMIZE_CONFIG_KEY": {
+    "searchUrl": "/search",
+    "workbanchName": "工作台",
+    "workbanchUrl": "afds",
+    "subNavs": [
+      {
+        "name": "21基地",
+        "url": "/fsda"
+      },
+      {
+        "name": "信通基地",
+        "url": "/fsad"
+      },
+      {
+        "name": "网空部队",
+        "url": "/fads"
+      },
+      {
+        "name": "军航部队",
+        "url": "/fda"
+      }
+    ],
+    "workbanch": {
+      "url": "/workbanch",
+      "text": "工作台"
+    },
+    "navAssetId": "fdsa-fasd1432-fsda1234-fsad",
+    "themes": [
+      {
+        "name": "测试主题",
+        "logo": "/storage_area/form/1234567890/b9b068ba500746aa91c36873bf0cc737.png",
+        "color": {
+          "font": {
+            "active": "#946868",
+            "hover": "#dcb5b5",
+            "default": "#453f3f"
+          },
+          "bg": {
+            "active": "#272020",
+            "hover": "#472929",
+            "default": "#6d6060"
+          },
+          "border": {
+            "color": "#212121"
+          }
+        }
+      }
+    ],
+    "busninessNavs": [
+      {
+        "name": "综合态势",
+        "url": "/fasdj;"
+      },
+      {
+        "name": "军事训练",
+        "url": "fads"
+      },
+      {
+        "name": "军事训练",
+        "url": "fdas"
+      },
+      {
+        "name": "军事训练",
+        "url": "fsda"
+      },
+      {
+        "name": "军事训练",
+        "url": "军事训练"
+      },
+      {
+        "name": "军事训练",
+        "url": "军事训练"
+      },
+      {
+        "name": "军事训练",
+        "url": "军事训练"
+      },
+      {
+        "name": "军事训练",
+        "url": "军事训练"
+      }
+    ],
+    "isLevel": true
+  }
+}

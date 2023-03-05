@@ -5,6 +5,18 @@
   "main": "lib/index.js",
   "module": "lib/index.mjs",
   "typings": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "module": "./lib/index.mjs"
+    },
+    "./store": {
+      "import": {
+        "types": "./lib/store/index.d.ts",
+        "default": "./lib/store/index.mjs"
+      }
+    }
+  },
   "scripts": {
     "build": "tsup"
   },
@@ -21,7 +33,8 @@
     "@vue/reactivity": "^3.2.47",
     "ahooks": "^3.7.4",
     "antd": "4.21.6",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "zustand": "^4.3.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

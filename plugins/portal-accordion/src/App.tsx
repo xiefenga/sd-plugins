@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRequest } from 'ahooks'
-import { useCurrentTheme } from 'portal-shared'
+import { useStore } from 'portal-shared'
 import { ThemeProvider } from 'styled-components'
 import { useState, useRef, useEffect } from 'react'
 import { AccordionConfig as PluginConfig } from 'portal-shared'
@@ -23,7 +23,7 @@ const App: React.FC<AppProps> = (props) => {
     },
   } = props
 
-  const theme = useCurrentTheme()
+  const theme = useStore(state => state.theme)
 
   const divRef = useRef<HTMLDivElement>(null)
 

@@ -1,13 +1,8 @@
-import { useState, useEffect, useRef } from 'react'
-import PortalTab from '../Tab'
+import { useStore } from 'portal-shared'
 import { ThemeProvider } from 'styled-components'
-import { useCurrentTheme } from 'portal-shared'
+import { useState, useEffect, useRef } from 'react'
 
-declare global {
-  interface Window {
-    pluginTimer: any
-  }
-}
+import PortalTab from '../Tab'
 
 const TEXT = [
   '军事训练',
@@ -17,11 +12,9 @@ const TEXT = [
 
 const Plugin = (props: any) => {
 
-  const theme = useCurrentTheme()
+  const theme = useStore(state => state.theme)
 
-  const [id, setId] = useState(props.block.baseConfig.id)
-
-  const [itemNames, setItemNames] = useState([
+  const [itemNames] = useState([
     '军事训练',
     '军事教育',
     '军事管理',
@@ -29,10 +22,9 @@ const Plugin = (props: any) => {
 
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  const [activeKey, setActiveKey] = useState('')
+  const [, setActiveKey] = useState('')
 
-  const [themeList, setThemeList] = useState([])
-  const [themeIndex, setThemeIndex] = useState(0)
+  const [themeIndex] = useState(0)
 
   const initFormRef = useRef<number>(themeIndex)
 
@@ -43,13 +35,6 @@ const Plugin = (props: any) => {
 
 
   const handleTabChange = (key: string) => {
-    const {
-      block: {
-        dataConfig: {
-          pluginOptions = {},
-        },
-      },
-    } = props
 
     const tempIndex = getTargetIndex(key, itemNames)!
 
