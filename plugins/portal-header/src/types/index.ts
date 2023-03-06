@@ -1,5 +1,6 @@
 import { HeaderConfig, AccordionConfig } from 'portal-shared'
 import { PORTAL_HEADER_PLUGIN, PORTAL_ACCORDION_PLUGIN } from 'portal-shared'
+import { ConfigFileFlag, ConfigFileScope } from '@/utils/constants'
 
 export type Optional<T> = T | undefined
 
@@ -39,4 +40,11 @@ export interface PluginProps {
     [PORTAL_HEADER_PLUGIN]?: Partial<HeaderConfig>
     [PORTAL_ACCORDION_PLUGIN]?: Partial<AccordionConfig>
   },
+}
+
+export interface ConfigFileJSON {
+  time: number
+  type: typeof ConfigFileFlag,
+  scope: typeof ConfigFileScope,
+  configuration: Omit<PluginProps['customConfig'], 'appId' | 'componentId'>,
 }

@@ -18,9 +18,9 @@
     "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true, // for devlopment debugger tsx source
-    "types": [
-//      "webpack-env"
-    ],
+    "declaration": true,
+    "declarationMap": true,
+    "types": [],
     "paths": {
       "@/*": [
         "src/*"

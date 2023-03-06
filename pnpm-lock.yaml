@@ -193,6 +193,7 @@ importers:
       '@dnd-kit/sortable': ^7.0.2
       '@dnd-kit/utilities': ^3.2.1
       '@ebay/nice-modal-react': ^1.2.8
+      '@types/lodash.omit': ^4.5.7
       '@types/react': ^18.0.28
       '@types/react-color': ^3.0.6
       '@types/react-dom': ^18.0.11
@@ -200,6 +201,7 @@ importers:
       '@types/webpack-env': ^1.18.0
       ahooks: ^3.7.4
       antd: 4.21.6
+      lodash.omit: ^4.5.0
       moment: 2.29.1
       portal-shared: workspace:*
       react: ^18.2.0
@@ -216,11 +218,13 @@ importers:
       '@dnd-kit/utilities': 3.2.1_react@18.2.0
       '@ebay/nice-modal-react': 1.2.8_biqbaboplfbrettd7655fr4n2y
       ahooks: 3.7.4_react@18.2.0
+      lodash.omit: 4.5.0
       portal-shared: link:../portal-shared
       react-color: 2.19.3_react@18.2.0
       sd-plugin-request: link:../../packages/sd-plugin-request
       styled-components: 5.3.6_biqbaboplfbrettd7655fr4n2y
     devDependencies:
+      '@types/lodash.omit': 4.5.7
       '@types/react': 18.0.28
       '@types/react-color': 3.0.6
       '@types/react-dom': 18.0.11
@@ -2630,6 +2634,12 @@ packages:
     resolution: {integrity: sha512-GSgiRCVeapDN+3pqA35IkQwasaCh/0YFH5dEF6S88iDvEn901DjOeH3/QPY+XYP1DFzDZPvIvfeEgk+7br5png==}
     dependencies:
       '@types/node': 18.11.18
+    dev: true
+
+  /@types/lodash.omit/4.5.7:
+    resolution: {integrity: sha512-6q6cNg0tQ6oTWjSM+BcYMBhan54P/gLqBldG4AuXd3nKr0oeVekWNS4VrNEu3BhCSDXtGapi7zjhnna0s03KpA==}
+    dependencies:
+      '@types/lodash': 4.14.191
     dev: true
 
   /@types/lodash/4.14.191:
@@ -6150,6 +6160,10 @@ packages:
   /lodash.mergewith/4.6.2:
     resolution: {integrity: sha512-GK3g5RPZWTRSeLSpgP8Xhra+pnjBC56q9FZYe1d5RN3TJ35dbkGy3YqBSMbyCrlbi+CM9Z3Jk5yTL7RCsqboyQ==}
     dev: true
+
+  /lodash.omit/4.5.0:
+    resolution: {integrity: sha512-XeqSp49hNGmlkj2EJlfrQFIzQ6lXdNro9sddtQzcJY8QaoC2GO0DT7xaIokHeyM+mIT0mPMlPvkYzg2xCuHdZg==}
+    dev: false
 
   /lodash.snakecase/4.1.1:
     resolution: {integrity: sha512-QZ1d4xoBHYUeuouhEq3lk3Uq7ldgyFXGBhg04+oRLnIz8o9T65Eh+8YdroUwn846zchkA9yDsDl5CVVaV2nqYw==}
