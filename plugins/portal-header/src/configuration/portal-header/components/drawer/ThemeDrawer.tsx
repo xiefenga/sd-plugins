@@ -1,11 +1,11 @@
 import React from 'react'
-import { Drawer } from 'antd'
+import { Theme } from 'portal-shared'
 import styled from 'styled-components'
 import { useState, useRef } from 'react'
 import NiceModal from '@ebay/nice-modal-react'
+import { Button, Drawer, Row, Space } from 'antd'
 import { useModal, antdDrawer } from '@ebay/nice-modal-react'
 
-import { Theme } from '@/types'
 import PlusButton from '../PlusButton'
 import ThemeCard from '../theme/ThemeCard'
 import ThemeModal from '../theme/ThemeModal'
@@ -85,30 +85,27 @@ const ThemeDrawer: React.FC<ThemeDrawerPorps> = (props) => {
     )
   }
 
-  const onDrawerClose = () => {
+  const onCancel = () => {
+    modal.hide()
+  }
+
+  const onConfirm = () => {
     onThemesChange(themeList.slice(1))
     modal.hide()
-    // if (ditryRef.current) {
-    //   Modal.confirm({
-    //     okText: '确认',
-    //     cancelText: '取消',
-    //     title: '确认修改主题',
-    //     onOk() {
-    //       onThemesChange(themeList.slice(1))
-    //       modal.hide()
-    //     },
-    //     onCancel() {
-    //       modal.hide()
-    //     },
-    //   })
-    // } else {
-    //   modal.hide()
-    // }
   }
+
+  const DrawerFooter = (
+    <Row justify='center'>
+      <Space size='middle'>
+        <Button onClick={onCancel}>取消</Button>
+        <Button type='primary' onClick={onConfirm}>确认</Button>
+      </Space>
+    </Row>
+  )
 
   const DrawerProps = {
     ...antdDrawer(modal),
-    onClose: onDrawerClose,
+    footer: DrawerFooter,
   }
 
   return (

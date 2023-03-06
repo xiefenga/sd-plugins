@@ -4,11 +4,11 @@ import styled from 'styled-components'
 import NiceModal from '@ebay/nice-modal-react'
 import { Button, Form, Input, Modal, Switch } from 'antd'
 import { useModal, antdModal } from '@ebay/nice-modal-react'
+import { HeaderConfig as PluginConfig, BusinessNav, SubNav, Theme } from 'portal-shared'
 
 import ThemeDrawer from './drawer/ThemeDrawer'
 import SysNavDrawer from './drawer/SysNavDrawer'
 import StyledNavDrawer from './drawer/SubNavDrawer'
-import { BusinessNav, PluginConfig, SubNav, Theme } from '@/types'
 
 const StyledMoal = styled(Modal).attrs({
   width: 800,

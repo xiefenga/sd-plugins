@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { useStore } from 'portal-shared'
 import { useEffect, useState } from 'react'
 import { Dropdown, Popover, Badge, Spin, MenuProps, message, Tabs } from 'antd'
 
@@ -8,7 +9,7 @@ import { queryNotification } from '@/api'
 import { ThemedTabs } from './styled/AntdTabs'
 import { ThemedMenu } from './styled/AntdMenu'
 import { DEFAULT_THEME } from '@/utils/assets'
-import { usePluginConfig, useStore } from '@/running/hooks'
+import { usePluginConfig } from '@/running/hooks'
 
 import BellOutlined from './icons/BellOutlined.svg'
 import ThemeOutlined from './icons/ThemeOutlined.svg'
@@ -138,9 +139,14 @@ const HeaderBottom = () => {
     busninessNavs = [],
   } = usePluginConfig()
 
-  // const activeBusiness = busninessNavs[0]?.name ?? ''
+  const user = useStore(state => state.user)
 
-  const { theme, setTheme } = useStore()
+  const ssoCode = useStore(state => state.code)
+
+  const theme = useStore(state => state.theme)
+
+  const setTheme = useStore(state => state.changeTheme)
+
 
   const [loading, setLoading] = useState(false)
 
@@ -168,8 +174,18 @@ const HeaderBottom = () => {
 
   const renderNavButtons = () => {
     return busninessNavs.map((button, index) => {
-      // todo: 拼接参数
-      const target = button.url
+      const url = new URL(button.url, location.origin)
+
+      button.params?.forEach(param => {
+        if (param.option === 'SSOCode') {
+          url.searchParams.append(param.name, ssoCode)
+        } else if (user) {
+          url.searchParams.append(param.name, user[param.option])
+        }
+      })
+
+      const target = url.toString()
+
       return (
         <Tabs.TabPane
           key={button.name + index}

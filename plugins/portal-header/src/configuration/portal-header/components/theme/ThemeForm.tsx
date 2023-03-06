@@ -1,9 +1,8 @@
-import React from 'react'
-import { Form, FormProps, Input } from 'antd'
+import { Theme } from 'portal-shared'
 import styled from 'styled-components'
+import { Form, FormProps, Input } from 'antd'
 import { forwardRef, useImperativeHandle } from 'react'
 
-import { Theme } from '@/types'
 import ImageUpload from '../ImageUpload'
 import ColorPicker from '../ColorPicker'
 
@@ -34,7 +33,6 @@ const ThemeForm = forwardRef((props: ThemeFormProps, ref) => {
   }), [])
 
   const onFinish: FormProps['onFinish'] = (value) => {
-    console.log(value)
     const theme = {
       name: value.name,
       logo: value.logo,

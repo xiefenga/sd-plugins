@@ -1,24 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
+import { BusinessNav } from 'portal-shared'
 import NiceModal from '@ebay/nice-modal-react'
 import { useModal, antdDrawer } from '@ebay/nice-modal-react'
-import { Button, Col, Drawer, Empty, Input, message, Row } from 'antd'
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
+import { Button, Col, Drawer, Empty, Input, message, Row, Space } from 'antd'
 
-{/* <Col span={8}>
-          <Select
-            style={{ width: '100%' }}
-            placeholder='请选择参数'
-            options={[
-              { label: '用户ID', value: 'id' },
-              { label: '用户登录账号', value: 'loginName' },
-              { label: '用户SSOCode', value: 'ssocode' },
-            ]}
-          />
-        </Col> */}
-
-import { BusinessNav } from '@/types'
 import PlusButton from '../PlusButton'
-import { DeleteOutlined } from '@ant-design/icons'
+import ParamsModal from '../ParamsModal'
 
 const StyledDrawer = styled(Drawer).attrs({
   width: 500,
@@ -28,7 +18,7 @@ const StyledDrawer = styled(Drawer).attrs({
   destroyOnClose: true,
 })``
 
-const StyledRow = styled(Row).attrs({ gutter: 20 })`
+export const StyledRow = styled(Row).attrs({ gutter: 20 })`
   font-weight: 700;
   margin-bottom: 10px;
 `
@@ -80,23 +70,36 @@ const SysNavDrawer: React.FC<SysNavDrawerProps> = (props) => {
         setNavList([...navList])
       }
 
+      const openParamsMoal = () => {
+        NiceModal.show(ParamsModal, {
+          initialParams: nav.params ?? [],
+          onChange(params: any) {
+            nav.params = params
+            setNavList([...navList])
+          },
+        })
+      }
+
       return (
         <div key={index}>
           <StyledRow>
             <Col span={8}>
               <Input value={nav.name} onChange={e => onNavNameChange(e.target.value)} />
             </Col>
-            <Col span={12}>
+            <Col span={10}>
               <Input value={nav.url} onChange={e => onNavUrlChange(e.target.value)} />
             </Col>
-            <Col span={4}>
+            <Col span={3}>
               <Button type='dashed' onClick={onRemove}>
                 <DeleteOutlined />
               </Button>
             </Col>
+            <Col span={3}>
+              <Button type='dashed' onClick={openParamsMoal}>
+                <PlusOutlined />
+              </Button>
+            </Col>
           </StyledRow>
-          {/* params */}
-          {/* <Row></Row> */}
         </div>
       )
     })
@@ -117,14 +120,27 @@ const SysNavDrawer: React.FC<SysNavDrawerProps> = (props) => {
     )
   }
 
-  const onDrawerClose = () => {
+  const onCancel = () => {
+    modal.hide()
+  }
+
+  const onConfirm = () => {
     onChange(navList)
     modal.hide()
   }
 
+  const DrawerFooter = (
+    <Row justify='center'>
+      <Space size='middle'>
+        <Button onClick={onCancel}>取消</Button>
+        <Button type='primary' onClick={onConfirm}>确认</Button>
+      </Space>
+    </Row>
+  )
+
   const drawerProps = {
     ...antdDrawer(modal),
-    onClose: onDrawerClose,
+    footer: DrawerFooter,
   }
 
   return (

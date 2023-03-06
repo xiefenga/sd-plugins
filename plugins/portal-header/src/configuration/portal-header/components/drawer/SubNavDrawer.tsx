@@ -1,12 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
+import { SubNav } from 'portal-shared'
 import styled from 'styled-components'
 import NiceModal from '@ebay/nice-modal-react'
 import { DeleteOutlined } from '@ant-design/icons'
 import { useModal, antdDrawer } from '@ebay/nice-modal-react'
 import { Button, Col, Drawer, Empty, Input, message, Popconfirm, Row, Space } from 'antd'
 
-import { SubNav } from '@/types'
 import PlusButton from '../PlusButton'
 
 const StyledDrawer = styled(Drawer).attrs({
@@ -41,7 +41,7 @@ const SubNavDrawer: React.FC<SubNavDrawerProps> = (props) => {
 
   const [navList, setNavList] = useState([...navs])
 
-  const onCancal = () => {
+  const onCancel = () => {
     modal.hide()
   }
 
@@ -53,7 +53,7 @@ const SubNavDrawer: React.FC<SubNavDrawerProps> = (props) => {
   const DrawerFooter = (
     <Row justify='center'>
       <Space size='middle'>
-        <Button onClick={onCancal}>取消</Button>
+        <Button onClick={onCancel}>取消</Button>
         <Button type='primary' onClick={onConfirm}>确认</Button>
       </Space>
     </Row>
@@ -134,8 +134,8 @@ const SubNavDrawer: React.FC<SubNavDrawerProps> = (props) => {
   }
 
   const drawerProps = {
-    footer: DrawerFooter,
     ...antdDrawer(modal),
+    footer: DrawerFooter,
   }
 
   return (

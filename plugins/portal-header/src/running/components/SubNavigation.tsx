@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useStore } from 'portal-shared'
 
-import { usePluginConfig, useStore } from '@/running/hooks'
+import { usePluginConfig } from '@/running/hooks'
 import ArrowRightOutlined from './icons/ArrowRightOutlined.svg'
 
 const NavigationWrapper = styled.div`
@@ -46,7 +47,7 @@ const SubNavigation: React.FC = () => {
   
   const { isLevel, subNavs } = usePluginConfig()
 
-  const { ssoCode } = useStore()
+  const ssoCode = useStore(state => state.code)
 
   if (isLevel && subNavs?.length) {
     return (
@@ -64,18 +65,6 @@ const SubNavigation: React.FC = () => {
             </React.Fragment>
           )
         })}
-        {/* <div className='nav-item'>
-          <span>信通基地</span>
-          <ArrowRightOutlined />
-        </div>
-        <div className='nav-item'>
-          <span>网空部队</span>
-          <ArrowRightOutlined />
-        </div>
-        <div className='nav-item'>
-          <span>军航部队</span>
-          <ArrowRightOutlined />
-        </div> */}
       </NavigationWrapper>
     )
   }

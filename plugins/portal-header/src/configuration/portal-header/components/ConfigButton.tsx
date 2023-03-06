@@ -2,8 +2,8 @@ import React from 'react'
 import { Button } from 'antd'
 import styled from 'styled-components'
 import NiceModal from '@ebay/nice-modal-react'
+import { HeaderConfig as PluginConfig } from 'portal-shared'
 
-import { PluginConfig } from '@/types'
 import ConfigModal from './ConfigModal'
 import GlobalStyle from './GlobalStyle'
 

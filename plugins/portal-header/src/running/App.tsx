@@ -4,14 +4,14 @@ import { useRequest } from 'ahooks'
 import styled from 'styled-components'
 import { useStore } from 'portal-shared'
 import { ThemeProvider } from 'styled-components'
+import { HeaderConfig as PluginConfig } from 'portal-shared'
 
-import { querySSOCode } from '@/api'
-import { PluginConfig } from '@/types'
 import { defaultLogo } from '@/utils/assets'
 import HeaderTop from './components/HeaderTop'
+import { querySSOCode, queryUser } from '@/api'
 import GlobalStyle from './components/GlobalStyle'
 import HeaderBottom from './components/HeaderBottom'
-import { PluginConfigProvider, StoreProvider } from '@/utils/context'
+import { PluginConfigProvider } from '@/utils/context'
 
 const Header = styled.header`
   padding: 0 60px;
@@ -38,32 +38,43 @@ const App: React.FC<AppProps> = (props) => {
     }
   })
 
-  const setTheme = useStore(state => state.changeTheme)
+
+  const setCode = useStore(state => state.setCode)
+
+  const setUser = useStore(state => state.setUser)
 
   const { pluginConfig } = props
   
-  // const [theme, setTheme] = useTheme(defaultLogo)
-
-  const { 
-    data: ssoCode = '', 
-  } = useRequest(querySSOCode, { 
+  useRequest(querySSOCode, { 
     retryCount: 3, 
     onError: (error) => {
       message.error('sso code 请求失败' + error.message)
     },
+    onSuccess: ssoCode => {
+      setCode(ssoCode)
+    },
   })
+
+  useRequest(queryUser, {
+    retryCount: 3,
+    onError(error) {
+      message.error('请求用户数据失败' + error.message)
+    },
+    onSuccess(user) {
+      setUser(user)
+    },
+  })
+
 
   return (
     <PluginConfigProvider value={pluginConfig}>
-      <StoreProvider value={{ ssoCode, theme, setTheme }}>
-        <ThemeProvider theme={theme.color}>
-          <GlobalStyle />
-          <Header>
-            <HeaderTop />
-            <HeaderBottom />
-          </Header>
-        </ThemeProvider>
-      </StoreProvider>
+      <ThemeProvider theme={theme.color}>
+        <GlobalStyle />
+        <Header>
+          <HeaderTop />
+          <HeaderBottom />
+        </Header>
+      </ThemeProvider>
     </PluginConfigProvider>
   )
 }

@@ -1,5 +1,3 @@
-import { PLUGIN_CONFIG } from '@/utils/constants'
-import { DefaultTheme } from 'styled-components'
 import { HeaderConfig, AccordionConfig } from 'portal-shared'
 import { PORTAL_HEADER_PLUGIN, PORTAL_ACCORDION_PLUGIN } from 'portal-shared'
 
@@ -10,43 +8,6 @@ export interface User {
   userName: string
   identity: string
   organization: string
-}
-
-export interface SubNav {
-  name: string
-  url: string
-}
-
-export interface Theme {
-  name: string
-  logo: string
-  color: DefaultTheme
-}
-
-export interface BusinessNav {
-  name: string
-  url: string
-  params?: Record<string, string>
-}
-
-export interface PluginConfig {
-  isLevel: boolean
-  subNavs: SubNav[]
-  searchUrl: string
-  workbanch: {
-    url: string
-    text: string
-  }
-  themes: Theme[]
-  currentTheme: Theme
-  busninessNavs: BusinessNav[]
-  navAssetId: string
-}
-
-export interface Store {
-  ssoCode: string
-  theme: Theme
-  setTheme: (_: Theme) => void
 }
 
 export interface Notice {
@@ -64,7 +25,6 @@ export interface PluginPropsOfConfig {
   customConfig: {
     appId: string
     componentId: string
-    [PLUGIN_CONFIG]?: Partial<PluginConfig>
     [PORTAL_HEADER_PLUGIN]?: Partial<HeaderConfig>
     [PORTAL_ACCORDION_PLUGIN]?: Partial<AccordionConfig>
   }
@@ -76,9 +36,7 @@ export interface PluginProps {
   customConfig: {
     appId: string
     componentId: string
-    [PLUGIN_CONFIG]?: Partial<PluginConfig>
     [PORTAL_HEADER_PLUGIN]?: Partial<HeaderConfig>
     [PORTAL_ACCORDION_PLUGIN]?: Partial<AccordionConfig>
   },
-  [PLUGIN_CONFIG]?: Partial<PluginConfig>
 }

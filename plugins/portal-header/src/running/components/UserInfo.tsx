@@ -1,13 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
-import { useRequest } from 'ahooks'
 import styled from 'styled-components'
+import { useStore } from 'portal-shared'
 import { Dropdown, Avatar, message } from 'antd'
 
-import { logout, queryUser } from '@/api'
-import { Optional, User } from '@/types'
-import { usePluginConfig } from '@/running/hooks'
+import { logout } from '@/api'
 import ThemedMenu from './styled/AntdMenu'
+import { usePluginConfig } from '@/running/hooks'
 import DownOutlined from './icons/DownOutlined.svg'
 import defaultAvatar from '@/assets/default-avatar.png'
 
@@ -46,22 +45,17 @@ const UserInfo: React.FC = () => {
 
   const [visible, setVisible] = useState(false)
 
-  const [user, setUser] = useState<Optional<User>>()
-
-  useRequest(queryUser, {
-    retryCount: 3,
-    onError(error) {
-      message.error('请求用户数据失败' + error.message)
-    },
-    onSuccess(data) {
+  const user = useStore(state => {
+    if (state.user) {
       const {
         photo: avatar,
         name: userName,
         userName: identity,
         companyName: organization,
-      } = data
-      setUser({ organization, identity, avatar, userName })
-    },
+      } = state.user
+      return { organization, identity, avatar, userName }
+    }
+    return state.user
   })
 
   const logoutSys = async () => {

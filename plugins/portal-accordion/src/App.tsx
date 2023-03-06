@@ -1,6 +1,6 @@
 import React from 'react'
-import { useRequest } from 'ahooks'
 import { useStore } from 'portal-shared'
+import { useRequest, useSize } from 'ahooks'
 import { ThemeProvider } from 'styled-components'
 import { useState, useRef, useEffect } from 'react'
 import { AccordionConfig as PluginConfig } from 'portal-shared'
@@ -17,11 +17,13 @@ const App: React.FC<AppProps> = (props) => {
 
   const {
     pluginConfig: {
-      otherHeight = 360,
       moreLink = '',
+      otherHeight = 360,
       menuConfigList = [],
     },
   } = props
+
+  const ssoCode = useStore(state => state.code)
 
   const theme = useStore(state => state.theme)
 
@@ -32,10 +34,11 @@ const App: React.FC<AppProps> = (props) => {
     collapseWidth: 145,
   })
 
+  const size = useSize(divRef)
+
   useEffect(() => {
-    if (divRef.current && menuConfigList.length) {
-      const x = divRef.current.clientWidth
-      console.log(x)
+    if (size && menuConfigList.length) {
+      const x = size.width
       setState(prev => {
         const { width, collapseWidth } = prev
         const left = x - width - collapseWidth * (menuConfigList.length - 1)
@@ -47,37 +50,35 @@ const App: React.FC<AppProps> = (props) => {
         return next
       })
     }
-  }, [menuConfigList.length])
+  }, [size, menuConfigList.length])
 
-  const { data } = useRequest(async () => {
+  const { data: panelProps = [] } = useRequest(async () => {
     const apps = await getCommonlyUsedApp()
     return menuConfigList.map(menu => {
       const buttons = apps
         .filter(app => app.menuType === menu.type)
-        .map(app => ({ text: app.name, link: app.url }))
-      return {
-        ...menu,
-        buttons,
-      }
+        .map(app => {
+          if (app.isSSOCode === '1') {
+            const url = new URL(app.url, location.origin)
+            url.searchParams.append('code', ssoCode)
+            app.url = url.toString()
+          }
+          return ({ text: app.name, link: app.url })
+        })
+      return { ...menu, buttons }
     })
   })
-
-
 
   return (
     <ThemeProvider theme={theme.color}>
       <div ref={divRef}>
         <PictureCollapse
-          moreLink={moreLink}
           width={state.width}
+          moreLink={moreLink}
+          panelProps={panelProps}
           otherHeight={otherHeight}
           collapseWidth={state.collapseWidth}
-          panelProps={data ?? []}
-          renderPanelContent={props => {
-            return (
-              <CollapsePanel {...props} />
-            )
-          }}
+          renderPanelContent={props => (<CollapsePanel {...props} />)}
         />
       </div>
     </ThemeProvider>

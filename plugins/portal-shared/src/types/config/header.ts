@@ -3,10 +3,12 @@ export interface SubNav {
   url: string
 }
 
+export type ParamOption = 'id' | 'loginName' | 'SSOCode'
+
 export interface BusinessNav {
   name: string
   url: string
-  params?: Record<string, string>
+  params?: { name: string, option: ParamOption }[]
 }
 
 export interface ThemeColor {

@@ -18,6 +18,7 @@ interface CommonlyUsedAppData {
   photo: string
   url: string
   user_id: string
+  isSSOCode: '0' | '1'
 }
 
 export interface CommonlyUsedAppResp {
