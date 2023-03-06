@@ -52,9 +52,16 @@ export const ThemedAntdDropdownMenuStyle = createGlobalStyle`
     }
 
     .ant-dropdown-menu-item-active {
+      background: ${props => props.theme.bg.hover};
+      color: ${props => props.theme.font.hover};
+    }
+
+    .ant-dropdown-menu-item-selected  {
       background: ${props => props.theme.bg.active};
       color: ${props => props.theme.font.active};
     }
+
+    
   }
 `
 

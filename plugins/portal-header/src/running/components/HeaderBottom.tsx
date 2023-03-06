@@ -147,7 +147,6 @@ const HeaderBottom = () => {
 
   const setTheme = useStore(state => state.changeTheme)
 
-
   const [loading, setLoading] = useState(false)
 
   const [count, setCount] = useState(0)
@@ -269,7 +268,6 @@ const HeaderBottom = () => {
         概览
       </div>
       <div className='business-navs'>
-        {/* activeKey={activeBusiness} */}
         <ThemedTabs activeKey=''>
           {renderNavButtons()}
         </ThemedTabs>
