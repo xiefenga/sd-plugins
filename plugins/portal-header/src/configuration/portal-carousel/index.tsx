@@ -20,8 +20,8 @@ const Render = (props: Props) => {
 
   return (
     <ConfigButton
-      pluginConfig={pluginConfig}
-      onConfigChange={wrapperConfigChange}
+      // pluginConfig={pluginConfig}
+      // onConfigChange={wrapperConfigChange}
     />
   )
 }

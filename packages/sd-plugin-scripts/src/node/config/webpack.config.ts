@@ -1,3 +1,4 @@
+import fs from 'fs-extra'
 import WebpackBar from 'webpackbar'
 import CopyPlugin from 'copy-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
@@ -13,6 +14,14 @@ import { PKG } from '../utils/files'
 import * as paths from './paths'
 import { imageInlineSizeLimit, shouldUseSourceMap, useTypeScript } from '../utils/config'
 
+const DEFAULT_EXTERNALS = {
+  react: 'React',
+  'react-dom': 'ReactDOM',
+  jsencrypt: 'JSEncrypt',
+  antd: 'antd',
+  moment: 'moment',
+}
+
 const createWebpackConfiguration = (webpackEnv: Env, entry: string): Configuration => {
   const isEnvDevelopment = webpackEnv === 'development'
   const isEnvProduction = webpackEnv === 'production'
@@ -26,6 +35,20 @@ const createWebpackConfiguration = (webpackEnv: Env, entry: string): Configurati
     : 'cheap-module-source-map'
 
   const outputFilename = isEnvDevelopment ? 'bundle.js' : '[name].[contenthash:8].js'
+
+  const config = fs.existsSync(paths.CLI_CONFIG_PATH)
+    ? require(paths.CLI_CONFIG_PATH)
+    : {}
+
+  const noExternals = (config.noExternals ?? []) as string[]
+
+  const externals = { ...DEFAULT_EXTERNALS } as Record<string, string>
+
+  noExternals.forEach(item => {
+    if (externals[item]) {
+      delete externals[item]
+    }
+  })
 
   return {
     // target: ['browserslist'], default 
@@ -68,14 +91,7 @@ const createWebpackConfiguration = (webpackEnv: Env, entry: string): Configurati
     performance: {
       hints: false,  // 解决入口点 > 250KB 警告的问题
     },
-    externals: isEnvProduction
-      ? {
-        react: 'React',
-        'react-dom': 'ReactDOM',
-        jsencrypt: 'JSEncrypt',
-        antd: 'antd',
-        moment: 'moment',
-      } : {},
+    externals: isEnvProduction ? externals: {},
     module: {
       rules: [
         {

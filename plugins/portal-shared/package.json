@@ -2,19 +2,32 @@
   "name": "portal-shared",
   "version": "1.0.0",
   "description": "",
-  "main": "lib/index.js",
-  "module": "lib/index.mjs",
   "typings": "lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "lib/index.d.ts"
+      ],
+      "store": [
+        "lib/store/index.d.ts"
+      ],
+      "configuration": [
+        "lib/configuration/index.d.ts"
+      ]
+    }
+  },
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "module": "./lib/index.mjs"
+      "import": "./lib/index.js"
     },
     "./store": {
-      "import": {
-        "types": "./lib/store/index.d.ts",
-        "default": "./lib/store/index.mjs"
-      }
+      "import": "./lib/store/index.js",
+      "types": "./lib/store/index.d.ts"
+    },
+    "./configuration": {
+      "import": "./lib/configuration/index.js",
+      "types": "./lib/configuration/index.d.ts"
     }
   },
   "scripts": {

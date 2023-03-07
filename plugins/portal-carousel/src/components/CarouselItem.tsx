@@ -1,4 +1,5 @@
 import React from 'react'
+import { Image } from 'antd'
 import styled from 'styled-components'
 
 const Div = styled.div`
@@ -7,9 +8,11 @@ const Div = styled.div`
   position: relative;
 `
 
-const StyledImg = styled.img`
+const StyledImg = styled(Image).attrs({ preview: false })`
   width: 642px;
   height: 360px;
+  /* width: 100%;
+  height: 100%; */
   object-fit: cover;
 `
 
@@ -62,7 +65,7 @@ const CarouselItem: React.FC<CarouselItemPorps> = (props) => {
   return (
     <Div>
       <a href={detailsUrl} target='_blank' rel='noreferrer'>
-        <StyledImg src={image} />
+        <StyledImg src={image} placeholder />
         <CarouselText text={title}/>
       </a>
     </Div>

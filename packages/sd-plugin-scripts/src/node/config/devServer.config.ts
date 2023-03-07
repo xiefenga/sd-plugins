@@ -25,7 +25,7 @@ const getDevServerConfig = (port = 3000) => {
     hot: true,
     port,
     // port: 3000,
-    open: true,
+    open: false,
   // static: {
   //   directory: paths.appPublic,
   //   publicPath: [paths.publicUrlOrPath],

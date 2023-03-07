@@ -5,10 +5,11 @@ import { useStore } from 'portal-shared'
 import UserInfo from './UserInfo'
 import SubNavigation from './SubNavigation'
 import { defaultLogo } from '@/utils/assets'
+import { usePluginConfig } from '../hooks'
 
-const HeaderTopWrapper = styled.div`
+const HeaderTopWrapper = styled.div<{ height?: number }>`
   width: 100%;
-  height: 120px;
+  height: ${props => props.height ?? 160}px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,6 +33,9 @@ const Logo = logoImg`
 `
 
 const HeaderTop: React.FC = () => {
+
+  const { topHeight } = usePluginConfig()
+
   const theme = useStore(state => {
     if (state.theme.logo === '') {
       return {
@@ -44,7 +48,7 @@ const HeaderTop: React.FC = () => {
   })
 
   return (
-    <HeaderTopWrapper>
+    <HeaderTopWrapper height={topHeight}>
       <SubNavigation />
       <Logo src={theme.logo} />
       <UserInfo />

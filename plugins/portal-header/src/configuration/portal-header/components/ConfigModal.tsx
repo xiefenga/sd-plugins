@@ -1,14 +1,16 @@
 import React from 'react'
 import { useSetState } from 'ahooks'
+import { Theme } from 'portal-shared'
 import styled from 'styled-components'
 import NiceModal from '@ebay/nice-modal-react'
-import { Button, Form, Input, Modal, Switch } from 'antd'
+import { Button, Form, Input, InputNumber, Modal, Switch } from 'antd'
 import { useModal, antdModal } from '@ebay/nice-modal-react'
-import { HeaderConfig as PluginConfig, BusinessNav, SubNav, Theme } from 'portal-shared'
+import { SubNav, BusinessNav, HeaderConfig as PluginConfig } from 'portal-shared/configuration'
 
 import ThemeDrawer from './drawer/ThemeDrawer'
 import SysNavDrawer from './drawer/SysNavDrawer'
 import StyledNavDrawer from './drawer/SubNavDrawer'
+import ApiConfigInput from './ApiConfigInput'
 
 const StyledMoal = styled(Modal).attrs({
   width: 800,
@@ -30,6 +32,8 @@ interface ConfigModalProps {
 
 const ConfigModal: React.FC<ConfigModalProps> = (props) => {
 
+  const [form] = Form.useForm()
+
   const modal = useModal()
 
   const { submitConfig, pluginConfig } = props
@@ -42,7 +46,8 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
     workbanch,  // 工作台
     searchUrl,
     subNavs,
-    navAssetId,  // 导航资产ID
+    apiConfig,
+    topHeight = 160,
     busninessNavs,
   } = state
 
@@ -51,11 +56,16 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
   }
 
   const onModalClickOk = () => {
-    const currentConfig = Object.entries(state)
-      .filter(([_, val]) => !!val)
-      .reduce((memo, [key, val]) => Object.assign({}, memo, { [key]: val }), {} as any)
-    submitConfig(currentConfig)
-    modal.hide()
+    form.validateFields().then(() => {
+      const currentConfig = Object.entries(state)
+        .filter(([_, val]) => !!val)
+        .reduce((memo, [key, val]) => Object.assign({}, memo, { [key]: val }), {} as any)
+      submitConfig({
+        ...currentConfig,
+        ...form.getFieldsValue(),
+      })
+      modal.hide()
+    }).catch(() => { })
   }
 
   const setWorkbachName = (value: string) => {
@@ -108,9 +118,19 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
     onOk: onModalClickOk,
   }
 
+  const initialValue = {
+    apiConfig,
+    topHeight,
+  }
+
   return (
     <StyledMoal {...modalProps}>
-      <Form labelCol={{ span: 3 }} wrapperCol={{ span: 6 }}>
+      <Form
+        form={form}
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 6 }}
+        initialValues={initialValue}
+      >
         <Form.Item label='本级'>
           <Switch
             checked={isLevel}
@@ -136,6 +156,21 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
             点击配置
           </ConfigButton>
         </Form.Item>
+        <Form.Item
+          name='topHeight'
+          label='顶部高度'
+          rules={[
+            { required: true, message: '请输入顶栏高度' },
+          ]}
+        >
+          <InputNumber
+            min={60}
+            max={160}
+            size='small'
+            addonAfter='px'
+            style={{ width: '58%' }}
+          />
+        </Form.Item>
         <Form.Item label='搜索地址'>
           <Input
             size='small'
@@ -157,12 +192,26 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
             onChange={e => setWorkbachUrl(e.target.value)}
           />
         </Form.Item>
-        <Form.Item label='导航资产ID'>
-          <Input
-            size='small'
-            value={navAssetId}
-            onChange={e => setState({ navAssetId: e.target.value })}
-          />
+        <Form.Item
+          required
+          name='apiConfig'
+          label='主题API key'
+          wrapperCol={{ span: 20 }}
+          rules={[
+            {
+              validator: (_, value) => {
+                if (!value) {
+                  return Promise.reject(new Error('请填写API信息'))
+                } else if (value.addKey && value.updateKey && value.queryKey) {
+                  return Promise.resolve()
+                } else {
+                  return Promise.reject(new Error('请填写完整API信息'))
+                }
+              },
+            },
+          ]}
+        >
+          <ApiConfigInput />
         </Form.Item>
       </Form>
     </StyledMoal>

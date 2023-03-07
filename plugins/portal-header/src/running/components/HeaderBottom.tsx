@@ -1,11 +1,12 @@
 import styled from 'styled-components'
-import { useStore } from 'portal-shared'
 import { useEffect, useState } from 'react'
+import { Theme, useStore } from 'portal-shared'
 import { Dropdown, Popover, Badge, Spin, MenuProps, message, Tabs } from 'antd'
 
 import { Notice } from '@/types'
 import NoticeList from './NoticeList'
 import { queryNotification } from '@/api'
+import { updateTheme } from '@/api/service'
 import { ThemedTabs } from './styled/AntdTabs'
 import { ThemedMenu } from './styled/AntdMenu'
 import { DEFAULT_THEME } from '@/utils/assets'
@@ -137,6 +138,7 @@ const HeaderBottom = () => {
     searchUrl,
     themes = [],
     busninessNavs = [],
+    apiConfig,
   } = usePluginConfig()
 
   const user = useStore(state => state.user)
@@ -145,7 +147,12 @@ const HeaderBottom = () => {
 
   const theme = useStore(state => state.theme)
 
-  const setTheme = useStore(state => state.changeTheme)
+  const setTheme = useStore(state => async (theme: Theme) => {
+    if (apiConfig.updateKey && user) {
+      await updateTheme(apiConfig.updateKey, user.id, theme)
+    }
+    state.changeTheme(theme)
+  })
 
   const [loading, setLoading] = useState(false)
 

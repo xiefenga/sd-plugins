@@ -1,10 +1,11 @@
 import omit from 'lodash.omit'
 import { Button, Col, Form, message, Row, Upload } from 'antd'
+import { PluginPropsOfConfig } from 'portal-shared/configuration'
 
+import { ConfigFileJSON } from '@/types'
 import HeaderConfigButton from './portal-header'
 import AccordionConfigButton from './portal-accordion'
 import { download, readFile2Json } from '@/utils/helper'
-import { ConfigFileJSON, PluginPropsOfConfig } from '@/types'
 import { ConfigFileFlag, ConfigFileScope } from '@/utils/constants'
 
 interface RenderPorps {
@@ -42,10 +43,15 @@ const Configuration = (props: RenderPorps) => {
           customConfig={customConfig}
           onConfigChange={onConfigChange}
         />
-
       </Form.Item>
       <Form.Item label='手风琴'>
         <AccordionConfigButton
+          customConfig={customConfig}
+          onConfigChange={onConfigChange}
+        />
+      </Form.Item>
+      <Form.Item label='图片轮播'>
+        <HeaderConfigButton
           customConfig={customConfig}
           onConfigChange={onConfigChange}
         />

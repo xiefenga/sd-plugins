@@ -30,8 +30,6 @@ window._0x1461A0_PORTAL_USE_STORE ??= create<Store>(
     },
 
     changeTheme: async (theme: Theme) => {
-      // request
-      // await setCurrentTheme(theme)
       set({ theme })
     },
   })
