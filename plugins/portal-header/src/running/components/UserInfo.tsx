@@ -65,7 +65,6 @@ const UserInfo: React.FC = () => {
         if (data) {
           window.location.href = `/application/login/${appid}`
         } else {
-          console.log('Nores.data')
           window.location.reload()
         }
       }

@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import { useStore } from 'portal-shared'
 
 import UserInfo from './UserInfo'
-import SubNavigation from './SubNavigation'
-import { defaultLogo } from '@/utils/assets'
 import { usePluginConfig } from '../hooks'
+import SubNavigation from './SubNavigation'
+import { DEFAULT_THEME } from '@/utils/assets'
 
 const HeaderTopWrapper = styled.div<{ height?: number }>`
   width: 100%;
@@ -37,11 +37,8 @@ const HeaderTop: React.FC = () => {
   const { topHeight } = usePluginConfig()
 
   const theme = useStore(state => {
-    if (state.theme.logo === '') {
-      return {
-        ...state.theme,
-        logo: defaultLogo,
-      }
+    if (state.theme.name === '默认主题') {
+      return DEFAULT_THEME
     } else {
       return state.theme
     }

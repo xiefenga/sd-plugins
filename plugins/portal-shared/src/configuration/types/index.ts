@@ -74,3 +74,15 @@ export interface PluginPropsOfConfig {
     [PORTAL_CAROUSEL_PLUGIN]?: Partial<CarouselConfig>
   }
 }
+
+export interface PluginProps {
+  appId: string
+  componentId: string
+  customConfig: {
+    appId: string
+    componentId: string
+    [PORTAL_HEADER_PLUGIN]?: Partial<HeaderConfig>
+    [PORTAL_ACCORDION_PLUGIN]?: Partial<AccordionConfig>
+    [PORTAL_CAROUSEL_PLUGIN]?: Partial<CarouselConfig>
+  },
+}

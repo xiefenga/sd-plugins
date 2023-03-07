@@ -165,6 +165,7 @@ importers:
       '@types/webpack-env': ^1.18.0
       ahooks: ^3.7.4
       antd: 4.21.6
+      portal-shared: workspace:^1.0.0
       react: ^18.2.0
       react-dom: ^18.2.0
       sd-dev-login: workspace:^*
@@ -173,6 +174,7 @@ importers:
       styled-components: ^5.3.6
     dependencies:
       ahooks: 3.7.4_react@18.2.0
+      portal-shared: link:../portal-shared
       sd-plugin-request: link:../../packages/sd-plugin-request
       styled-components: 5.3.6_biqbaboplfbrettd7655fr4n2y
     devDependencies:

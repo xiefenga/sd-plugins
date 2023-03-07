@@ -1,6 +1,6 @@
 import { PORTAL_ACCORDION_PLUGIN } from 'portal-shared'
+import { PluginPropsOfConfig } from 'portal-shared/configuration'
 
-import { PluginPropsOfConfig } from '@/types'
 import ConfigButton from './components/ConfigButton'
 
 interface Props {

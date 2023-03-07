@@ -15,7 +15,9 @@ interface ApiConfigInputProps {
 
 const ApiConfigInput: React.FC<ApiConfigInputProps> = (props) => {
 
-  const [value, onChange] = useControllableValue(props)
+  const [value, onChange] = useControllableValue(props, {
+    defaultValue: {} as ApiConfigInputValue,
+  })
 
   return (
     <Row gutter={10}>
@@ -23,9 +25,9 @@ const ApiConfigInput: React.FC<ApiConfigInputProps> = (props) => {
         <Input 
           size='small' 
           placeholder='新增' 
-          value={value.addKey}
+          value={value?.addKey}
           onChange={e => onChange({
-            ...value,
+            ...(value ?? {}),
             addKey: e.target.value,
           })}
         />
@@ -34,9 +36,9 @@ const ApiConfigInput: React.FC<ApiConfigInputProps> = (props) => {
         <Input 
           size='small' 
           placeholder='查询'
-          value={value.queryKey}
+          value={value?.queryKey}
           onChange={e => onChange({
-            ...value,
+            ...(value ?? {}),
             queryKey: e.target.value,
           })}
         />
@@ -45,9 +47,9 @@ const ApiConfigInput: React.FC<ApiConfigInputProps> = (props) => {
         <Input 
           size='small' 
           placeholder='修改'
-          value={value.updateKey}
+          value={value?.updateKey}
           onChange={e => onChange({
-            ...value,
+            ...(value ?? {}),
             updateKey: e.target.value,
           })} 
         />

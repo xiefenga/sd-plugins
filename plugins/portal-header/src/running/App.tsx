@@ -8,7 +8,7 @@ import { ThemeProvider } from 'styled-components'
 import { HeaderConfig as PluginConfig } from 'portal-shared/configuration'
 
 import Loading from './components/Loading'
-import { defaultLogo } from '@/utils/assets'
+import { DEFAULT_THEME } from '@/utils/assets'
 import HeaderTop from './components/HeaderTop'
 import { querySSOCode, queryUser } from '@/api'
 import GlobalStyle from './components/GlobalStyle'
@@ -45,11 +45,8 @@ const App: React.FC<AppProps> = (props) => {
   }
 
   const theme = useStore(state => {
-    if (state.theme.logo === '') {
-      return {
-        ...state.theme,
-        logo: defaultLogo,
-      }
+    if (state.theme.name === '默认主题') {
+      return DEFAULT_THEME
     } else {
       return state.theme
     }

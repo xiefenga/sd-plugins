@@ -1,9 +1,13 @@
 import App from '@/App'
 import { createRoot } from 'react-dom/client'
-import { PluginProps } from '@/types'
+import { CarouselConfig } from 'portal-shared/configuration'
+import { getConfiguration, PORTAL_CAROUSEL_PLUGIN } from 'portal-shared'
 
-export default (dom: HTMLElement, props: PluginProps) => {
+export default async (dom: HTMLElement) => {
+
+  const pluginConfig: CarouselConfig = await getConfiguration(PORTAL_CAROUSEL_PLUGIN)
+
   createRoot(dom).render(
-    <App {...props.customConfig} />
+    <App pluginConfig={pluginConfig} />
   )
 }

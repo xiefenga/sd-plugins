@@ -1,10 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
 import { useAsyncEffect } from 'ahooks'
+import { CarouselConfig } from 'portal-shared/configuration'
 
 import { compose } from '@/utils'
 import { queryFAssetById } from '@/api'
-import { CarouselAsset, PluginProps } from '@/types'
+import { CarouselAsset } from '@/types'
 import { transformAssetsResp } from '@/utils/assets'
 import PortalCarousel from '@/components/PortalCarousel'
 
@@ -20,11 +21,15 @@ const transformImgUrlFiled = (assetsData: CarouselAsset[]) => {
 
 const transformCarouselAssets = compose(transformImgUrlFiled, transformAssetsResp)
 
-type PluginPorps = Omit<PluginProps['customConfig'], 'appId' | 'componentId'>
+interface AppProps {
+  pluginConfig: Partial<CarouselConfig>
+}
 
-const App: React.FC<PluginPorps> = (props) => {
+const App: React.FC<AppProps> = (props) => {
 
-  const { assetId, speedTime, detailsUrl, height = '360' } = props
+  const { pluginConfig } = props
+
+  const { assetId, speedTime = 2, detailsUrl, height = 360 } = pluginConfig
 
   const [list, setList] = useState<CarouselAsset[]>([])
 
@@ -50,9 +55,9 @@ const App: React.FC<PluginPorps> = (props) => {
   return (
     <PortalCarousel
       list={list}
-      height={Number(height)}
+      height={height}
       detailsUrl={detailsUrl}
-      speed={parseFloat(speedTime ?? '3') * 1000}
+      speed={speedTime * 1000}
     />
   )
 }

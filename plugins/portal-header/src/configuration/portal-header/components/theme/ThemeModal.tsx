@@ -31,7 +31,6 @@ const ThemeModal: React.FC<ThemeModalProps> = (props) => {
   }
 
   const onModalSubmit = (theme: Theme) => {
-    console.log(theme)
     onSubmit?.(theme)
     modal.hide()
   }
