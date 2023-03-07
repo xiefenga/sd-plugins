@@ -24,7 +24,7 @@ type PluginPorps = Omit<PluginProps['customConfig'], 'appId' | 'componentId'>
 
 const App: React.FC<PluginPorps> = (props) => {
 
-  const { assetId, speedTime, detailsUrl } = props
+  const { assetId, speedTime, detailsUrl, height = '360' } = props
 
   const [list, setList] = useState<CarouselAsset[]>([])
 
@@ -50,6 +50,7 @@ const App: React.FC<PluginPorps> = (props) => {
   return (
     <PortalCarousel
       list={list}
+      height={Number(height)}
       detailsUrl={detailsUrl}
       speed={parseFloat(speedTime ?? '3') * 1000}
     />

@@ -4,6 +4,7 @@ import { PluginPropsOfConfig } from 'portal-shared/configuration'
 
 import { ConfigFileJSON } from '@/types'
 import HeaderConfigButton from './portal-header'
+import CarouselConfigButton from './portal-carousel'
 import AccordionConfigButton from './portal-accordion'
 import { download, readFile2Json } from '@/utils/helper'
 import { ConfigFileFlag, ConfigFileScope } from '@/utils/constants'
@@ -51,7 +52,7 @@ const Configuration = (props: RenderPorps) => {
         />
       </Form.Item>
       <Form.Item label='图片轮播'>
-        <HeaderConfigButton
+        <CarouselConfigButton
           customConfig={customConfig}
           onConfigChange={onConfigChange}
         />

@@ -1,6 +1,6 @@
-import { PORTAL_HEADER_PLUGIN } from 'portal-shared'
+import { PORTAL_CAROUSEL_PLUGIN } from 'portal-shared'
+import { PluginPropsOfConfig } from 'portal-shared/configuration'
 
-import { PluginPropsOfConfig } from 'portal-shared'
 import ConfigButton from './components/ConfigButton'
 
 interface Props {
@@ -12,16 +12,16 @@ const Render = (props: Props) => {
 
   const { customConfig, onConfigChange } = props
 
-  const pluginConfig = customConfig[PORTAL_HEADER_PLUGIN] ?? {}
+  const pluginConfig = customConfig[PORTAL_CAROUSEL_PLUGIN] ?? {}
 
   const wrapperConfigChange = (config: any) => {
-    onConfigChange({ [PORTAL_HEADER_PLUGIN]: config })
+    onConfigChange({ [PORTAL_CAROUSEL_PLUGIN]: config })
   }
 
   return (
     <ConfigButton
-      // pluginConfig={pluginConfig}
-      // onConfigChange={wrapperConfigChange}
+      pluginConfig={pluginConfig}
+      onConfigChange={wrapperConfigChange}
     />
   )
 }

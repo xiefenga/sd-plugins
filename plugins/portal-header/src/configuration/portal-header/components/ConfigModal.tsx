@@ -17,7 +17,7 @@ const StyledMoal = styled(Modal).attrs({
   okText: '确认',
   centered: true,
   closable: false,
-  title: '配置插件',
+  title: '顶栏配置',
   cancelText: '取消',
   destroyOnClose: true,
 })``

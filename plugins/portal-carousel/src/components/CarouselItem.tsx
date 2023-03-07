@@ -1,18 +1,20 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Image } from 'antd'
 import styled from 'styled-components'
+import { useSize } from 'ahooks'
 
-const Div = styled.div`
-  width: 642px;
-  height: 360px;
+const Div = styled.div<{ height: number }>`
+  height: ${props => props.height}px;
   position: relative;
 `
+type Size = {
+  width: number
+  height: number
+}
 
-const StyledImg = styled(Image).attrs({ preview: false })`
-  width: 642px;
-  height: 360px;
-  /* width: 100%;
-  height: 100%; */
+const StyledImg = styled(Image).attrs({ preview: false })<Partial<Size>>`
+  width: ${props => props.width}px;
+  height: ${props => props.height}px;
   object-fit: cover;
 `
 
@@ -57,15 +59,20 @@ const CarouselText: React.FC<{ text: string }> = ({ text }) => {
 interface CarouselItemPorps {
   title: string
   image: string
+  height: number
   detailsUrl: string
 }
 
 const CarouselItem: React.FC<CarouselItemPorps> = (props) => {
-  const { title, image, detailsUrl } = props
+  const { title, image, height, detailsUrl } = props
+  const divRef = useRef<HTMLDivElement>(null)
+
+  const size = useSize(divRef)
+
   return (
-    <Div>
+    <Div height={height} ref={divRef}>
       <a href={detailsUrl} target='_blank' rel='noreferrer'>
-        <StyledImg src={image} placeholder />
+        <StyledImg width={size?.width} height={size?.height} src={image} placeholder />
         <CarouselText text={title}/>
       </a>
     </Div>

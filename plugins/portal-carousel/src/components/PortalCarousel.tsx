@@ -5,13 +5,14 @@ import CarouselItem from '@/components/CarouselItem'
 
 interface PortalCarouselProps {
   speed: number
+  height: number
   detailsUrl: string
   list: CarouselAsset[]
 }
 
 const PortalCarousel: React.FC<PortalCarouselProps> = (props) => {
 
-  const { list, speed, detailsUrl } = props
+  const { list, speed, height, detailsUrl } = props
 
   const renderCarouselList = () => {
     return list.map(item => {
@@ -21,6 +22,7 @@ const PortalCarousel: React.FC<PortalCarouselProps> = (props) => {
       return (
         <div key={item.dataId}>
           <CarouselItem
+            height={height}
             title={item.title}
             image={item.imgurl}
             detailsUrl={target}

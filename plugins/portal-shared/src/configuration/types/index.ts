@@ -1,5 +1,5 @@
 import { Theme } from '@/types'
-import { PORTAL_ACCORDION_PLUGIN, PORTAL_HEADER_PLUGIN } from '@/constants'
+import { PORTAL_ACCORDION_PLUGIN, PORTAL_CAROUSEL_PLUGIN, PORTAL_HEADER_PLUGIN } from '@/constants'
 
 // accordion
 export interface AccordionMenuItem {
@@ -55,6 +55,14 @@ export interface HeaderConfig {
   }  
 }
 
+// carousel 
+export interface CarouselConfig {
+  assetId: string,
+  speedTime: number,
+  detailsUrl: string,
+  height: number
+}
+
 export interface PluginPropsOfConfig {
   isConfig: true,
   onConfigChange: (config: any) => void,
@@ -63,5 +71,6 @@ export interface PluginPropsOfConfig {
     componentId: string
     [PORTAL_HEADER_PLUGIN]?: Partial<HeaderConfig>
     [PORTAL_ACCORDION_PLUGIN]?: Partial<AccordionConfig>
+    [PORTAL_CAROUSEL_PLUGIN]?: Partial<CarouselConfig>
   }
 }

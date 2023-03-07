@@ -13,6 +13,7 @@ export interface PluginConfig {
   detailsUrl: string
   assetId: string
   speedTime: string
+  height: string
 }
 
 export interface PluginProps {

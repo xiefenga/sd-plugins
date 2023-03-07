@@ -40,7 +40,8 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
 
   return (
     <Modal
-      title='插件配置'
+      title='手风琴配置'
+      closeIcon={null}
       {...antdModal(modal)}
       onOk={onModalClickOk}
     >
