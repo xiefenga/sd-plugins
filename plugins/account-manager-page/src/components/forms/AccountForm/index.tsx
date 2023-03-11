@@ -1,10 +1,10 @@
 import React from 'react'
 import pick from 'lodash.pick'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import NiceModal from '@ebay/nice-modal-react'
 import { PlusOutlined } from '@ant-design/icons'
+import { Form, Input, Space, Button } from 'antd'
 import { useBoolean, useMount, useSetState } from 'ahooks'
-import { Form, Input, Space, Button, InputRef } from 'antd'
 
 import type { RuleObject } from 'antd/es/form'
 import type { StoreValue } from 'antd/es/form/interface'
@@ -16,6 +16,7 @@ import IdentityModal from '@/components/modals/IdentityModal'
 import HandoverModal from '@/components/modals/HandoverModal'
 import { LOGIN_NAME_RULES, MAIL_RULES, NAME_RULES, PASSWORD_RULES, PHONE_RULES } from './helper'
 import { AccountFormMode, IdentityValue, DrawerAccountValue, AccountFormValue, AccountFormSubmit, IdentityFormValue, DeleteUserMap } from '@/types/components'
+import { useAntdUnableFocusRef } from '@/hooks/useUnableFocus'
 import './index.less'
 
 interface AccountFormProps {
@@ -47,7 +48,7 @@ const AccountFrom: React.FC<AccountFormProps> = (props) => {
 
   const [form] = Form.useForm<AccountFormValue>()
 
-  const inputRef = useRef<InputRef>(null)
+  const inputRef = useAntdUnableFocusRef()
 
   const [avatar, setAvatar] = useState('')
 
@@ -68,7 +69,6 @@ const AccountFrom: React.FC<AccountFormProps> = (props) => {
       setSignature(account.user_sign ?? '')
       setIdentityList(identityList)
     }
-    console.log(inputRef)
   })
 
   const validateSamePassword = async (_: RuleObject, value: StoreValue) => {
@@ -132,6 +132,8 @@ const AccountFrom: React.FC<AccountFormProps> = (props) => {
           identityList.push(identity)
         }
         setIdentityList([...identityList])
+        form.setFieldsValue({ identity: [...identityList] })
+
       },
     })
   }
@@ -189,7 +191,6 @@ const AccountFrom: React.FC<AccountFormProps> = (props) => {
           id='account-name'
           onClick={openUserMoal}
           disabled={isUpdateMode}
-          onFocus={inputRef.current?.blur}
         />
       </Form.Item>
       <Form.Item label='身份证' name='no'>
@@ -240,21 +241,26 @@ const AccountFrom: React.FC<AccountFormProps> = (props) => {
                     },
                   })
                 }
-                setIdentityList(
-                  identityList.filter(item => identity._key !== item._key)
-                )
+                const list = identityList.filter(item => identity._key !== item._key)
+                if (list.length) {
+                  list[0].is_default = '1'
+                }
+                setIdentityList(list)
+                form.setFieldsValue({ identity: list })
+                form.validateFields(['identity'])
               }}
               onSetDefaultClick={() => {
-                setIdentityList(
-                  identityList.map((item) => {
-                    if (identity._key === item._key) {
-                      item.is_default = '1'
-                    } else if (item.is_default === '1') {
-                      item.is_default = '0'
-                    }
-                    return item
-                  })
-                )
+                const list = identityList.map((item) => {
+                  if (identity._key === item._key) {
+                    item.is_default = '1'
+                  } else if (item.is_default === '1') {
+                    item.is_default = '0'
+                  }
+                  return item
+                })
+                setIdentityList(list)
+                form.setFieldsValue({ identity: list })
+                form.validateFields(['identity'])
               }}
             />
           ))}

@@ -44,6 +44,7 @@ export interface AccountBaseValue {
   email?: string
   photo?: string
   user_sign?: string
+  identity?: any[]
 }
 
 export interface IdentityFormValue {
