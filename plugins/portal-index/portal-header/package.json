@@ -38,5 +38,17 @@
     "react-color": "^2.19.3",
     "sd-plugin-request": "workspace:*",
     "styled-components": "^5.3.6"
+  },
+  "browserslist": {
+    "production": [
+      "firefox >= 72",
+      "> 0.25%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version"
+    ]
   }
 }
