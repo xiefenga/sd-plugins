@@ -10,9 +10,9 @@ import { DefinePlugin, type Configuration, type WebpackPluginInstance } from 'we
 
 import initEnv from './env'
 import { Env } from '../types'
-import { PKG } from '../utils/files'
 import * as paths from './paths'
-import { imageInlineSizeLimit, shouldUseSourceMap, useTypeScript } from '../utils/config'
+import { PKG } from '../utils/files'
+import { useTypeScript, shouldUseSourceMap, imageInlineSizeLimit } from '../utils/config'
 
 const DEFAULT_EXTERNALS = {
   react: 'React',
@@ -51,9 +51,7 @@ const createWebpackConfiguration = (webpackEnv: Env, entry: string): Configurati
   })
 
   return {
-    // target: ['browserslist'], default 
     mode: webpackEnv,
-    // entry: paths.PLUGIN_INDEX,
     entry,
     stats: 'errors-warnings',
     devtool: webpackDevtool,
@@ -91,7 +89,7 @@ const createWebpackConfiguration = (webpackEnv: Env, entry: string): Configurati
     performance: {
       hints: false,  // 解决入口点 > 250KB 警告的问题
     },
-    externals: isEnvProduction ? externals: {},
+    externals: isEnvProduction ? externals : {},
     module: {
       rules: [
         {
@@ -157,18 +155,34 @@ const createWebpackConfiguration = (webpackEnv: Env, entry: string): Configurati
             },
             {
               test: /\.(js|jsx|ts|tsx)$/,
-              exclude: /node_modules/,
+              // exclude: /node_modules/,
               loader: require.resolve('babel-loader'),
               options: {
-                customize:
-                  require.resolve('babel-preset-react-app/webpack-overrides'),
+                customize: require.resolve(
+                  'babel-preset-react-app/webpack-overrides'
+                ),
                 presets: [
                   [
                     require.resolve('babel-preset-react-app'),
                     { runtime: 'automatic' },
                   ],
                 ],
+                // presets: [
+                //   [
+                //     require.resolve('@babel/preset-env'),
+                //     { corejs: 3, bugfixes: true, useBuiltIns: 'usage' },
+                //   ],
+                //   [
+                //     require.resolve('@babel/preset-react'),
+                //     { runtime: 'automatic', development: isEnvDevelopment },
+                //   ],
+                //   [
+                //     require.resolve('@babel/preset-typescript'),
+                //     { isTSX: true, allExtensions:true, allowNamespaces: true },
+                //   ],
+                // ],
                 plugins: [
+                  // require.resolve('@babel/plugin-transform-runtime'),
                   isEnvDevelopment && require.resolve('react-refresh/babel'),
                 ].filter(Boolean),
                 cacheDirectory: true,

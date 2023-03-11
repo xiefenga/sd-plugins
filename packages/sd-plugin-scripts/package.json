@@ -19,7 +19,11 @@
     "email": "x1294699027@gmail.com"
   },
   "license": "ISC",
+  "peerDependencies": {
+    "core-js": ">=3"
+  },
   "dependencies": {
+    "@babel/core": "^7.21.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
     "@svgr/webpack": "^6.5.1",
     "adm-zip": "^0.5.10",
