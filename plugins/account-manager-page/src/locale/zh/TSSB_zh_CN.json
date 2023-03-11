@@ -1,0 +1,15 @@
+{
+	"TSSB.CELL-PHONE_NUMBER":"手机号",
+	"TSSB.MSH":"邮箱(带后缀)",
+	"TSSB.MSN":"邮箱(无后缀)",
+	"TSSB.TELEPHONE":"电话",
+	"TSSB.DLT":"日期小于",
+	"TSSB.FIXED_TELEPHONE":"固定电话",
+	"TSSB.DGT":"日期大于",
+	"TSSB.MAILBOX_NUMBER":"邮箱号",
+	"TSSB.DATE_RANGE":"日期范围",
+	"TSSB.MOBILE_PHONE":"手机",
+	"TSSB.MV":"邮箱校验",
+	"TSSB.MAILBOX":"邮箱",
+	"TSSB.ID_NUMBER":"身份证号"
+}

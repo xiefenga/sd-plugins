@@ -1,0 +1,14 @@
+{
+	"META.NOT_ASSOCIATED":"未关联",
+	"META.METADATA_ANALYSIS":"元数据分析",
+	"META.PCWTDTD":"请确认是否删除数据",
+	"META.RESOURCE_DIRECTORY":"资源目录",
+	"META.ARTICLE_TOTAL":"条共",
+	"META.DSS":"数据结构同步",
+	"META.SARD":"关联资源目录成功",
+	"META.ARD":"关联资源目录",
+	"META.FTLDRDL":"加载数据资源目录列表失败",
+	"META.SYNCHRONIZATION_PROMPT":"同步提示",
+	"META.METADATA_MAINTENANCE":"元数据维护",
+	"META.TDHBAWTRDPCTAADI":"该条数据已关联资源目录请取消关联后删除"
+}

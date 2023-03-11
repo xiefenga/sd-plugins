@@ -1,0 +1,12 @@
+{
+  "id": "4627f2d5-22e3-404d-8bc8-7d5e1332b03a",
+  "type": "app",
+  "main": "",
+  "version": "2",
+  "props": {
+    "type": "customize",
+    "customconf": [
+      "assetId"
+    ]
+  }
+}

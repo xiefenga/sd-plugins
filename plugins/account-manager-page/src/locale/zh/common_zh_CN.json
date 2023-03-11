@@ -1,0 +1,10 @@
+{
+	"common.alignment":"两边对齐",
+	"common.button.noConfig":"请先配置按钮！",
+	"common.image.address":"图片地址",
+	"common.function.noHave":" 功能正在适配中。。。。。。",
+	"common.all":"全部",
+	"common.button.noUrl":"配置地址错误!",
+	"common.empty":"",
+	"common.video.address":"视频地址"
+}

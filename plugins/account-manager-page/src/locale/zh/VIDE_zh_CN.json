@@ -1,0 +1,12 @@
+{
+	"VIDE.ALL_VIDEOS":"全部视频",
+	"VIDE.VSD":"视频源删除",
+	"VIDE.NVS":"视频源新增",
+	"VIDE.NEW_VIDEO":"新增视频",
+	"VIDE.CBEOCS":"不能为空或包含空格",
+	"VIDE.PEAVL":"请输入视频链接",
+	"VIDE.VSM":"视频源修改",
+	"VIDE.GET_VIDEO":"获取视频",
+	"VIDE.VIEW_VIDEO":"查看视频",
+	"VIDE.AYSYWTDTVS":"你确定要删除该视频源"
+}
