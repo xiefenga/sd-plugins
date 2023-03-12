@@ -1,0 +1,13 @@
+{
+	"EXTE.AYSYWTD":"你确定要删除吗",
+	"EXTE.PEOD":"请输入一位数字",
+	"EXTE.FTDEP":"删除外部程序失败",
+	"EXTE.EXIT_FLAG":"退出标志",
+	"EXTE.SCRIPT":"脚本",
+	"EXTE.PES":"流程执行成功",
+	"EXTE.TNCED":"名称不能超过位",
+	"EXTE.TRNAE":"资源库名称已存在",
+	"EXTE.DCEB":"描述不能超过位",
+	"EXTE.EPDS":"成功删除外部程序",
+	"EXTE.EDIT_NEW":"编辑新建"
+}

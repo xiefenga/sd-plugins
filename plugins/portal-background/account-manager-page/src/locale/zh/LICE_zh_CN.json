@@ -1,0 +1,19 @@
+{
+	"LICE.CHTUTF":"点击此处上传文件",
+	"LICE.SUSER_SUBSCRIPTION_MODEL":"用户订阅模式",
+	"LICE.IIDTYSIMVFPRAFFATA":"检测到您的系统缺少有效的license文件，请您重新申请license文件",
+	"LICE.CURRENT_MODE":"激活状态",
+	"LICE.RUNNING_MODE":"运行态模式",
+	"LICE.PSNU":"请选择通知用户",
+	"LICE.OUFAS":"只支持上传文件",
+	"LICE.SOFTWARE_LICENSE_MODE":"软件License模式",
+	"LICE.LICENSE_MODE":"License模式",
+	"LICE.ACTIVATED":"已激活",
+	"LICE.LTDR":"剩余时间不足天",
+	"LICE.MANAGER":"管理器",
+	"LICE.DUE_NOTIFIER":"到期通知人",
+	"LICE.EFFECTIVE_TIME":"有效时间",
+	"LICE.NOT_ACTIVE":"未激活",
+	"LICE.DESIGN_MODE":"设计态模式",
+	"LICE.AND":"，并"
+}

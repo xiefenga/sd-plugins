@@ -1,0 +1,22 @@
+{
+	"UBM.ONE_CLICK":"一键布局将会覆盖页面已有组件，是否继续？",
+	"UBM.CHOOSE_ONE":"关联一个",
+	"UBM.CLICK_LOAD":"点击加载",
+	"UBM.LOADING":"正在加载",
+	"UBM.DEFAULT_TEAM":"默认团队区",
+	"UBM.FAST_REUSE":"快速复用它的组件",
+	"UBM.TIPS2":"2.复用的组件将自动绑定原数据资产，可在数据绑定中解除关联。",
+	"UBM.TIPS1":"1.若所选页面被多次复用，此页面可复用的组件可能要比此页面配置的组件多。",
+	"UBM.EXISTING_PAGE":"已有页面",
+	"UBM.INSERT_ALL":"一键插入",
+	"UBM.PAGE_SELECTED":"页面选择",
+	"UBM.Detail":"详情",
+	"UBM.PLEASE_SELECTED":"请选择",
+	"UBM.ALL_DATA":"全部数据",
+	"UBM.Share":"共享空间",
+	"UBM.Personal":"个人空间",
+	"UBM.NO_MORE":"没有更多了",
+	"UBM.List":"列表",
+	"UBM.Form":"表单",
+	"UBM.Team":"团队空间"
+}

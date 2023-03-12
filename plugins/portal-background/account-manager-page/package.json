@@ -1,0 +1,54 @@
+{
+  "name": "account-manager-page-plugin",
+  "version": "0.0.1",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "refresh": "sd-plugin-scripts init",
+    "start": "sd-plugin-scripts start",
+    "setting": "sd-plugin-scripts setting",
+    "build": "sd-plugin-scripts build",
+    "plugin:build": "npm run build && sd-plugin-scripts pack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ant-design/icons": "^4.8.0",
+    "@ebay/nice-modal-react": "^1.2.8",
+    "ahooks": "^3.7.2",
+    "lodash.pick": "^4.4.0",
+    "react-intl-universal": "^2.6.11",
+    "uuid": "^9.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "antd": "4.21.6",
+    "sd-plugin-request": "workspace:*",
+    "jsencrypt": "3.2.1"
+  },
+  "devDependencies": {
+    "@types/lodash.intersection": "^4.4.7",
+    "@types/lodash.pick": "^4.4.7",
+    "@types/prop-types": "^15.7.5",
+    "@types/querystringify": "^2.0.0",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.9",
+    "@types/uuid": "^9.0.0",
+    "@types/webpack-env": "^1.18.0",
+    "typescript": "^4.8.4",
+    "sd-dev-login": "workspace:^*",
+    "sd-plugin-scripts": "workspace:^*"
+  },
+  "browserslist": {
+    "production": [
+      "firefox >= 72",
+      "> 0.25%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version"
+    ]
+  }
+}
