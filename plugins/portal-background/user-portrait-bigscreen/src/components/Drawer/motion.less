@@ -1,0 +1,135 @@
+@duration: 0.3s;
+
+.mask-motion {
+
+  &-enter,
+  &-appear,
+  &-leave {
+    &-active {
+      transition: all @duration;
+    }
+  }
+
+  &-enter,
+  &-appear {
+    opacity: 0;
+
+    &-active {
+      opacity: 1;
+    }
+  }
+
+  &-leave {
+    opacity: 1;
+
+    &-active {
+      opacity: 0;
+    }
+  }
+}
+
+.panel-motion() {
+
+  &-enter,
+  &-appear,
+  &-leave {
+    &-start {
+      transition: none !important;
+    }
+
+    &-active {
+      transition: all @duration;
+    }
+  }
+}
+
+.panel-motion {
+  &-left {
+    .panel-motion();
+
+    &-enter,
+    &-appear {
+      transform: translateX(-100%);
+
+      &-active {
+        transform: translateX(0);
+      }
+    }
+
+    &-leave {
+      transform: translateX(0);
+
+      &-active {
+        transform: translateX(-100%) !important;
+      }
+    }
+  }
+
+  &-right {
+    .panel-motion();
+
+    &-enter,
+    &-appear {
+      transform: translateX(100%);
+
+      &-active {
+        transform: translateX(0);
+      }
+    }
+
+    &-leave {
+      transform: translateX(0);
+
+      &-active {
+        transform: translateX(100%) !important;
+      }
+    }
+  }
+}
+
+
+
+.drawer {
+
+  .ant-menu-inline,
+  .ant-menu-vertical {
+    border-right: none;
+  }
+
+  &-content {
+    padding-top: 40px;
+  }
+
+  &-left {
+
+    .ant-menu-inline .ant-menu-item:after,
+    .ant-menu-vertical .ant-menu-item:after {
+      left: 0;
+      right: auto;
+    }
+  }
+}
+
+.drawer-wrapper {
+  .drawer {
+    animation: AlphaTo .3s ease-out .3s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+  }
+}
+
+@keyframes AlphaTo {
+  to {
+    opacity: 1;
+    left: 0;
+  }
+}
+
+.parent-demo {
+  position: relative;
+  overflow: hidden;
+
+  .drawer {
+    position: absolute;
+  }
+}

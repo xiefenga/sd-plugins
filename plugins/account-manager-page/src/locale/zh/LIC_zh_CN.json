@@ -1,7 +1,0 @@
-{
-	"LIC.LENCUSER":"您当前绑定License授权码的用户数已达到或超过license允许的最大数量，如有需要，请及时升级license。",
-	"LIC.LENC":"您当前的模块实例数量已达到或超过License的限制，请及时升级license。",
-	"LIC.LEXN":"license到期提醒",
-	"LIC.LEXNC":"您的license将于7天内到期,请及时更新",
-	"LIC.LEN":"License超限提醒"
-}

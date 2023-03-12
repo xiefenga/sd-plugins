@@ -1,0 +1,48 @@
+{
+  "name": "user-portrait-analysis-plugin",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "refresh": "sd-plugin-scripts init",
+    "start": "sd-plugin-scripts start",
+    "setting": "sd-plugin-scripts setting",
+    "build": "sd-plugin-scripts build",
+    "plugin:build": "npm run build && sd-plugin-scripts pack"
+  },
+  "dependencies": {
+    "ahooks": "^3.7.4",
+    "axios": "^1.2.6",
+    "dayjs": "^1.11.7",
+    "echarts": "^5.4.1",
+    "echarts-for-react": "^3.0.2",
+    "querystringify": "^2.2.0",
+    "rc-drawer": "^6.1.2",
+    "rc-tooltip": "^5.2.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "sd-plugin-request": "workspace:*",
+    "styled-components": "^5.3.6",
+    "antd": "4.21.6"
+  },
+  "devDependencies": {
+    "@types/prop-types": "^15.7.5",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.9",
+    "@types/styled-components": "^5.1.26",
+    "@types/webpack-env": "^1.18.0",
+    "sd-dev-login": "workspace:^*",
+    "sd-plugin-scripts": "workspace:^*"
+  },
+  "browserslist": {
+    "production": [
+      "firefox >= 72",
+      "> 0.25%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version"
+    ]
+  }
+}
