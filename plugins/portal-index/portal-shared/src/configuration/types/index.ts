@@ -33,6 +33,7 @@ export type BusinessNavParam = {
 export interface BusinessNav {
   name: string
   url: string
+  isHash?: boolean
   params?: BusinessNavParam[]
 }
 

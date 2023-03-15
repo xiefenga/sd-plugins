@@ -77,13 +77,18 @@ const App: React.FC<AppProps> = (props) => {
     },
     async onSuccess(user) {
       setUser(user)
-      if (apiConfig.queryKey) {
-        const current = await queryTheme(apiConfig.queryKey, user.id)
-        if (current !== null) {
-          setTheme(current)
-        } else {
-          await addTheme(apiConfig.addKey, user.id, theme)
+      try {
+        if (apiConfig.queryKey) {
+          const current = await queryTheme(apiConfig.queryKey, user.id)
+          if (current !== null) {
+            setTheme(current)
+          } else {
+            await addTheme(apiConfig.addKey, user.id, theme)
+          }
         }
+      } catch (_) {
+        setTheme(theme)
+      } finally {
         setLoading(false)
       }
     },

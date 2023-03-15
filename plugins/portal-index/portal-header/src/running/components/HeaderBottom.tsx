@@ -184,9 +184,19 @@ const HeaderBottom = () => {
 
       button.params?.forEach(param => {
         if (param.option === 'SSOCode') {
-          url.searchParams.append(param.name, ssoCode)
+          if (button.isHash && url.hash) {
+            const delimiter = url.hash.includes('?') ? '&' : '?'
+            url.hash += delimiter + `${param.name}=${ssoCode}`
+          } else if (!button.isHash) {
+            url.searchParams.append(param.name, ssoCode)
+          }
         } else if (user) {
-          url.searchParams.append(param.name, user[param.option])
+          if (button.isHash && url.hash) {
+            const delimiter = url.hash.includes('?') ? '&' : '?'
+            url.hash += delimiter + `${param.name}=${user[param.option]}`
+          } else if (!button.isHash) {
+            url.searchParams.append(param.name, user[param.option])
+          }
         }
       })
 

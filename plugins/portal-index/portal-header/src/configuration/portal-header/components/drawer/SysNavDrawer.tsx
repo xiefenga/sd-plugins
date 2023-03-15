@@ -1,17 +1,17 @@
 import React from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
-import { BusinessNav } from 'portal-shared'
 import NiceModal from '@ebay/nice-modal-react'
+import { BusinessNav } from 'portal-shared/configuration'
 import { useModal, antdDrawer } from '@ebay/nice-modal-react'
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
-import { Button, Col, Drawer, Empty, Input, message, Row, Space } from 'antd'
+import { Button, Checkbox, Col, Drawer, Empty, Input, message, Row, Space } from 'antd'
 
 import PlusButton from '../PlusButton'
 import ParamsModal from '../ParamsModal'
 
 const StyledDrawer = styled(Drawer).attrs({
-  width: 500,
+  width: 550,
   closeIcon: null,
   title: '导航配置',
   placement: 'left',
@@ -20,7 +20,7 @@ const StyledDrawer = styled(Drawer).attrs({
 
 export const StyledRow = styled(Row).attrs({ gutter: 20 })`
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 `
 
 interface SysNavDrawerProps {
@@ -39,8 +39,10 @@ const SysNavDrawer: React.FC<SysNavDrawerProps> = (props) => {
   const renderTitle = () => {
     return (
       <StyledRow>
-        <Col span={8}>名称</Col>
-        <Col span={12}>URL</Col>
+        <Col span={6}>名称</Col>
+        <Col span={10}>URL</Col>
+        <Col span={4} style={{ textAlign: 'center' }}>Hash</Col>
+        <Col span={4} style={{ textAlign: 'center' }}>操作</Col>
       </StyledRow>
     )
   }
@@ -65,6 +67,11 @@ const SysNavDrawer: React.FC<SysNavDrawerProps> = (props) => {
         setNavList([...navList])
       }
 
+      const onHashRouteChange = (checked: boolean) => {
+        nav.isHash = checked
+        setNavList([...navList])
+      }
+
       const onRemove = () => {
         navList.splice(index, 1)
         setNavList([...navList])
@@ -83,19 +90,35 @@ const SysNavDrawer: React.FC<SysNavDrawerProps> = (props) => {
       return (
         <div key={index}>
           <StyledRow>
-            <Col span={8}>
-              <Input value={nav.name} onChange={e => onNavNameChange(e.target.value)} />
+            <Col span={6}>
+              <Input
+                size='small'
+                value={nav.name}
+                placeholder='导航名称'
+                onChange={e => onNavNameChange(e.target.value)}
+              />
             </Col>
             <Col span={10}>
-              <Input value={nav.url} onChange={e => onNavUrlChange(e.target.value)} />
+              <Input
+                size='small'
+                value={nav.url}
+                placeholder='路由地址'
+                onChange={e => onNavUrlChange(e.target.value)}
+              />
             </Col>
-            <Col span={3}>
-              <Button type='dashed' onClick={onRemove}>
+            <Col span={4} style={{ textAlign: 'center' }}>
+              <Checkbox
+                checked={nav.isHash}
+                onChange={e => onHashRouteChange(e.target.checked)}
+              />
+            </Col>
+            <Col span={2}>
+              <Button size='small' type='dashed' onClick={onRemove}>
                 <DeleteOutlined />
               </Button>
             </Col>
-            <Col span={3}>
-              <Button type='dashed' onClick={openParamsMoal}>
+            <Col span={2}>
+              <Button size='small' type='dashed' onClick={openParamsMoal}>
                 <PlusOutlined />
               </Button>
             </Col>
