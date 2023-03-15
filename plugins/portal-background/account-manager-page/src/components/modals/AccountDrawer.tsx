@@ -109,14 +109,11 @@ const AccountDrawer: React.FC<AccountDrawerProps> = (props) => {
     } catch (error: any) {
       if (error && error.data && error.data.message) {
         message.error(error.data.message, 5)
+      } else if(accountCode) {
+        message.error('账户更新失败')
       } else {
-        message.error('删除失败')
+        message.error('账户创建失败')
       }
-      // if (mode === 'update' && accountCode) {
-      //   setTimeout(() => {
-      //     run(accountCode)
-      //   }, 500)
-      // }
     }
   }
 

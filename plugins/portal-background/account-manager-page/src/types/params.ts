@@ -27,6 +27,9 @@ export interface UserItem {
   roleList: string[]
   leader_name?: string
   authority?: number
+  name: string
+  no: string
+  password?: string
 }
 
 export type AccountParam = CreateAccountParam | UpdateAccountParam

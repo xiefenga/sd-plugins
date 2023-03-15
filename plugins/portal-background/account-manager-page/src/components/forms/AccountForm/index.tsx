@@ -98,17 +98,13 @@ const AccountFrom: React.FC<AccountFormProps> = (props) => {
       photo: avatar,
       user_sign: signature,
     })
-    // avatar && form.setFieldValue('photo', avatar)
-    // signature && form.setFieldValue('user_sign', signature)
-
-    const loginName = form.getFieldValue('loginName')
 
     const param = JSON.parse(JSON.stringify({
       ...form.getFieldsValue(),
       deleteUserMap,
       userItemList: identityList.map(identity => ({
-        loginName,
         ...pick(identity, NECESSARY_IDENTITY_KEYS),
+        ...form.getFieldsValue(),
       })),
     }))
     setTrue()

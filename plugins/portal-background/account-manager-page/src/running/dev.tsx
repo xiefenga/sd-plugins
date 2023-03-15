@@ -1,8 +1,8 @@
 import App from '@/App'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-require('../index.css')
-require('antd/dist/antd.css')
+import '../index.css'
+import 'antd/dist/antd.css'
 
 export default () => {
   const root = createRoot(
@@ -10,7 +10,7 @@ export default () => {
   )
   root.render(
     <React.StrictMode>
-      <App assetId='ccf54bf3-ea7b-aac0-2ee3-6ff39eda1e33' />
+      <App assetId='ec7c93f2-ed52-073f-3928-2e41b63b8aca' />
     </React.StrictMode>
   )
 }

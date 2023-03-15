@@ -98,6 +98,12 @@ export const createAccount = async (param: AccountParam) => {
     param.password = EncryptPassword(param.password)
   }
 
+  param.userItemList.forEach(item => {
+    if (item.password) {
+      item.password = EncryptPassword(item.password)
+    }
+  })
+
   await request.post('/system/account/create', param)
 }
 

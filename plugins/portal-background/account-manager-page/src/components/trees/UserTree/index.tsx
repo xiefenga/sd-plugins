@@ -137,10 +137,6 @@ const UserTree: React.FC<UserTreeProps> = ({
         : []
     )
 
-    if (checked) {
-      console.log(node)
-    }
-
     onChoose(
       checked
         ? (node as DataNode).meta ?? null

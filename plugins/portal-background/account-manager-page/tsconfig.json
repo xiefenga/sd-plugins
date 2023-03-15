@@ -19,7 +19,7 @@
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true, // for devlopment debugger tsx source
     "types": [
-      // "webpack-env"
+      "webpack-env"
     ],
     "paths": {
       "@/*": [
