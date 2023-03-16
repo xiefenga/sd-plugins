@@ -129,7 +129,7 @@ const SysNavDrawer: React.FC<SysNavDrawerProps> = (props) => {
   }
 
   const onPlusButtonClick = () => {
-    const last = navList.at(-1)
+    const last = navList[navList.length - 1]
     if (!last || (last.name && last.url)) {
       setNavList([...navList, { name: '', url: '' }])
     } else {

@@ -119,7 +119,7 @@ const SubNavDrawer: React.FC<SubNavDrawerProps> = (props) => {
   }
 
   const onPlusClick = () => {
-    const lastNav = navList.at(-1)
+    const lastNav = navList[navList.length - 1]
     if (!lastNav || (lastNav.url && lastNav.name)) {
       setNavList([...navList, { name: '', url: '' }])
     } else {
