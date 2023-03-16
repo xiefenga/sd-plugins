@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import React, { useState } from 'react'
+import { Drawer } from 'antd'
 
 import Search from './Search'
-import Drawer from '@/components/Drawer'
 
 const Button = styled.button`
   position: absolute;
@@ -14,6 +14,17 @@ const Button = styled.button`
   border: none;
   color: #5EBFE9;
   font-size: 20px;
+`
+
+const StyledDrawer = styled(Drawer)`
+  .ant-drawer-content {
+    margin-top: 100px;
+    height: auto;
+  }
+  .ant-drawer-body {
+    padding: 0;
+    background: transparent;
+  }
 `
 
 const UserSearch = () => {
@@ -32,15 +43,16 @@ const UserSearch = () => {
       <Button onClick={openDrawer}>
         点击搜索
       </Button>
-      <Drawer 
+      <StyledDrawer 
         width={460} 
-        open={open} 
+        visible={open} 
         destroyOnClose
         onClose={onClose} 
         placement='right'
+        closable={false}
       >
         <Search />
-      </Drawer>
+      </StyledDrawer>
     </React.Fragment>
   )
 }

@@ -85,7 +85,7 @@ const UserTag: React.FC<UserTagProps> = (props) => {
         {...position}
         key={JSON.stringify(position)}
       >
-        {tags[index]}
+        {tags[index] ?? ''}
       </TextDecorator>
     ))
   }

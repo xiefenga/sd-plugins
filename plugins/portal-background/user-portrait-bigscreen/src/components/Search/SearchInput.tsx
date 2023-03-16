@@ -1,4 +1,10 @@
+import { useState } from 'react'
+import { useDebounceFn } from 'ahooks'
 import styled from 'styled-components'
+import { AutoComplete, AutoCompleteProps, message, Empty } from 'antd'
+
+import { UserSearchResp } from '@/types'
+import { searchUser } from '@/api/assets'
 import inputImage from '@/assets/input.png'
 import searchImage from '@/assets/search.png'
 
@@ -53,13 +59,71 @@ const SearchImage = styled.img`
   height: 20px;
 `
 
-const SearchInput = () => {
+interface SearchInputProps {
+  setSelectUser(_?: UserSearchResp): void
+}
+
+const SearchInput = ({ setSelectUser }: SearchInputProps) => {
+
+  const [selectValue, setSelectValue] = useState<UserSearchResp>()
+
+  const [value, setValue] = useState('')
+
+  const [options, setOptions] = useState<AutoCompleteProps['options']>([])
+
+  const { run: onSearch } = useDebounceFn(async (value: string) => {
+    if (value.trim()) {
+      try {
+        const { data } = await searchUser(value.trim())
+        setOptions(data.map((item) => ({ 
+          label: (<div>
+            {item.name} - {item.user_idcode} - {item.office_name}
+            {/* <p></p> */}
+            {/* <p>{item.user_idcode}</p> */}
+          </div>), 
+          value: JSON.stringify(item), 
+        })))
+      } catch (error) {
+        message.error('查询失败')
+        console.log(error)
+        setOptions([])
+      }
+    } else {
+      setOptions([])
+    }
+  }, { wait: 500 })
+
+  const onChange = (data: string) => {
+    try {
+      const raw = JSON.parse(data) as UserSearchResp
+      setValue(raw.name)
+      setSelectValue(raw)
+    } catch (_) {
+      setValue(data)
+    }
+  }
+
   return (
     <Div>
-      <Input type='text' />
-      <Button>
+      <AutoComplete
+        value={value}
+        options={options}
+        onChange={onChange}
+        onSearch={onSearch}
+        style={{ width: 328 }}
+        notFoundContent={<Empty />}
+      >
+        <Input type='text' />
+      </AutoComplete>
+      
+      <Button onClick={() => {
+        setSelectUser(selectValue)
+      }}>
         <Span>
-          <SearchImage draggable={false} src={searchImage} />
+          <SearchImage
+            draggable={false}
+            src={searchImage}
+          />
           <span>搜索</span>
         </Span>
       </Button>

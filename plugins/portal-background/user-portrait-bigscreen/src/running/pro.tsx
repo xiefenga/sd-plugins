@@ -1,3 +1,4 @@
+import '@/utils/runtime'
 import ScreenApp from '@/App'
 import { ConfigurationInput } from '@/types'
 import { assertConfiguration } from '@/utils'

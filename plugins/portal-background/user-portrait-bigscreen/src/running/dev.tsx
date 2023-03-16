@@ -4,6 +4,7 @@ import { createGlobalStyle } from 'styled-components'
 
 import ScreenApp from '@/App'
 import { devConfiguration } from '@/config'
+import 'antd/dist/antd.css'
 
 const DevGlobalStyle = createGlobalStyle`
   :root, body, #root {

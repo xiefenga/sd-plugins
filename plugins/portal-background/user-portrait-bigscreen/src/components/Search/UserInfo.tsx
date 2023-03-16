@@ -57,15 +57,15 @@ const NameDiv = styled.div`
 interface UserInfoProps {
   avatar: string
   name: string
-  rank: string
-  code: string
+  user_rank: string
+  user_idcode: string
   age: number
-  organization: string
+  office_name: string
 }
 
 const UserInfo: React.FC<UserInfoProps> = (props) => {
 
-  const { avatar, name, rank, code, age, organization } = props
+  const { avatar, name, user_rank: rank, user_idcode: code, age, office_name: organization } = props
 
   return (
     <Div>
@@ -78,9 +78,9 @@ const UserInfo: React.FC<UserInfoProps> = (props) => {
         </FlexDiv>
         <Space y={12} />
         <FlexDiv>
-          <Text label='编号'>{code}</Text>
+          <Text max={110} label='编号'>{code}</Text>
           <Space x={14} />
-          <Text label='年龄'>{age}</Text>
+          <Text max={30} label='年龄'>{age}</Text>
         </FlexDiv>
         <Space y={12} />
         <Text newLine space={4} label='所在机构' color='#5EBFE9'>

@@ -12,14 +12,14 @@ const Div = styled.div<{ color: string }>`
   line-height: 20px;
 `
 
-const Span = styled.span<{ color: string }>`
+const Span = styled.span<{ color: string, max?: number }>`
   display: inline-block;
   color: ${prop => prop.color};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: -5px;
-  max-width: 100%;
+  max-width: ${props => props.max? props.max + 'px' : '100%'};
 `
 
 interface TextProps {
@@ -27,10 +27,11 @@ interface TextProps {
   label?: string
   newLine?: boolean
   space?: number
+  max?: number
 }
 
 const Text: React.FC<PropsWithChildren<TextProps>> = (props) => {
-  const { color = 'rgba(255, 255, 255, 0.6)', label, newLine = false, space = 0 } = props
+  const { max, color = 'rgba(255, 255, 255, 0.6)', label, newLine = false, space = 0 } = props
   const renderLabel = () => {
     return label == null
       ? null
@@ -53,7 +54,7 @@ const Text: React.FC<PropsWithChildren<TextProps>> = (props) => {
         placement='top'
         overlay={props.children}
       >
-        <Span color={color}>
+        <Span max={max} color={color}>
           {props.children}
         </Span>
       </Tooltip>

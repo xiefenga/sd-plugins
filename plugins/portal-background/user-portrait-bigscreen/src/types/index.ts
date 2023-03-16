@@ -31,3 +31,16 @@ export type ConfigurationInput = {
 export type ConfigurationOuput = {
   [key in ConfigurationMapValues]: string
 }
+
+export interface UserSearchResp {
+  age: number
+	birthday: string
+	login_name: string
+	name: string
+	office_code: string
+	office_name: string
+	user_idcode: string
+	user_rank: string
+	user_tag: string
+  avatar: string
+}
