@@ -156,6 +156,13 @@ const createWebpackConfiguration = (webpackEnv: Env, entry: string): Configurati
             {
               test: /\.(js|jsx|ts|tsx)$/,
               // exclude: /node_modules/,
+              exclude: {
+                and: [/node_modules/],
+                not: [
+                  /\.sd-plugin-0x1461a0/,
+                ],
+              },
+              
               loader: require.resolve('babel-loader'),
               options: {
                 customize: require.resolve(
