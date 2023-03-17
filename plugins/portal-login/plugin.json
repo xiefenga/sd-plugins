@@ -1,0 +1,17 @@
+{
+  "id": "d86909ba-3a61-412f-bcb1-0bf65db6de2a",
+  "type": "login",
+  "main": "",
+  "name": "门户登录",
+  "version": "2",
+  "props": {
+    "type": "customize",
+    "$config": {
+      "pageTitle": "信息集成平台",
+      "welcomeTitle": "信息集成平台",
+      "bottomText": "中国人民解放军战略支援部队",
+      "logoUrl": "/storage_area/devops/dataflow/secondary_dev/logo.jpg",
+      "bgUrl": "/storage_area/devops/dataflow/secondary_dev/login_bg"
+    }
+  }
+}

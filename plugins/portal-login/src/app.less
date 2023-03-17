@@ -1,0 +1,266 @@
+@import "./variables.less";
+
+@media (max-width: 1440px) {
+  .login-page {
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    .ant-layout-content {
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      flex: 1;
+      min-height: 710px;
+      overflow: auto;
+
+      .center-box {
+        z-index: 99;
+        width: 100%;
+        height: 100%;
+        padding: 0 80px;
+        // background: @white;
+        border-radius: 5px;
+        // display: flex;
+        justify-content: space-between;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // box-shadow:5px 0px 65px rgba(70,128,255,0.2);
+
+        .center-box-top {
+          height: 16%;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          padding-top: 3%;
+
+          .company-logo {
+            width: 120px;
+            height: 44px;
+          }
+
+          .downAndHome {
+            height: 60px;
+            line-height: 60px;
+          }
+        }
+
+        // .center-box-top-register{
+        //   height: 11%;
+        //   padding-top: 2%;
+        // }
+
+        .center-box-center {
+          display: flex;
+          justify-content: center;
+
+          .logos {
+            .login-logo {
+              width: 100%;
+              display: block;
+              border-bottom-left-radius: 8px;
+              border-top-left-radius: 8px;
+            }
+          }
+
+          .login-zone {
+            width: 400px;
+            background: #fafafa;
+            // border-bottom-right-radius: 8px;
+            // border-top-right-radius: 8px;
+            border-radius: 8px;
+            overflow: hidden;
+
+            form {
+              background: transparent;
+
+              .ant-legacy-form-item-with-help {
+                margin-bottom: 8px;
+              }
+
+              .ant-input-prefix {
+                img {
+                  width: 16px;
+                }
+              }
+            }
+
+            .ant-btn.btn-fetch-captcha:hover,
+            .ant-btn.btn-fetch-captcha:focus {
+              box-shadow: none;
+            }
+          }
+        }
+
+        .center-box-center-register {
+          .login-logo {
+            margin-top: 5%;
+          }
+        }
+      }
+    }
+
+    .ant-layout-footer {
+      background: transparent;
+      text-align: center;
+      color: @white;
+      position: fixed;
+      bottom: 0;
+      width: 50%;
+      margin-left: 25%;
+    }
+  }
+}
+
+@media (min-width: 1441px) {
+  .login-page {
+    height: 100%;
+    width: 100%;
+    // background-image: url("./image/bg.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    .ant-layout-content {
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      flex: 1;
+      min-height: 900px;
+      overflow: auto;
+
+      .center-box {
+        z-index: 99;
+        width: 100%;
+        height: 100%;
+        padding: 0 120px;
+        // background: @white;
+        border-radius: 5px;
+        // display: flex;
+        justify-content: space-between;
+        // box-shadow:5px 0px 65px rgba(70,128,255,0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .center-box-top {
+          height: 16%;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          padding-top: 3%;
+
+          .company-logo {
+            width: 120px;
+            height: 44px;
+          }
+
+          .downAndHome {
+            height: 60px;
+            line-height: 60px;
+          }
+        }
+
+        .center-box-center {
+          display: flex;
+          justify-content: center;
+
+          .logos {
+            .login-logo {
+              width: 100%;
+              display: block;
+              // border-bottom-left-radius: 8px;
+              // border-top-left-radius: 8px;
+              border-radius: 8px;
+            }
+          }
+
+          .login-zone {
+            width: 550px;
+            height: 600px;
+            background: #fafafa;
+            // border-bottom-right-radius: 8px;
+            // border-top-right-radius: 8px;
+            border-radius: 8px;
+
+            form {
+              background: transparent;
+
+              .ant-legacy-form-item-with-help {
+                margin-bottom: 8px;
+              }
+
+              .ant-input-prefix {
+                img {
+                  width: 16px;
+                }
+              }
+            }
+
+            .ant-btn.btn-fetch-captcha:hover,
+            .ant-btn.btn-fetch-captcha:focus {
+              box-shadow: none;
+            }
+          }
+        }
+      }
+    }
+
+    .ant-layout-footer {
+      background: transparent;
+      text-align: center;
+      color: @white;
+      position: fixed;
+      bottom: 0;
+      width: 50%;
+      margin-left: 25%;
+    }
+  }
+}
+
+.img-bg {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  object-fit: cover;
+  object-position: top;
+}
+
+.vedio-bg {
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  object-fit: cover;
+}
+
+.downLoadCode {
+
+  .ant-modal-close,
+  .ant-modal-footer {
+    display: none;
+  }
+}
+
+.downAndHome-popover {
+  .ant-popover-arrow {
+    display: none;
+  }
+
+  .ant-popover-inner {
+    background: rgba(0, 0, 0, 0);
+    box-shadow: none;
+
+    .ant-popover-inner-content {
+      padding: 0;
+    }
+  }
+}
