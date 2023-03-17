@@ -1,0 +1,9 @@
+{
+  "watch": [
+    "src/templates"
+  ],
+  "ext": "ts",
+  "exec": [
+    "ts-node scripts/auto-import.ts"
+  ]
+}
