@@ -49,6 +49,8 @@ export interface HeaderConfig {
   currentTheme: Theme
   busninessNavs: BusinessNav[]
   topHeight: number
+  defaultLogo: string
+  noticeLink: string
   apiConfig: {
     addKey: string
     queryKey: string

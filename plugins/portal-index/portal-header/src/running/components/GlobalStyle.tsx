@@ -9,8 +9,8 @@ export const CustomeFontStyle =  createGlobalStyle`
   }
 
   body {
-    font-family: HarmonyOS_Sans_SC;
     font-weight: 400;
+    font-family: HarmonyOS_Sans_SC!important;
     color: ${props => props.theme.font.default};
   }
 `

@@ -2,6 +2,7 @@ import React from 'react'
 import { Theme } from 'portal-shared'
 import styled from 'styled-components'
 import { useState, useRef } from 'react'
+import { DEFAULT_THEME  } from 'portal-shared'
 import NiceModal from '@ebay/nice-modal-react'
 import { Button, Drawer, Row, Space } from 'antd'
 import { useModal, antdDrawer } from '@ebay/nice-modal-react'
@@ -9,7 +10,6 @@ import { useModal, antdDrawer } from '@ebay/nice-modal-react'
 import PlusButton from '../PlusButton'
 import ThemeCard from '../theme/ThemeCard'
 import ThemeModal from '../theme/ThemeModal'
-import { DEFAULT_THEME  } from '@/utils/assets'
 
 
 const ThemeConfigDrawer = styled(Drawer).attrs({
@@ -21,6 +21,7 @@ const ThemeConfigDrawer = styled(Drawer).attrs({
 })``
 
 interface ThemeDrawerPorps {
+  defaultLogo?: string
   themes: Theme[]
   onThemesChange: (themes: Theme[]) => void
 }
@@ -29,11 +30,13 @@ const ThemeDrawer: React.FC<ThemeDrawerPorps> = (props) => {
 
   const modal = useModal()
 
-  const { themes, onThemesChange } = props
+  const { themes, onThemesChange, defaultLogo = '' } = props
+
+  const defaultTheme = { ...DEFAULT_THEME, logo: defaultLogo }
 
   const ditryRef = useRef(false)
 
-  const [themeList, setThemeList] = useState(() => [DEFAULT_THEME].concat(themes))
+  const [themeList, setThemeList] = useState(() => [defaultTheme].concat(themes))
 
   const updateThemeList = (value: Theme[]) => {
     ditryRef.current = true

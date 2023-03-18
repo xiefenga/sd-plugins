@@ -3,10 +3,11 @@ import { useSetState } from 'ahooks'
 import { Theme } from 'portal-shared'
 import styled from 'styled-components'
 import NiceModal from '@ebay/nice-modal-react'
-import { Button, Form, Input, InputNumber, Modal, Switch } from 'antd'
+import { Button, Col, Form, Input, InputNumber, Modal, Row, Switch } from 'antd'
 import { useModal, antdModal } from '@ebay/nice-modal-react'
 import { SubNav, BusinessNav, HeaderConfig as PluginConfig } from 'portal-shared/configuration'
 
+import ImageUpload from './ImageUpload'
 import ThemeDrawer from './drawer/ThemeDrawer'
 import SysNavDrawer from './drawer/SysNavDrawer'
 import StyledNavDrawer from './drawer/SubNavDrawer'
@@ -49,6 +50,8 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
     apiConfig,
     topHeight = 160,
     busninessNavs,
+    defaultLogo,
+    noticeLink,
   } = state
 
   const onSwitchChange = (checked: boolean) => {
@@ -106,6 +109,7 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
 
   const openThemeDrawer = () => {
     NiceModal.show(ThemeDrawer, {
+      defaultLogo,
       themes: themes ?? [],
       onThemesChange(themes: Theme[]) {
         setState({ themes })
@@ -121,6 +125,9 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
   const initialValue = {
     apiConfig,
     topHeight,
+    defaultLogo,
+    noticeLink,
+    searchUrl,
   }
 
   return (
@@ -156,6 +163,15 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
             点击配置
           </ConfigButton>
         </Form.Item>
+        <Form.Item 
+          name='defaultLogo' 
+          label='默认Logo'
+          rules={[
+            { required: true, message: '请上传默认Logo' },
+          ]}
+        >
+          <ImageUpload tip='上传Logo' />
+        </Form.Item>
         <Form.Item
           name='topHeight'
           label='顶部高度'
@@ -171,26 +187,25 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
             style={{ width: '58%' }}
           />
         </Form.Item>
-        <Form.Item label='搜索地址'>
-          <Input
-            size='small'
-            value={searchUrl}
-            onChange={e => setState({ searchUrl: e.target.value })}
-          />
+        <Form.Item 
+          name='searchUrl' 
+          label='搜索地址'
+          wrapperCol={{ span: 15 }}
+          rules={[
+            { required: true, message: '请输入搜索地址' },
+          ]}
+        >
+          <Input size='small' placeholder='请输入搜索地址' />
         </Form.Item>
-        <Form.Item label='工作台名称'>
-          <Input
-            size='small'
-            value={workbanch?.text}
-            onChange={e => setWorkbachName(e.target.value)}
-          />
-        </Form.Item>
-        <Form.Item label='工作台地址'>
-          <Input
-            size='small'
-            value={workbanch?.url}
-            onChange={e => setWorkbachUrl(e.target.value)}
-          />
+        <Form.Item 
+          name='noticeLink' 
+          label='消息管理地址'
+          wrapperCol={{ span: 15 }}
+          rules={[
+            { required: true, message: '请输入消息管理地址' },
+          ]}
+        >
+          <Input size='small' placeholder='请输入消息管理地址' />
         </Form.Item>
         <Form.Item
           required
@@ -212,6 +227,29 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
           ]}
         >
           <ApiConfigInput />
+        </Form.Item>
+        <Form.Item 
+          label='个人工作台配置'
+          wrapperCol={{ span: 20 }}
+        >
+          <Row gutter={10}>
+            <Col span={6}>
+              <Input
+                size='small'
+                placeholder='名称'
+                value={workbanch?.text}
+                onChange={e => setWorkbachName(e.target.value)}
+              />
+            </Col>
+            <Col span={15}>
+              <Input
+                size='small'
+                placeholder='地址'
+                value={workbanch?.url}
+                onChange={e => setWorkbachUrl(e.target.value)}
+              />
+            </Col>
+          </Row>
         </Form.Item>
       </Form>
     </StyledMoal>

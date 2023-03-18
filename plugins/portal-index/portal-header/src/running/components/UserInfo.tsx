@@ -6,9 +6,9 @@ import { Dropdown, Avatar, message } from 'antd'
 
 import { logout } from '@/api'
 import ThemedMenu from './styled/AntdMenu'
+import { defaultAvatar } from '@/utils/assets'
 import { usePluginConfig } from '@/running/hooks'
 import DownOutlined from './icons/DownOutlined.svg'
-import defaultAvatar from '@/assets/default-avatar.png'
 
 const UserInfoWrapper = styled.div`
   display: flex;

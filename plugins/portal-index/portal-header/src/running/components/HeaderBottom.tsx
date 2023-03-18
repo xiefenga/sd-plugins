@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { useEffect, useState } from 'react'
-import { Theme, useStore } from 'portal-shared'
+import { useEffect, useMemo, useState } from 'react'
+import { Theme, useStore, DEFAULT_THEME } from 'portal-shared'
 import { Dropdown, Popover, Badge, Spin, MenuProps, message, Tabs } from 'antd'
 
 import { Notice } from '@/types'
@@ -9,7 +9,6 @@ import { queryNotification } from '@/api'
 import { updateTheme } from '@/api/service'
 import { ThemedTabs } from './styled/AntdTabs'
 import { ThemedMenu } from './styled/AntdMenu'
-import { DEFAULT_THEME } from '@/utils/assets'
 import { usePluginConfig } from '@/running/hooks'
 
 import BellOutlined from './icons/BellOutlined.svg'
@@ -25,7 +24,6 @@ const BusinessWrapper = styled.div`
   box-sizing: content-box;
 
   .index-button {
-    /* cursor: pointer; */
     padding: 0 25px;
     line-height: 58px;
     color: ${props => props.theme.font.active};
@@ -50,7 +48,6 @@ const BusinessWrapper = styled.div`
     display: flex;
     border-top: 1px solid #EEE;
     border-bottom: 1px solid #EEE;
-    /* margin-left: auto; */
 
     .btn-item {
       cursor: pointer;
@@ -139,7 +136,13 @@ const HeaderBottom = () => {
     themes = [],
     busninessNavs = [],
     apiConfig,
+    defaultLogo = '',
+    noticeLink,
   } = usePluginConfig()
+
+  const defaultTheme = useMemo(() => {
+    return { ...DEFAULT_THEME, logo: defaultLogo }
+  }, [defaultLogo])
 
   const user = useStore(state => state.user)
 
@@ -149,7 +152,7 @@ const HeaderBottom = () => {
 
   const setTheme = useStore(state => async (theme: Theme) => {
     if (apiConfig.updateKey && user) {
-      await updateTheme(apiConfig.updateKey, user.id, theme)
+      await updateTheme(apiConfig.updateKey, user.id, theme).catch(() => {})
     }
     state.changeTheme(theme)
   })
@@ -217,7 +220,7 @@ const HeaderBottom = () => {
 
   const renderThemeMenu = () => {
 
-    const themeList = [DEFAULT_THEME].concat(themes)
+    const themeList = [defaultTheme].concat(themes)
 
     const items = themeList.map(theme => ({
       key: theme.name,
@@ -226,7 +229,7 @@ const HeaderBottom = () => {
 
     const changeTheme: MenuProps['onClick'] = ({ key }) => {
       if (key !== theme.name) {
-        const targetTheme = themeList.find(item => item.name === key) ?? DEFAULT_THEME
+        const targetTheme = themeList.find(item => item.name === key) ?? defaultTheme
         // 图片预加载
         const image = new Image()
         image.addEventListener('load', () => {
@@ -249,6 +252,12 @@ const HeaderBottom = () => {
     )
   }
 
+  const goNoticeLink = () => {
+    if (noticeLink) {
+      window.open(noticeLink)
+    }
+  }
+
   const renderNoticeContent = () => {
     if (loading) {
       return (
@@ -268,7 +277,7 @@ const HeaderBottom = () => {
           <Badge count={count} overflowCount={99} />
         </div>
         <NoticeList list={noticeList} />
-        <div className='all-notice-button'>
+        <div className='all-notice-button' onClick={goNoticeLink}>
           查看全部通知
         </div>
       </NoticePopover>

@@ -4,11 +4,11 @@ import { useState } from 'react'
 import { useRequest } from 'ahooks'
 import styled from 'styled-components'
 import { useStore } from 'portal-shared'
+import { DEFAULT_THEME } from 'portal-shared'
 import { ThemeProvider } from 'styled-components'
 import { HeaderConfig as PluginConfig } from 'portal-shared/configuration'
 
 import Loading from './components/Loading'
-import { DEFAULT_THEME } from '@/utils/assets'
 import HeaderTop from './components/HeaderTop'
 import { querySSOCode, queryUser } from '@/api'
 import GlobalStyle from './components/GlobalStyle'
@@ -32,7 +32,11 @@ const App: React.FC<AppProps> = (props) => {
 
   const { pluginConfig } = props
 
-  const { apiConfig } = pluginConfig
+  const { apiConfig, defaultLogo = '' } = pluginConfig
+
+  if (!defaultLogo) {
+    message.error('缺少默认Logo')
+  }
 
   if (
     !apiConfig ||
@@ -46,7 +50,7 @@ const App: React.FC<AppProps> = (props) => {
 
   const theme = useStore(state => {
     if (state.theme.name === '默认主题') {
-      return DEFAULT_THEME
+      return { ...DEFAULT_THEME, logo: defaultLogo }
     } else {
       return state.theme
     }
@@ -87,7 +91,7 @@ const App: React.FC<AppProps> = (props) => {
           }
         }
       } catch (_) {
-        setTheme(theme)
+        message.error('当前主题数据请求失败，使用默认主题')
       } finally {
         setLoading(false)
       }
