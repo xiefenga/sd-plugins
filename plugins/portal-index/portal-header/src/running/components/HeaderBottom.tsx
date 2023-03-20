@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { useEffect, useMemo, useState } from 'react'
 import { Theme, useStore, DEFAULT_THEME } from 'portal-shared'
-import { Dropdown, Popover, Badge, Spin, MenuProps, message, Tabs } from 'antd'
+import { Dropdown, Popover, Badge, Spin, MenuProps, message, Tabs, Tooltip } from 'antd'
 
 import { Notice } from '@/types'
 import NoticeList from './NoticeList'
@@ -138,6 +138,7 @@ const HeaderBottom = () => {
     apiConfig,
     defaultLogo = '',
     noticeLink,
+    old,
   } = usePluginConfig()
 
   const defaultTheme = useMemo(() => {
@@ -288,6 +289,12 @@ const HeaderBottom = () => {
     searchUrl && window.open(searchUrl)
   }
 
+  const goOld = () => {
+    if (old) {
+      location.href = old
+    }
+  }
+
   return (
     <BusinessWrapper>
       <div className='index-button'>
@@ -320,9 +327,11 @@ const HeaderBottom = () => {
             </Badge>
           </span>
         </Popover>
-        <span className='btn-item'>
-          <SettingOutlined />
-        </span>
+        <Tooltip placement='bottom' title='回到旧版'>
+          <span className='btn-item' onClick={goOld}>
+            <SettingOutlined />
+          </span>
+        </Tooltip>
       </div>
     </BusinessWrapper>
   )

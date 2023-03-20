@@ -21,7 +21,15 @@ const StyledMoal = styled(Modal).attrs({
   title: '顶栏配置',
   cancelText: '取消',
   destroyOnClose: true,
-})``
+})`
+.ant-modal-footer {
+  text-align: center;
+
+  button {
+    width: 150px;
+  }
+}
+`
 
 
 const ConfigButton = styled(Button).attrs({ type: 'primary', size: 'small' })``
@@ -52,6 +60,7 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
     busninessNavs,
     defaultLogo,
     noticeLink,
+    old,
   } = state
 
   const onSwitchChange = (checked: boolean) => {
@@ -128,6 +137,7 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
     defaultLogo,
     noticeLink,
     searchUrl,
+    old,
   }
 
   return (
@@ -146,25 +156,34 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
             onChange={onSwitchChange}
           />
         </Form.Item>
-        {isLevel && (
-          <Form.Item label='下级导航'>
-            <ConfigButton onClick={openSubNavDrawer}>
-              点击配置
-            </ConfigButton>
-          </Form.Item>
-        )}
-        <Form.Item label='导航按钮'>
-          <ConfigButton onClick={openSysNavDrawer}>
-            点击配置
-          </ConfigButton>
-        </Form.Item>
-        <Form.Item label='主题配置'>
-          <ConfigButton onClick={openThemeDrawer}>
-            点击配置
-          </ConfigButton>
-        </Form.Item>
-        <Form.Item 
-          name='defaultLogo' 
+        <Row gutter={20} style={{ paddingLeft: 56 }}>
+          {isLevel && (
+            <Col span={5}>
+              <Form.Item labelCol={{ span: 12 }} label='下级导航'>
+                <ConfigButton onClick={openSubNavDrawer}>
+                  点击配置
+                </ConfigButton>
+              </Form.Item>
+            </Col>
+          )}
+          <Col span={5}>
+            <Form.Item labelCol={{ span: 12 }} label='导航按钮'>
+              <ConfigButton onClick={openSysNavDrawer}>
+                点击配置
+              </ConfigButton>
+            </Form.Item>
+          </Col>
+          <Col span={5}>
+            <Form.Item labelCol={{ span: 12 }} label='主题配置'>
+              <ConfigButton onClick={openThemeDrawer}>
+                点击配置
+              </ConfigButton>
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Form.Item
+          name='defaultLogo'
           label='默认Logo'
           rules={[
             { required: true, message: '请上传默认Logo' },
@@ -187,8 +206,18 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
             style={{ width: '58%' }}
           />
         </Form.Item>
-        <Form.Item 
-          name='searchUrl' 
+        <Form.Item
+          name='old'
+          label='旧版地址'
+          wrapperCol={{ span: 15 }}
+          rules={[
+            { required: true, message: '请输入旧版地址' },
+          ]}
+        >
+          <Input size='small' placeholder='请输入旧版地址' />
+        </Form.Item>
+        <Form.Item
+          name='searchUrl'
           label='搜索地址'
           wrapperCol={{ span: 15 }}
           rules={[
@@ -197,8 +226,8 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
         >
           <Input size='small' placeholder='请输入搜索地址' />
         </Form.Item>
-        <Form.Item 
-          name='noticeLink' 
+        <Form.Item
+          name='noticeLink'
           label='消息管理地址'
           wrapperCol={{ span: 15 }}
           rules={[
@@ -228,12 +257,12 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
         >
           <ApiConfigInput />
         </Form.Item>
-        <Form.Item 
+        <Form.Item
           label='个人工作台配置'
           wrapperCol={{ span: 20 }}
         >
           <Row gutter={10}>
-            <Col span={6}>
+            <Col span={4}>
               <Input
                 size='small'
                 placeholder='名称'
@@ -241,7 +270,7 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
                 onChange={e => setWorkbachName(e.target.value)}
               />
             </Col>
-            <Col span={15}>
+            <Col span={20}>
               <Input
                 size='small'
                 placeholder='地址'

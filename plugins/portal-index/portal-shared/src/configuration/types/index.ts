@@ -51,6 +51,7 @@ export interface HeaderConfig {
   topHeight: number
   defaultLogo: string
   noticeLink: string
+  old: string
   apiConfig: {
     addKey: string
     queryKey: string
