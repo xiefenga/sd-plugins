@@ -65,8 +65,8 @@ const Description = styled.span<{ collapse: boolean }>`
   position: absolute;
   top: 20px;
   left: 20px;
-  width: 210px;
-  height: 57px;
+  max-width: 210px;
+  max-height: 57px;
   color: #fff;
   font-size: 14px;
   display: ${props => props.collapse ? 'none' : 'block'};
@@ -159,7 +159,7 @@ const BlockLink = (props: BlockLinkPorps) => {
   return (
     <a href={props.link} target='_blank' rel='noreferrer'>
       <Block width={width}>
-        <span> {text}</span>
+        <span>{text}</span>
       </Block>
     </a>
   )
@@ -204,7 +204,7 @@ const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
   return (
     <PanelWrappeer onClick={onClick}>
       <Title>{title}</Title>
-      <Description className='can-click' collapse={collapse}>{description}</Description>
+      <Description collapse={collapse}>{description}</Description>
       <Background className='can-click' src={background} />
       <PreviewImageContainer
         collapse={collapse}
