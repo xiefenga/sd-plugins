@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocalStorageState } from 'ahooks'
-import { PluginPropsOfConfig } from '@/types'
 import { postConfigMessage } from '@/utils/message'
+import { PluginPropsOfConfig } from '../configuration/types'
 
 const PLUGIN_CONFIG_STORAGE_KEY = '@0x1461A0::STORAGE_PLUGIN_PROPS_KEY'
 

@@ -5,14 +5,14 @@ import styled from 'styled-components'
 import { Drawer, Spin, message } from 'antd'
 import NiceModal from '@ebay/nice-modal-react'
 import { useModal, antdDrawer } from '@ebay/nice-modal-react'
+import { AccordionMenuItem as MenuItem } from 'portal-shared/configuration'
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, type DragEndEvent } from '@dnd-kit/core'
 
-import { AccordionMenuItem as MenuItem } from 'portal-shared'
+import MenuCard from './MenuCard'
 import { getMenuGroup } from '@/api'
 import { FormValue } from './MenuConfigModal'
 import { MORE_MENU_ID } from '@/utils/constants'
-import MenuCard from './MenuCard'
 import MenuConfigModal from './MenuConfigModal'
 
 const LoadingContent = styled.div`
@@ -23,6 +23,8 @@ const MORE_MENU = {
   data_id: MORE_MENU_ID,
   menuTypeTitle: '查看更多',
   menuType: '',
+  url: '',
+  code: false,
 }
 
 interface MenuDrawerProps {
@@ -54,7 +56,7 @@ const MenuDrawer: React.FC<MenuDrawerProps> = (props) => {
         background: '',
         preview: '',
         ...config,
-      }
+      } as MenuItem
     })
     setMenuList(menuList)
   })
@@ -76,10 +78,14 @@ const MenuDrawer: React.FC<MenuDrawerProps> = (props) => {
             description: menu.description,
             background: menu.background,
             preview: menu.preview,
+            code: menu.code,
+            url: menu.url,
             onSubmit(value: FormValue) {
               menu.description = value.description
               menu.background = value.background
               menu.preview = value.preview
+              menu.url = value.url
+              menu.code = value.code
               setMenuList([...menuList])
             },
           })

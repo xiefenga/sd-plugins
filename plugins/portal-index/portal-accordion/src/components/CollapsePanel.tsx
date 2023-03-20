@@ -170,6 +170,7 @@ export interface CollapsePanelProps {
   collapseWidth: number
   background: string
   preview: string
+  onBackgroundClick: () => void
 }
 
 const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
@@ -182,13 +183,21 @@ const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
     collapse = false,
     collapseWidth,
     title,
+    onBackgroundClick,
   } = props
 
+  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+
+    if ((e.target as HTMLElement).classList.contains('can-click')) {
+      onBackgroundClick()
+    }
+  }
+
   return (
-    <PanelWrappeer>
+    <PanelWrappeer onClick={onClick}>
       <Title>{title}</Title>
-      <Description collapse={collapse}>{description}</Description>
-      <Background src={background} />
+      <Description className='can-click' collapse={collapse}>{description}</Description>
+      <Background className='can-click' src={background} />
       <PreviewImageContainer 
         collapse={collapse} 
         width={collapseWidth}
@@ -196,7 +205,7 @@ const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
         <Title>{title}</Title>
         <PreviewImage src={preview} />
       </PreviewImageContainer>
-      <BlockContainer collapse={collapse}>
+      <BlockContainer className='can-click' collapse={collapse}>
         {buttons.map((button, index) => (
           <BlockLink
             key={index}

@@ -7,7 +7,7 @@ import { Button, Form, Input, InputNumber, Modal } from 'antd'
 import { 
   AccordionMenuItem as MenuItem,
   AccordionConfig as PluginConfig
-} from 'portal-shared'
+} from 'portal-shared/configuration'
 
 import MenuDrawer from './MenuDrawer'
 

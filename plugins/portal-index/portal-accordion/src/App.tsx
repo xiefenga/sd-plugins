@@ -3,7 +3,7 @@ import { useStore } from 'portal-shared'
 import { useRequest, useSize } from 'ahooks'
 import { ThemeProvider } from 'styled-components'
 import { useState, useRef, useEffect } from 'react'
-import { AccordionConfig as PluginConfig } from 'portal-shared'
+import { AccordionConfig as PluginConfig } from 'portal-shared/configuration'
 
 import { getCommonlyUsedApp } from '@/api'
 import CollapsePanel from './components/CollapsePanel'
@@ -65,7 +65,17 @@ const App: React.FC<AppProps> = (props) => {
           }
           return ({ text: app.name, link: app.url })
         })
-      return { ...menu, buttons }
+      return { 
+        ...menu, 
+        buttons,
+        onBackgroundClick: () => {
+          if (menu.url) {
+            const target = new URL(menu.url, location.origin)
+            target.searchParams.append('code', ssoCode)
+            window.open(target.toString())
+          }
+        },
+      }
     })
   })
 

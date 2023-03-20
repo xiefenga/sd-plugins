@@ -9,6 +9,8 @@ export interface AccordionMenuItem {
   description: string
   background: string
   preview: string
+  url?: string
+  code?: boolean
 }
 
 export interface AccordionConfig {

@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from 'antd'
 import styled from 'styled-components'
 import NiceModal from '@ebay/nice-modal-react'
-import { AccordionConfig as PluginConfig } from 'portal-shared'
+import { AccordionConfig as PluginConfig } from 'portal-shared/configuration'
 
 import ConfigModal from './ConfigModal'
 
