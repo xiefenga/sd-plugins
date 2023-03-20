@@ -82,7 +82,7 @@ const BlockContainer = styled.div<{ collapse: boolean }>`
   display: ${props => props.collapse ? 'none' : 'block'};
 `
 
-const Block = styled.div`
+const Block = styled.div<{ width: string }>`
   float: left;
   width: 106px;
   height: 106px;
@@ -133,7 +133,7 @@ const Block = styled.div`
     color: #fff;
     z-index: 1;
     display: flex;
-    width: 40px;
+    width: ${props => props.width};
     height: 100%;
     align-items: center;
   }
@@ -146,12 +146,20 @@ interface BlockLinkPorps {
 
 const BlockLink = (props: BlockLinkPorps) => {
 
+  const text = props.text.slice(0, 16)
+
+  const width = /[A-Za-z]+/.test(text)
+    ? 'auto'
+    : text.length === 7 || text.length > 12
+      ? '4em'
+      : [3, 5].includes(text.length) || text.length > 8
+        ? '3em'
+        : '2em'
+
   return (
     <a href={props.link} target='_blank' rel='noreferrer'>
-      <Block>
-        <span>
-          {props.text}
-        </span>
+      <Block width={width}>
+        <span> {text}</span>
       </Block>
     </a>
   )
@@ -175,10 +183,10 @@ export interface CollapsePanelProps {
 
 const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
 
-  const { 
-    description, 
-    background, 
-    buttons, 
+  const {
+    description,
+    background,
+    buttons,
     preview,
     collapse = false,
     collapseWidth,
@@ -198,8 +206,8 @@ const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
       <Title>{title}</Title>
       <Description className='can-click' collapse={collapse}>{description}</Description>
       <Background className='can-click' src={background} />
-      <PreviewImageContainer 
-        collapse={collapse} 
+      <PreviewImageContainer
+        collapse={collapse}
         width={collapseWidth}
       >
         <Title>{title}</Title>
