@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useStore } from 'portal-shared'
 
 import { usePluginConfig } from '@/running/hooks'
-import ArrowRightOutlined from './icons/ArrowRightOutlined.svg'
+import ArrowRightOutlined from './icons/LinkOutlined.svg'
 
 const NavigationWrapper = styled.div`
   display: flex;
@@ -28,7 +28,7 @@ const NavigationWrapper = styled.div`
         transform: translateX(-1px);
       }
       svg {
-        transform: scale(0.9) translateX(1px);
+        /* transform: scale(1.2) translateX(1px); */
       }
     }
 
@@ -38,7 +38,10 @@ const NavigationWrapper = styled.div`
 
     svg {
       margin-bottom: 2px;
-      transform: scale(0.9);
+      transform: scale(1.3);
+      path {
+        stroke: currentColor;
+      }
     }
   }
 `
