@@ -1,7 +1,9 @@
 import path from 'node:path'
+import { to } from 'await-to-js'
+import { request } from 'undici'
 import * as cheerio from 'cheerio'
 
-import { $Envs } from './env.js'
+import { $Env, $Envs } from './env.js'
 import { download } from './download.js'
 import { app } from '../config/logger.js'
 import { NewsEntity, Post } from '../types/entity.js'
@@ -11,14 +13,28 @@ const [DOWNLOAD_PATH, TOMCAT_ACESS_PREFIX] = $Envs('DOWNLOAD_PATH', 'TOMCAT_ACES
 const [
   user_id,
   news_tag,
-  news_column,
   business_status,
 ] = $Envs(
   'USER_ID',
   'NEWS_TAG',
-  'NEWS_COLUMN',
   'BUSINESS_STATUS'
 )
+
+const NEWS_COLUMN_API_URL = $Env('NEWS_COLUMN_API_URL')
+
+interface Column {
+  column_id: string,
+  column_description: string,
+  column_name: string,
+}
+
+const [error, COLUMNS] = await to(request(NEWS_COLUMN_API_URL, { method: 'POST', body: JSON.stringify({}) })
+  .then(resp => resp.body.json())
+  .then(data => data.result as Column[]))
+
+if (error) {
+  throw new Error('新闻列表请求失败', { cause: error })
+}
 
 export const downloadAssets = async (
   page: URL,
@@ -62,13 +78,16 @@ export const downloadAssets = async (
 const baseEntity = {
   user_id,
   news_tag,
-  news_column,
   business_status,
   news_secrecy: 1,
   comment_setting: 1,
   news_publish_state: 4,
   news_browse_setting: 0,
 } as NewsEntity
+
+const random = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min) + min)
+}
 
 export const transformPost2NewsEntity = (post: Post): NewsEntity => {
 
@@ -82,6 +101,7 @@ export const transformPost2NewsEntity = (post: Post): NewsEntity => {
     news_author: author,
     news_text: text,
     news_abstract: abstract,
+    news_column: COLUMNS[random(0, COLUMNS.length)].column_id,
   }
 }
 
