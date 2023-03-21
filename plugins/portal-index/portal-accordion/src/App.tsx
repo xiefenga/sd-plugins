@@ -71,7 +71,9 @@ const App: React.FC<AppProps> = (props) => {
         onBackgroundClick: () => {
           if (menu.url) {
             const target = new URL(menu.url, location.origin)
-            target.searchParams.append('code', ssoCode)
+            if (menu.code) {
+              target.searchParams.append('code', ssoCode)
+            }
             window.open(target.toString())
           }
         },
