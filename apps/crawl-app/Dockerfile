@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:16-alpine
 
 LABEL author="0x1461A0@x1294699027@gmail.com"
 
@@ -8,8 +8,8 @@ COPY . /home/news/crawl
 
 WORKDIR /home/news/crawl
 
-RUN apt-get update
-RUN apt-get install -y vim
+# RUN apt-get update
+# RUN apt-get install -y vim
 
 RUN npm config set registry https://registry.npmmirror.com/
 

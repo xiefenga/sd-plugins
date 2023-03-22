@@ -34,6 +34,7 @@ cd /home/crawl
 
 docker run -id \
   -v /home/crawl/.env:/home/news/.env \
+  -v /home/crawl/logs:/home/news/logs \
   -v /home/sdata/tomcat/webapps/storage_area/news_download:/home/news/download \
   --name=crawl-app IMAGE_ID
 ```
