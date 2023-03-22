@@ -1,43 +1,35 @@
-import { request } from 'undici'
 import './config/env.js'
-// import schedule from 'node-schedule'
+import schedule from 'node-schedule'
 import { $Env } from './utils/env.js'
-// import { app as logger } from './config/logger.js'
-// import { plateListTask, troopNewsTask } from './task.js'
+import { app as logger } from './config/logger.js'
+import { plateListTask, troopNewsTask } from './task.js'
 
-const NEWS_COLUMN_API_URL = $Env('NEWS_COLUMN_API_URL')
+const onErr = (error: Error) => {
+  logger.error(error)
+  throw error
+}
 
-request(NEWS_COLUMN_API_URL, { method: 'POST', body: JSON.stringify({})})
-  .then(resp => resp.body.json())
-  .then(data => data.result)
-  .then(data => console.log(data))
+process.on('uncaughtException', onErr)
 
-// const onErr = (error: Error) => {
-//   logger.error(error)
-//   throw error
-// }
+process.on('unhandledRejection', onErr)
 
-// process.on('uncaughtException', onErr)
+process.on('SIGINT', async () => {
+  await schedule.gracefulShutdown()
+  process.exit(0)
+})
 
-// process.on('unhandledRejection', onErr)
+const CRON = $Env('CRON')
 
-// process.on('SIGINT', async () => {
-//   await schedule.gracefulShutdown()
-//   process.exit(0)
-// })
+const job = schedule.scheduleJob(CRON, async () => {
+  logger.info('QJW TASK 开始')
+  await plateListTask()
+  await troopNewsTask()
+  logger.info('QJW TASK 结束')
+})
 
-// const CRON = $Env('CRON')
-
-// const job = schedule.scheduleJob(CRON, async () => {
-//   logger.info('QJW TASK 开始')
-//   await plateListTask()
-//   await troopNewsTask()
-//   logger.info('QJW TASK 结束')
-// })
-
-// try {
-//   job.invoke()
-// } catch (error) {
-//   throw new Error(`CRON 配置有误: ${CRON}`, { cause: error })
-// }
+try {
+  job.invoke()
+} catch (error) {
+  throw new Error(`CRON 配置有误: ${CRON}`, { cause: error })
+}
 
