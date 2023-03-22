@@ -61,8 +61,14 @@ const MenuCard: React.FC<Props> = (props) => {
 
   const listenerProps = sortable ? listeners : {}
 
+  const boxProps = sortable ? {
+    style,
+    ref: setNodeRef,
+    ...attributes,
+  }: {}
+
   return (
-    <CardWrapper ref={setNodeRef} style={style} {...attributes} >
+    <CardWrapper {...boxProps} >
       <div {...listenerProps} className='title'>
         {title}
       </div>

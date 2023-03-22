@@ -1,11 +1,13 @@
 import React from 'react'
-import { Theme } from 'portal-shared'
 import styled from 'styled-components'
 import { useState, useRef } from 'react'
 import { DEFAULT_THEME  } from 'portal-shared'
 import NiceModal from '@ebay/nice-modal-react'
-import { Button, Drawer, Row, Space } from 'antd'
+import { Theme } from 'portal-shared/configuration'
+import { Button, Drawer, message, Row, Space } from 'antd'
 import { useModal, antdDrawer } from '@ebay/nice-modal-react'
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, type DragEndEvent } from '@dnd-kit/core'
 
 import PlusButton from '../PlusButton'
 import ThemeCard from '../theme/ThemeCard'
@@ -71,9 +73,11 @@ const ThemeDrawer: React.FC<ThemeDrawerPorps> = (props) => {
 
       return (
         <ThemeCard
-          key={theme.name}
+          id={theme.id}
+          key={theme.id}
           logo={theme.logo}
           text={theme.name}
+          sortable={index !== 0}
           isDefault={index === 0}
           onEdit={openThemeModal}
           onRemove={onRemoveSelf}
@@ -111,9 +115,40 @@ const ThemeDrawer: React.FC<ThemeDrawerPorps> = (props) => {
     footer: DrawerFooter,
   }
 
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  )
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event
+    if (over === null) {
+      message.error('handleDragEnd over 为空')
+    } else if (active.id !== over.id) {
+      setThemeList(list => {
+        const oldIndex = list.findIndex(menu => menu.id === active.id)
+        const newIndex = list.findIndex(menu => menu.id === over.id)
+        return arrayMove(list, oldIndex, newIndex)
+      })
+    }
+  }
+
   return (
     <ThemeConfigDrawer {...DrawerProps}>
-      {renderThemeList()}
+      <DndContext
+        sensors={sensors}
+        onDragEnd={handleDragEnd}
+        collisionDetection={closestCenter}
+      >
+        <SortableContext
+          items={themeList.map(theme => theme.id)}
+          strategy={verticalListSortingStrategy}
+        >
+          {renderThemeList()}
+        </SortableContext>
+      </DndContext>
       {renderPlusButton()}
     </ThemeConfigDrawer>
   )

@@ -1,14 +1,15 @@
 import React from 'react'
 import { message } from 'antd'
 import { useState } from 'react'
-import { useRequest } from 'ahooks'
 import styled from 'styled-components'
 import { useStore } from 'portal-shared'
+import { useMount, useRequest } from 'ahooks'
 import { DEFAULT_THEME } from 'portal-shared'
 import { ThemeProvider } from 'styled-components'
 import { HeaderConfig as PluginConfig } from 'portal-shared/configuration'
 
 import Loading from './components/Loading'
+import { logoutSystem } from '@/utils/helper'
 import HeaderTop from './components/HeaderTop'
 import { querySSOCode, queryUser } from '@/api'
 import GlobalStyle from './components/GlobalStyle'
@@ -32,7 +33,7 @@ const App: React.FC<AppProps> = (props) => {
 
   const { pluginConfig } = props
 
-  const { apiConfig, defaultLogo = '' } = pluginConfig
+  const { apiConfig, defaultLogo = '', themes } = pluginConfig
 
   if (!defaultLogo) {
     message.error('缺少默认Logo')
@@ -63,7 +64,14 @@ const App: React.FC<AppProps> = (props) => {
   const setUser = useStore(state => state.setUser)
 
   const [loading, setLoading] = useState(true)
-
+  
+  useMount(() => {
+    const flag = new URLSearchParams(window.location.search).get('sign_out')
+    if (flag) {
+      logoutSystem()
+    }
+  })
+  
   useRequest(querySSOCode, {
     retryCount: 3,
     onError: (error) => {
@@ -83,11 +91,16 @@ const App: React.FC<AppProps> = (props) => {
       setUser(user)
       try {
         if (apiConfig.queryKey) {
-          const current = await queryTheme(apiConfig.queryKey, user.id)
-          if (current !== null) {
-            setTheme(current)
+          const saved = await queryTheme(apiConfig.queryKey, user.id)
+          if (saved !== null) {
+            const current = themes?.find(item => item.id === saved.id)
+            if (saved.id !== theme.id && current) {
+              setTheme(current)
+            }  else if (saved.id !== theme.id) {
+              await addTheme(apiConfig.addKey, user.id, theme.id)
+            }
           } else {
-            await addTheme(apiConfig.addKey, user.id, theme)
+            await addTheme(apiConfig.addKey, user.id, theme.id)
           }
         }
       } catch (_) {

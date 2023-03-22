@@ -1,7 +1,8 @@
 import { create } from 'zustand'
 
-import { Theme, User } from '@/types'
+import { User } from '@/types'
 import { DEFAULT_THEME } from '../theme'
+import { Theme } from '@/configuration/types'
 
 type Nullable<T> = T | null
 

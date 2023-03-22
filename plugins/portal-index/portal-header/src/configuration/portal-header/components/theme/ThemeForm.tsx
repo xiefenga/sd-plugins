@@ -1,6 +1,7 @@
-import { Theme } from 'portal-shared'
+import { v4 as uuidv4 } from 'uuid'
 import styled from 'styled-components'
 import { Form, FormProps, Input } from 'antd'
+import { Theme } from 'portal-shared/configuration'
 import { forwardRef, useImperativeHandle } from 'react'
 
 import ImageUpload from '../ImageUpload'
@@ -33,7 +34,8 @@ const ThemeForm = forwardRef((props: ThemeFormProps, ref) => {
   }), [])
 
   const onFinish: FormProps['onFinish'] = (value) => {
-    const theme = {
+    const updateTheme = {
+      id: theme?.id ?? uuidv4(),
       name: value.name,
       logo: value.logo,
       color: {
@@ -52,7 +54,7 @@ const ThemeForm = forwardRef((props: ThemeFormProps, ref) => {
         },
       },
     } as Theme
-    onSubmit?.(theme)
+    onSubmit?.(updateTheme)
   }
 
   const formInitialValues = {

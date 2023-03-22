@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import { CSS } from '@dnd-kit/utilities'
+import { useSortable } from '@dnd-kit/sortable'
 import { Button, Image, Popconfirm } from 'antd'
 
 const ThemeCardWrapper = styled.div`
@@ -7,7 +9,6 @@ const ThemeCardWrapper = styled.div`
   margin: 20px 0;
   border-radius: 5px;
   padding: 15px 10px;
-  align-items: center;
   border: 1px dashed #d9d9d9;
   transition: border-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   
@@ -19,12 +20,18 @@ const ThemeCardWrapper = styled.div`
     margin-top: 0;
   }
 
+  .title-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
   .title {
     margin: 0;
     font-size: 16px;
     font-weight: 700;
-    flex: 1;
     overflow: hidden;
+    flex: 1;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -36,29 +43,54 @@ const ThemeCardWrapper = styled.div`
   }
 `
 
-
 interface ThemeCardProps {
+  id: string
   logo: string
   text: string
   isDefault?: boolean
+  sortable: boolean
   onEdit: () => void
   onRemove: () => void
 }
 
 const ThemeCard: React.FC<ThemeCardProps> = (props) => {
 
-  const { logo, text, onEdit, onRemove, isDefault = false } = props
+  const { logo, text, onEdit, onRemove, isDefault = false, sortable } = props
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({ id: props.id })
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  }
+
+  const listenerProps = sortable ? listeners : {}
+
+  const boxProps = sortable ? {
+    style,
+    ref: setNodeRef,
+    ...attributes,
+  }: {}
+
 
   return (
-    <ThemeCardWrapper>
-      <Image
-        src={logo}
-        width={88}
-        height={20}
-        preview={false}
-        draggable={false}
-      />
-      <p className='title'>{ text }</p>
+    <ThemeCardWrapper {...boxProps} >
+      <div {...listenerProps} className='title-box'>
+        <Image
+          src={logo}
+          width={88}
+          height={20}
+          preview={false}
+          draggable={false}
+        />
+        <p className='title'>{ text }</p>
+      </div>
       <div className='btn'>
         <Button disabled={isDefault} type='link' size='small' onClick={onEdit}>
           编辑

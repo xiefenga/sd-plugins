@@ -1,3 +1,6 @@
+import { logout } from '@/api'
+import { message } from 'antd'
+
 export const download = (blob: Blob, filename: string) => {
   const download = document.createElement('a')
   const href = window.URL.createObjectURL(blob)
@@ -21,4 +24,21 @@ export const readFile2Json = async <T>(file: File): Promise<T> => {
     })
     reader.readAsText(file)
   })
+}
+
+export const appid = new URLSearchParams(window.location.search).get('appid')
+
+export const logoutSystem = async () => {
+  try {
+    const { status, data } = await logout()
+    if (status === 200) {
+      if (data) {
+        window.location.href = `/application/login/${appid}`
+      } else {
+        window.location.reload()
+      }
+    }
+  } catch (error) {
+    message.error('退出登录出错' + error)
+  }
 }

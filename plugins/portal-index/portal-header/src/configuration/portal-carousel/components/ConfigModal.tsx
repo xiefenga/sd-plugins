@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import NiceModal from '@ebay/nice-modal-react'
 import { Form, Input, InputNumber, Modal } from 'antd'
 import { useModal, antdModal } from '@ebay/nice-modal-react'
@@ -8,6 +9,16 @@ interface ConfigModalProps {
   pluginConfig: Partial<CarouselConfig>
   submitConfig: (config: CarouselConfig) => void
 } 
+
+const StyledModal = styled(Modal)`
+  .ant-modal-footer {
+    text-align: center;
+
+    button {
+      width: 100px;
+    }
+  }
+`
 
 const ConfigModal: React.FC<ConfigModalProps> = (props) => {
 
@@ -31,15 +42,16 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
   }
 
   return (
-    <Modal
+    <StyledModal
       closeIcon={null}
+      closable={false}
       title='图片轮播配置'
       okText='确定'
       cancelText='取消'
       {...antdModal(modal)}
       onOk={onModalClickOk}
     >
-      <Form form={form} onFinish={onFinish} initialValues={initialValues} labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
+      <Form form={form} onFinish={onFinish} initialValues={initialValues} labelCol={{ span: 5 }} wrapperCol={{ span: 16 }}>
         <Form.Item 
           name='height' 
           label='轮播高度'
@@ -49,7 +61,7 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
             min={0}
             size='small'
             addonAfter='px'
-            style={{ width: '71%' }}
+            style={{ width: '35%' }}
             placeholder='请输入区域高度'
           />
         </Form.Item>
@@ -62,7 +74,7 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
             min={0}
             size='small'
             addonAfter='秒'
-            style={{ width: '71%' }}
+            style={{ width: '35%' }}
             placeholder='请输入轮播时长'
           />
         </Form.Item>
@@ -89,7 +101,7 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
        
         
       </Form>
-    </Modal>
+    </StyledModal>
   )
 }
 

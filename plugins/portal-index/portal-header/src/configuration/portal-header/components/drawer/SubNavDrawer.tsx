@@ -1,16 +1,18 @@
 import React from 'react'
 import { useState } from 'react'
-import { SubNav } from 'portal-shared'
+import { v4 as uuidv4 } from 'uuid'
 import styled from 'styled-components'
 import NiceModal from '@ebay/nice-modal-react'
-import { DeleteOutlined } from '@ant-design/icons'
+import { SubNav } from 'portal-shared/configuration'
 import { useModal, antdDrawer } from '@ebay/nice-modal-react'
-import { Button, Col, Drawer, Empty, Input, message, Popconfirm, Row, Space } from 'antd'
-
+import { Button, Col, Drawer, Empty, message, Row, Space } from 'antd'
 import PlusButton from '../PlusButton'
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { closestCenter, DndContext, DragEndEvent, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
+import SubNavCard from '../SubNavCard'
 
 const StyledDrawer = styled(Drawer).attrs({
-  width: 500,
+  width: 540,
   title: '下级配置',
   closeIcon: null,
   placement: 'left',
@@ -21,12 +23,6 @@ const StyledRow = styled(Row).attrs({ gutter: 20 })`
   font-weight: 700;
   margin-bottom: 10px;
 `
-
-const StyledPopConfirm = styled(Popconfirm).attrs({
-  okText: '确认',
-  cancelText: '取消',
-  title: '确认删除?',
-})``
 
 interface SubNavDrawerProps {
   navs: SubNav[]
@@ -62,7 +58,8 @@ const SubNavDrawer: React.FC<SubNavDrawerProps> = (props) => {
   const renderTitle = () => {
     return (
       <StyledRow>
-        <Col span={8}>名称</Col>
+        <Col span={2}></Col>
+        <Col span={6}>名称</Col>
         <Col span={12}>URL</Col>
       </StyledRow>
     )
@@ -93,27 +90,15 @@ const SubNavDrawer: React.FC<SubNavDrawerProps> = (props) => {
       }
 
       return (
-        <StyledRow key={index}>
-          <Col span={8}>
-            <Input
-              value={nav.name}
-              onChange={e => onNavNameChange(e.target.value)}
-            />
-          </Col>
-          <Col span={12}>
-            <Input
-              value={nav.url}
-              onChange={e => onNavUrlChange(e.target.value)}
-            />
-          </Col>
-          <Col span={4}>
-            <StyledPopConfirm onConfirm={onRemove}>
-              <Button type='dashed'>
-                <DeleteOutlined />
-              </Button>
-            </StyledPopConfirm>
-          </Col>
-        </StyledRow>
+        <SubNavCard 
+          sortable
+          nav={nav}
+          id={nav.id}
+          key={nav.id}
+          onRemove={onRemove}
+          onNavUrlChange={onNavUrlChange}
+          onNavNameChange={onNavNameChange}
+        />
       )
     })
   }
@@ -121,7 +106,7 @@ const SubNavDrawer: React.FC<SubNavDrawerProps> = (props) => {
   const onPlusClick = () => {
     const lastNav = navList[navList.length - 1]
     if (!lastNav || (lastNav.url && lastNav.name)) {
-      setNavList([...navList, { name: '', url: '' }])
+      setNavList([...navList, { name: '', url: '', id: uuidv4() }])
     } else {
       message.warning('请先填写未完成的配置')
     }
@@ -138,10 +123,41 @@ const SubNavDrawer: React.FC<SubNavDrawerProps> = (props) => {
     footer: DrawerFooter,
   }
 
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  )
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event
+    if (over === null) {
+      message.error('handleDragEnd over 为空')
+    } else if (active.id !== over.id) {
+      setNavList(list => {
+        const oldIndex = list.findIndex(nav => nav.id === active.id)
+        const newIndex = list.findIndex(nav => nav.id === over.id)
+        return arrayMove(list, oldIndex, newIndex)
+      })
+    }
+  }
+
   return (
     <StyledDrawer {...drawerProps}>
       {renderTitle()}
-      {renderSubNavs()}
+      <DndContext
+        sensors={sensors}
+        onDragEnd={handleDragEnd}
+        collisionDetection={closestCenter}
+      >
+        <SortableContext
+          items={navList.map(nav => nav.id)}
+          strategy={verticalListSortingStrategy}
+        >
+          {renderSubNavs()}
+        </SortableContext>
+      </DndContext>
       {renderPlusButton()}
     </StyledDrawer>
   )

@@ -1,4 +1,4 @@
-import { Theme, ThemeColor } from '@/types'
+import { Theme, ThemeColor } from '@/configuration/types'
 
 export const defaultThemeColor: ThemeColor = {
   font: {
@@ -17,6 +17,7 @@ export const defaultThemeColor: ThemeColor = {
 }
 
 export const DEFAULT_THEME: Theme = {
+  id: '@0x1461a0::PORTAL_INDEX:DEFAULT_THEMEM::THEMEM_ID',
   name: '默认主题',
   logo: '',
   color: defaultThemeColor,

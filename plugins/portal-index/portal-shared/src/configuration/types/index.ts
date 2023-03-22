@@ -1,5 +1,27 @@
-import { Theme } from '@/types'
 import { PORTAL_ACCORDION_PLUGIN, PORTAL_CAROUSEL_PLUGIN, PORTAL_HEADER_PLUGIN } from '@/constants'
+
+export interface ThemeColor {
+  font: {
+    active: string
+    hover: string
+    default: string
+  }
+  bg: {
+    active: string
+    hover: string
+    default: string
+  }
+  border: {
+    color: string
+  }
+}
+
+export interface Theme {
+  id: string
+  name: string
+  logo: string
+  color: ThemeColor
+}
 
 // accordion
 export interface AccordionMenuItem {
@@ -21,6 +43,7 @@ export interface AccordionConfig {
 
 // header
 export interface SubNav {
+  id: string
   name: string
   url: string
 }
@@ -33,11 +56,14 @@ export type BusinessNavParam = {
 }
 
 export interface BusinessNav {
+  id: string
   name: string
   url: string
   isHash?: boolean
   params?: BusinessNavParam[]
 }
+
+export type WithId<T> = { id :string } & T
 
 export interface HeaderConfig {
   isLevel: boolean
@@ -53,7 +79,11 @@ export interface HeaderConfig {
   topHeight: number
   defaultLogo: string
   noticeLink: string
-  old: string
+  old: {
+    text: string
+    url: string
+  }
+  callbackURL: string
   apiConfig: {
     addKey: string
     queryKey: string

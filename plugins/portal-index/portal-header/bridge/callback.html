@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div></div>
+  <script>
+    const redirectUrl = new URLSearchParams(location.search).get('redirectUrl')
+    document.querySelector('div').innerHTML = `
+    <h1>处理中...</h1>
+    <strong>redirectUrl:</strong>
+    <span>${redirectUrl}</span>
+    `
+
+    setTimeout(() => {
+      location.href = redirectUrl
+    }, 500)
+  </script>
+</body>
+</html>

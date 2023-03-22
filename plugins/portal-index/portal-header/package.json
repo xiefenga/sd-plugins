@@ -18,6 +18,7 @@
     "@types/react-color": "^3.0.6",
     "@types/react-dom": "^18.0.11",
     "@types/styled-components": "^5.1.26",
+    "@types/uuid": "^9.0.0",
     "@types/webpack-env": "^1.18.0",
     "antd": "4.21.6",
     "moment": "2.29.1",
@@ -37,7 +38,8 @@
     "portal-shared": "workspace:*",
     "react-color": "^2.19.3",
     "sd-plugin-request": "workspace:*",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "uuid": "^9.0.0"
   },
   "browserslist": {
     "production": [

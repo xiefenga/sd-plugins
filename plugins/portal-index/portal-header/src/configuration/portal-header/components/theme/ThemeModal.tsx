@@ -1,8 +1,8 @@
 import React from 'react'
 import { Modal } from 'antd'
 import { useRef } from 'react'
-import { Theme } from 'portal-shared'
 import NiceModal from '@ebay/nice-modal-react'
+import { Theme } from 'portal-shared/configuration'
 import { useModal, antdModal } from '@ebay/nice-modal-react'
 
 import ThemeForm, { ThemeFormRefProps } from './ThemeForm'

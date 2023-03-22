@@ -1,17 +1,17 @@
 import React from 'react'
 import { useSetState } from 'ahooks'
-import { Theme } from 'portal-shared'
 import styled from 'styled-components'
 import NiceModal from '@ebay/nice-modal-react'
 import { Button, Col, Form, Input, InputNumber, Modal, Row, Switch } from 'antd'
 import { useModal, antdModal } from '@ebay/nice-modal-react'
-import { SubNav, BusinessNav, HeaderConfig as PluginConfig } from 'portal-shared/configuration'
+import { Theme, SubNav, BusinessNav, HeaderConfig as PluginConfig } from 'portal-shared/configuration'
 
 import ImageUpload from './ImageUpload'
 import ThemeDrawer from './drawer/ThemeDrawer'
 import SysNavDrawer from './drawer/SysNavDrawer'
 import StyledNavDrawer from './drawer/SubNavDrawer'
 import ApiConfigInput from './ApiConfigInput'
+import OldInput from './OldInput'
 
 const StyledMoal = styled(Modal).attrs({
   width: 800,
@@ -61,6 +61,7 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
     defaultLogo,
     noticeLink,
     old,
+    callbackURL,
   } = state
 
   const onSwitchChange = (checked: boolean) => {
@@ -137,6 +138,7 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
     defaultLogo,
     noticeLink,
     searchUrl,
+    callbackURL,
     old,
   }
 
@@ -148,7 +150,7 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
         wrapperCol={{ span: 6 }}
         initialValues={initialValue}
       >
-        <Form.Item label='本级'>
+        <Form.Item valuePropName='checked' label='本级'>
           <Switch
             checked={isLevel}
             checkedChildren='是'
@@ -206,20 +208,45 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
             style={{ width: '58%' }}
           />
         </Form.Item>
-        <Form.Item
+        
+        <Form.Item 
+          required
           name='old'
-          label='旧版地址'
-          wrapperCol={{ span: 15 }}
+          label='回到旧版'
+          wrapperCol={{ span: 16 }}
           rules={[
-            { required: true, message: '请输入旧版地址' },
+            {
+              validator: (_, value) => {
+                if (!value) {
+                  return Promise.reject(new Error('请填写完整信息'))
+                } else if (value.text && value.url) {
+                  return Promise.resolve()
+                } else {
+                  return Promise.reject(new Error('请填写完整信息'))
+                }
+              },
+            },
           ]}
         >
-          <Input size='small' placeholder='请输入旧版地址' />
+          <OldInput />
+        </Form.Item>
+        <Form.Item 
+          name='callbackURL' 
+          label='退出回调地址'
+          wrapperCol={{ span: 16 }}
+          rules={[
+            { required: true, message: '请输入回调地址' },
+          ]}
+        >
+          <Input 
+            size='small' 
+            placeholder='退出登录回调地址'
+          />
         </Form.Item>
         <Form.Item
           name='searchUrl'
           label='搜索地址'
-          wrapperCol={{ span: 15 }}
+          wrapperCol={{ span: 16 }}
           rules={[
             { required: true, message: '请输入搜索地址' },
           ]}
@@ -229,7 +256,7 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
         <Form.Item
           name='noticeLink'
           label='消息管理地址'
-          wrapperCol={{ span: 15 }}
+          wrapperCol={{ span: 16 }}
           rules={[
             { required: true, message: '请输入消息管理地址' },
           ]}

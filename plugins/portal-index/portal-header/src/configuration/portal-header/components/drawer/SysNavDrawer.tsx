@@ -1,17 +1,20 @@
 import React from 'react'
 import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import styled from 'styled-components'
 import NiceModal from '@ebay/nice-modal-react'
 import { BusinessNav } from 'portal-shared/configuration'
 import { useModal, antdDrawer } from '@ebay/nice-modal-react'
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
-import { Button, Checkbox, Col, Drawer, Empty, Input, message, Row, Space } from 'antd'
+import { Button, Col, Drawer, Empty, message, Row, Space } from 'antd'
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { closestCenter, DndContext, DragEndEvent, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
 
+import NavCard from '../NavCard'
 import PlusButton from '../PlusButton'
 import ParamsModal from '../ParamsModal'
 
 const StyledDrawer = styled(Drawer).attrs({
-  width: 550,
+  width: 600,
   closeIcon: null,
   title: '导航配置',
   placement: 'left',
@@ -34,14 +37,24 @@ const SysNavDrawer: React.FC<SysNavDrawerProps> = (props) => {
 
   const { navs, onChange } = props
 
-  const [navList, setNavList] = useState(navs)
+  const [navList, setNavList] = useState<BusinessNav[]>(() => {
+    return (
+      JSON.parse(JSON.stringify(navs)) as BusinessNav[]
+    ).map(item => {
+      if (!item.id) {
+        item.id = uuidv4()
+      }
+      return item
+    })
+  })
 
   const renderTitle = () => {
     return (
       <StyledRow>
-        <Col span={6}>名称</Col>
+        <Col span={2}></Col>
+        <Col span={5}>名称</Col>
         <Col span={10}>URL</Col>
-        <Col span={4} style={{ textAlign: 'center' }}>Hash</Col>
+        <Col span={3} style={{ textAlign: 'center' }}>Hash</Col>
         <Col span={4} style={{ textAlign: 'center' }}>操作</Col>
       </StyledRow>
     )
@@ -88,42 +101,17 @@ const SysNavDrawer: React.FC<SysNavDrawerProps> = (props) => {
       }
 
       return (
-        <div key={index}>
-          <StyledRow>
-            <Col span={6}>
-              <Input
-                size='small'
-                value={nav.name}
-                placeholder='导航名称'
-                onChange={e => onNavNameChange(e.target.value)}
-              />
-            </Col>
-            <Col span={10}>
-              <Input
-                size='small'
-                value={nav.url}
-                placeholder='路由地址'
-                onChange={e => onNavUrlChange(e.target.value)}
-              />
-            </Col>
-            <Col span={4} style={{ textAlign: 'center' }}>
-              <Checkbox
-                checked={nav.isHash}
-                onChange={e => onHashRouteChange(e.target.checked)}
-              />
-            </Col>
-            <Col span={2}>
-              <Button size='small' type='dashed' onClick={onRemove}>
-                <DeleteOutlined />
-              </Button>
-            </Col>
-            <Col span={2}>
-              <Button size='small' type='dashed' onClick={openParamsMoal}>
-                <PlusOutlined />
-              </Button>
-            </Col>
-          </StyledRow>
-        </div>
+        <NavCard
+          sortable
+          nav={nav}
+          id={nav.id}
+          key={nav.id}
+          onRemove={onRemove}
+          onNavUrlChange={onNavUrlChange}
+          openParamsMoal={openParamsMoal}
+          onNavNameChange={onNavNameChange}
+          onHashRouteChange={onHashRouteChange}
+        />
       )
     })
   }
@@ -131,7 +119,7 @@ const SysNavDrawer: React.FC<SysNavDrawerProps> = (props) => {
   const onPlusButtonClick = () => {
     const last = navList[navList.length - 1]
     if (!last || (last.name && last.url)) {
-      setNavList([...navList, { name: '', url: '' }])
+      setNavList([...navList, { name: '', url: '', id: uuidv4() }])
     } else {
       message.warning('请先填写未完成的配置')
     }
@@ -166,10 +154,42 @@ const SysNavDrawer: React.FC<SysNavDrawerProps> = (props) => {
     footer: DrawerFooter,
   }
 
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  )
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event
+    if (over === null) {
+      message.error('handleDragEnd over 为空')
+    } else if (active.id !== over.id) {
+      setNavList(list => {
+        const oldIndex = list.findIndex(nav => nav.id === active.id)
+        const newIndex = list.findIndex(nav => nav.id === over.id)
+        console.log(oldIndex, newIndex)
+        return arrayMove(list, oldIndex, newIndex)
+      })
+    }
+  }
+
   return (
     <StyledDrawer {...drawerProps}>
       {renderTitle()}
-      {renderNavList()}
+      <DndContext
+        sensors={sensors}
+        onDragEnd={handleDragEnd}
+        collisionDetection={closestCenter}
+      >
+        <SortableContext
+          items={navList.map(nav => nav.id)}
+          strategy={verticalListSortingStrategy}
+        >
+          {renderNavList()}
+        </SortableContext>
+      </DndContext>
       {renderPlusButton()}
     </StyledDrawer>
   )

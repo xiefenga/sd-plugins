@@ -2,10 +2,10 @@ import React from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
 import { useStore } from 'portal-shared'
-import { Dropdown, Avatar, message } from 'antd'
+import { Dropdown, Avatar } from 'antd'
 
-import { logout } from '@/api'
 import ThemedMenu from './styled/AntdMenu'
+import { logoutSystem } from '@/utils/helper'
 import { defaultAvatar } from '@/utils/assets'
 import { usePluginConfig } from '@/running/hooks'
 import DownOutlined from './icons/DownOutlined.svg'
@@ -36,12 +36,10 @@ const UserInfoWrapper = styled.div`
     }
   }
 `
-const appid = new URLSearchParams(window.location.search).get('appid')
-
 
 const UserInfo: React.FC = () => {
 
-  const { workbanch } = usePluginConfig()
+  const { workbanch, callbackURL } = usePluginConfig()
 
   const [visible, setVisible] = useState(false)
 
@@ -59,17 +57,10 @@ const UserInfo: React.FC = () => {
   })
 
   const logoutSys = async () => {
-    try {
-      const { status, data } = await logout()
-      if (status === 200) {
-        if (data) {
-          window.location.href = `/application/login/${appid}`
-        } else {
-          window.location.reload()
-        }
-      }
-    } catch (error) {
-      message.error('退出登录出错' + error)
+    if (callbackURL) {
+      window.location.href = callbackURL
+    } else {
+      logoutSystem()
     }
   }
 

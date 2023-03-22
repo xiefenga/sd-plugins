@@ -49,13 +49,13 @@ const MenuDrawer: React.FC<MenuDrawerProps> = (props) => {
       const config = menuConfigList.find(config => config.id === menu.data_id) ?? {}
 
       return {
-        id: menu.data_id,
-        type: menu.menuType,
-        title: menu.menuTypeTitle,
         description: '',
         background: '',
         preview: '',
         ...config,
+        id: menu.data_id,
+        type: menu.menuType,
+        title: menu.menuTypeTitle,
       } as MenuItem
     })
     setMenuList(menuList)

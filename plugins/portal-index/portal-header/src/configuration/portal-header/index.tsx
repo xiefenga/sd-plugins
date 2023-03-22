@@ -1,6 +1,6 @@
 import { PORTAL_HEADER_PLUGIN } from 'portal-shared'
+import { PluginPropsOfConfig } from 'portal-shared/configuration'
 
-import { PluginPropsOfConfig } from 'portal-shared'
 import ConfigButton from './components/ConfigButton'
 
 interface Props {

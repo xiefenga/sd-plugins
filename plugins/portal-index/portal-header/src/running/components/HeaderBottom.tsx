@@ -1,6 +1,7 @@
 import styled from 'styled-components'
+import { Theme } from 'portal-shared/configuration'
 import { useEffect, useMemo, useState } from 'react'
-import { Theme, useStore, DEFAULT_THEME } from 'portal-shared'
+import { useStore, DEFAULT_THEME } from 'portal-shared'
 import { Dropdown, Popover, Badge, Spin, MenuProps, message, Tabs, Tooltip } from 'antd'
 
 import { Notice } from '@/types'
@@ -153,7 +154,7 @@ const HeaderBottom = () => {
 
   const setTheme = useStore(state => async (theme: Theme) => {
     if (apiConfig.updateKey && user) {
-      await updateTheme(apiConfig.updateKey, user.id, theme).catch(() => {})
+      await updateTheme(apiConfig.updateKey, user.id, theme.id).catch(() => {})
     }
     state.changeTheme(theme)
   })
@@ -223,14 +224,14 @@ const HeaderBottom = () => {
 
     const themeList = [defaultTheme].concat(themes)
 
-    const items = themeList.map(theme => ({
-      key: theme.name,
-      label: theme.name,
+    const items = themeList.map(({ id, name }) => ({
+      key: id,
+      label: name,
     }))
 
     const changeTheme: MenuProps['onClick'] = ({ key }) => {
-      if (key !== theme.name) {
-        const targetTheme = themeList.find(item => item.name === key) ?? defaultTheme
+      if (key !== theme.id) {
+        const targetTheme = themeList.find(item => item.id === key) ?? defaultTheme
         // 图片预加载
         const image = new Image()
         image.addEventListener('load', () => {
@@ -248,7 +249,7 @@ const HeaderBottom = () => {
       <ThemedMenu
         items={items}
         onClick={changeTheme}
-        selectedKeys={[theme.name]}
+        selectedKeys={[theme.id]}
       />
     )
   }
@@ -291,7 +292,7 @@ const HeaderBottom = () => {
 
   const goOld = () => {
     if (old) {
-      location.href = old
+      location.href = old.url
     }
   }
 
@@ -327,7 +328,7 @@ const HeaderBottom = () => {
             </Badge>
           </span>
         </Popover>
-        <Tooltip placement='bottom' title='回到旧版'>
+        <Tooltip placement='bottom' title={old?.text ?? '回到旧版'}>
           <span className='btn-item' onClick={goOld}>
             <SettingOutlined />
           </span>

@@ -430,6 +430,7 @@ importers:
       '@types/react-color': ^3.0.6
       '@types/react-dom': ^18.0.11
       '@types/styled-components': ^5.1.26
+      '@types/uuid': ^9.0.0
       '@types/webpack-env': ^1.18.0
       ahooks: ^3.7.4
       antd: 4.21.6
@@ -443,6 +444,7 @@ importers:
       sd-plugin-request: workspace:*
       sd-plugin-scripts: workspace:^*
       styled-components: ^5.3.6
+      uuid: ^9.0.0
     dependencies:
       '@ant-design/icons': 5.0.1_biqbaboplfbrettd7655fr4n2y
       '@dnd-kit/core': 6.0.8_biqbaboplfbrettd7655fr4n2y
@@ -455,12 +457,14 @@ importers:
       react-color: 2.19.3_react@18.2.0
       sd-plugin-request: link:../../../packages/sd-plugin-request
       styled-components: 5.3.8_biqbaboplfbrettd7655fr4n2y
+      uuid: 9.0.0
     devDependencies:
       '@types/lodash.omit': 4.5.7
       '@types/react': 18.0.28
       '@types/react-color': 3.0.6
       '@types/react-dom': 18.0.11
       '@types/styled-components': 5.1.26
+      '@types/uuid': 9.0.0
       '@types/webpack-env': 1.18.0
       antd: 4.21.6_biqbaboplfbrettd7655fr4n2y
       moment: 2.29.1
