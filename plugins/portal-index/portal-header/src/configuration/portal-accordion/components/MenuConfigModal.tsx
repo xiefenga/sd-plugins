@@ -77,7 +77,7 @@ const MenuConfigModal: React.FC<MenuConfigModalProps> = (props) => {
         <Form.Item name='url' label='总览地址'>
           <Input />
         </Form.Item>
-        <Form.Item name='code' label='SSO Code'>
+        <Form.Item valuePropName='checked' name='code' label='SSO Code'>
           <Switch />
         </Form.Item>
         <Row style={{ paddingLeft: 6 }}>
