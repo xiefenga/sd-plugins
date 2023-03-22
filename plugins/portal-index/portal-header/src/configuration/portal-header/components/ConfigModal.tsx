@@ -234,9 +234,6 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
           name='callbackURL' 
           label='退出回调地址'
           wrapperCol={{ span: 16 }}
-          rules={[
-            { required: true, message: '请输入回调地址' },
-          ]}
         >
           <Input 
             size='small' 
