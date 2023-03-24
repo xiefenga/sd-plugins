@@ -60,7 +60,9 @@ export const downloadAssets = async (
         app.debug(`页面 ${page.href} 跳过图片下载: ${src} `)
       } else {
         try {
-          const source = new URL(path.join(current.pathname, src), current.origin)
+          const source = src.startsWith('http')
+            ? new URL(src, current.origin)
+            : new URL(path.join(current.pathname, src), current.origin)
           const filename = source.pathname.slice(1)
           const target = path.resolve(DOWNLOAD_PATH, filename)
           await download(source.href, target)
