@@ -25,6 +25,7 @@ export interface Theme {
 
 // accordion
 export interface AccordionMenuItem {
+  index: number
   id: string
   type: string
   title: string

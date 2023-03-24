@@ -46,7 +46,7 @@ const MenuDrawer: React.FC<MenuDrawerProps> = (props) => {
 
     const menuList = group.concat(MORE_MENU).map(menu => {
 
-      const config = menuConfigList.find(config => config.id === menu.data_id) ?? {}
+      const config = { index: Infinity, ...menuConfigList.find(config => config.id === menu.data_id) } ?? { index: Infinity }
 
       return {
         description: '',
@@ -58,7 +58,11 @@ const MenuDrawer: React.FC<MenuDrawerProps> = (props) => {
         title: menu.menuTypeTitle,
       } as MenuItem
     })
-    setMenuList(menuList)
+    setMenuList(
+      menuList
+        .sort((a, b) => a.index - b.index)
+        .map((item, index) => ({ ...item, index }))
+    )
   })
 
   const renderDrawerContent = () => {
@@ -119,7 +123,8 @@ const MenuDrawer: React.FC<MenuDrawerProps> = (props) => {
       setMenuList(list => {
         const oldIndex = list.findIndex(menu => menu.id === active.id)
         const newIndex = list.findIndex(menu => menu.id === over.id)
-        return arrayMove(list, oldIndex, newIndex)
+        const newList = arrayMove(list, oldIndex, newIndex)
+        return newList.map((item, index) => ({ ...item, index }))
       })
     }
   }

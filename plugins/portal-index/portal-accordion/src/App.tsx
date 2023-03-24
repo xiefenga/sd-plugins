@@ -54,31 +54,33 @@ const App: React.FC<AppProps> = (props) => {
 
   const { data: panelProps = [] } = useRequest(async () => {
     const apps = await getCommonlyUsedApp()
-    return menuConfigList.map(menu => {
-      const buttons = apps
-        .filter(app => app.menuType === menu.type)
-        .map(app => {
-          if (app.isSSOCode === '1') {
-            const url = new URL(app.url, location.origin)
-            url.searchParams.append('code', ssoCode)
-            app.url = url.toString()
-          }
-          return ({ text: app.name, link: app.url })
-        })
-      return { 
-        ...menu, 
-        buttons,
-        onBackgroundClick: () => {
-          if (menu.url) {
-            const target = new URL(menu.url, location.origin)
-            if (menu.code) {
-              target.searchParams.append('code', ssoCode)
+    return menuConfigList
+      .sort((a, b) => a.index - b.index)
+      .map(menu => {
+        const buttons = apps
+          .filter(app => app.menuType === menu.type)
+          .map(app => {
+            if (app.isSSOCode === '1') {
+              const url = new URL(app.url, location.origin)
+              url.searchParams.append('code', ssoCode)
+              app.url = url.toString()
             }
-            window.open(target.toString())
-          }
-        },
-      }
-    })
+            return ({ text: app.name, link: app.url })
+          })
+        return {
+          ...menu,
+          buttons,
+          onBackgroundClick: () => {
+            if (menu.url) {
+              const target = new URL(menu.url, location.origin)
+              if (menu.code) {
+                target.searchParams.append('code', ssoCode)
+              }
+              window.open(target.toString())
+            }
+          },
+        }
+      })
   })
 
   return (
