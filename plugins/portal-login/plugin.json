@@ -11,7 +11,7 @@
       "welcomeTitle": "信息集成平台",
       "bottomText": "中国人民解放军战略支援部队",
       "logoUrl": "/storage_area/devops/dataflow/secondary_dev/logo.jpg",
-      "bgUrl": "/storage_area/devops/dataflow/secondary_dev/login_bg"
+      "bgUrl": "/storage_area/devops/dataflow/secondary_dev/login_bg.png"
     }
   }
 }

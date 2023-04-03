@@ -129,13 +129,9 @@ const App: React.FC<PluginProps> = (props) => {
             </div>
           </div>
         </div>
-        <video
-          className='vedio-bg'
-          src={pluginConfig.bgUrl}
-          autoPlay
-          muted
-          loop
-          playsInline
+        <img 
+          className='vedio-bg' 
+          src={pluginConfig.bgUrl} 
         />
       </Layout.Content>
     </Layout>
