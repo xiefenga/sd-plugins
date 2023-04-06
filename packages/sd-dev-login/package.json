@@ -7,11 +7,19 @@
     "build": "tsup"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "xiefeng",
+    "email": "x1294699027@gmail.com"
+  },
   "license": "ISC",
+  "files": [
+    "lib"
+  ],
   "dependencies": {
     "jsencrypt": "3.2.1",
-    "sd-plugin-request": "workspace:^0.0.1",
+    "sd-plugin-request": "workspace:^0.0.1"
+  },
+  "devDependencies": {
     "tsup": "^6.6.3"
   }
 }

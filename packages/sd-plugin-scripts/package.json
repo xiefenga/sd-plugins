@@ -22,6 +22,9 @@
   "peerDependencies": {
     "core-js": ">=3"
   },
+  "files": [
+    "lib"
+  ],
   "dependencies": {
     "@babel/core": "^7.21.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
