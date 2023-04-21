@@ -67,13 +67,15 @@ const AccountDrawer: React.FC<AccountDrawerProps> = (props) => {
 
     const account = { name, loginName, user_sign, no, mobile, email, photo }
 
-    const identityList = identities.map(identity => {
-      identity.roleNameList = identity.roleNameList.map(roleName => intl.get(roleName).d(roleName))
-      return ({
-        ...pick(identity, IDENTITY_NECESSARY_KEYS) as IdentityValue,
-        _key: identity.id!,
+    const identityList = identities
+      .filter(identity => identity.roleNameList)
+      .map(identity => {
+        identity.roleNameList = identity.roleNameList!.map(roleName => intl.get(roleName).d(roleName))
+        return ({
+          ...pick(identity, IDENTITY_NECESSARY_KEYS) as IdentityValue,
+          _key: identity.id!,
+        })
       })
-    })
 
     setFormValue({ account, identityList })
   }

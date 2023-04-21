@@ -49,7 +49,7 @@ export interface IdentityResp {
 	photo: string
 	registerIp: string
 	roleList: string[]
-	roleNameList: string[]
+	roleNameList?: string[]
 	update_by: string
 	update_date: number
 	userName: string
