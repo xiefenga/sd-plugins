@@ -29,7 +29,7 @@ const pluginEntry = resolve(WEBPACK_ENTRY_DIR, `entry-${randomUUID()}.js`)
 fs.writeFileSync(
   pluginEntry,
   ENTRY_TEMPLATE.DEV.PLUGIN
-    .replace(/\$\$plugin-dev-entry\$\$/, PLUGIN_SOURCE.PLUGIN_DEV)
+    .replace(/\$\$plugin-dev-entry\$\$/, PLUGIN_SOURCE.PLUGIN_DEV.replaceAll('\\', '\\\\'))
 )
 
 const config = configFactory('development', pluginEntry)

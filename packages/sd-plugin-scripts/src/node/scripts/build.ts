@@ -32,8 +32,8 @@ fs.writeFileSync(
       ? ENTRY_TEMPLATE.PRO.WITH_CONFIG
       : ENTRY_TEMPLATE.PRO.ONLY_PLUGIN
   )
-    .replace(/\$\$plugin-pro-entry\$\$/, PLUGIN_SOURCE.PLUGIN_PRO)
-    .replace(/\$\$plugin-config-entry\$\$/, PLUGIN_SOURCE.SETTING_PRO)
+    .replace(/\$\$plugin-pro-entry\$\$/, PLUGIN_SOURCE.PLUGIN_PRO.replaceAll('\\', '\\\\'))
+    .replace(/\$\$plugin-config-entry\$\$/, PLUGIN_SOURCE.SETTING_PRO.replaceAll('\\', '\\\\'))
 )
 
 const config = configFactory('production', pluginEntry)
