@@ -2,7 +2,8 @@
   "name": "@0x1461a0/sd-plugins",
   "private": "true",
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "node scripts/postinstall.js"
   },
   "author": "",
   "license": "MIT",
