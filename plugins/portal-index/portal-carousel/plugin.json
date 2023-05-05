@@ -6,11 +6,6 @@
   "version": "2",
   "props": {
     "type": "customize",
-    "customconf": [
-      "assetId",
-      "speedTime",
-      "detailsUrl",
-      "height"
-    ]
+    "customconf": []
   }
 }

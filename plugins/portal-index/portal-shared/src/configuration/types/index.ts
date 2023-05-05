@@ -51,9 +51,9 @@ export interface SubNav {
 
 export type ParamOption = 'id' | 'loginName' | 'SSOCode'
 
-export type BusinessNavParam = { 
-  name: string, 
-  option: ParamOption 
+export type BusinessNavParam = {
+  name: string,
+  option: ParamOption
 }
 
 export interface BusinessNav {
@@ -64,7 +64,7 @@ export interface BusinessNav {
   params?: BusinessNavParam[]
 }
 
-export type WithId<T> = { id :string } & T
+export type WithId<T> = { id: string } & T
 
 export interface HeaderConfig {
   isLevel: boolean
@@ -89,7 +89,7 @@ export interface HeaderConfig {
     addKey: string
     queryKey: string
     updateKey: string
-  }  
+  }
 }
 
 // carousel 
@@ -98,6 +98,7 @@ export interface CarouselConfig {
   speedTime: number,
   detailsUrl: string,
   height: number
+  num: number
 }
 
 export interface PluginPropsOfConfig {

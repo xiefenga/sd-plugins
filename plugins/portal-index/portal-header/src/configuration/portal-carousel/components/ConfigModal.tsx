@@ -30,6 +30,8 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
 
   pluginConfig.height ??= 360
 
+  pluginConfig.num ??= 5
+
   const initialValues = { ...pluginConfig }
 
   const onModalClickOk = () => {
@@ -62,7 +64,20 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
             size='small'
             addonAfter='px'
             style={{ width: '35%' }}
-            placeholder='请输入区域高度'
+            placeholder='请输入...'
+          />
+        </Form.Item>
+        <Form.Item 
+          name='num' 
+          label='数量'
+          rules={[{ required: true, message: '请输入轮播数量' }]}
+        >
+          <InputNumber
+            min={0}
+            size='small'
+            addonAfter='个'
+            style={{ width: '35%' }}
+            placeholder='请输入...'
           />
         </Form.Item>
         <Form.Item
@@ -98,8 +113,6 @@ const ConfigModal: React.FC<ConfigModalProps> = (props) => {
             placeholder='请输入新闻详情基础地址'
           />
         </Form.Item>
-       
-        
       </Form>
     </StyledModal>
   )

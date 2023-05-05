@@ -1,7 +1,4 @@
-
-// interface Assets
-
-import {CarouselAsset} from '@/types'
+import { CarouselBlock } from '@/types'
 
 type AssetsResponse = [
   any[],
@@ -15,6 +12,6 @@ export const transformAssetsResp = (assetsRes: AssetsResponse) => {
     return x.reduce((memo, item, index) => {
       memo[headerData[index].col_name] = item
       return memo
-    }, {} as Record<string, any>) as CarouselAsset
+    }, {} as Record<string, any>) as CarouselBlock
   })
 }
