@@ -43,7 +43,7 @@ const pluginPath = path.resolve(PLUGIN_PATH, filename)
 
 zip.writeZip(pluginPath, (error) => {
   if (error) {
-    throw new Error('文件写入失败', { cause: error })
+    console.error('压缩失败', error)
   }
   const pluginSize = fse.statSync(pluginPath).size
 
