@@ -37,7 +37,8 @@ zip.addLocalFolder(PLUGIN_TEMP_PATH)
 
 const pluginName = configJson.name ?? ''
 
-const filename = `${pluginName}@${moment.format('YYYY-MM-DD HH:mm:ss')}.zip`
+// 时分秒用中文 -> 解决 https://github.com/cthackers/adm-zip/issues/409
+const filename = `${pluginName}@${moment.format('YYYY-MM-DD HH时mm分ss秒')}.zip`
 
 const pluginPath = path.resolve(PLUGIN_PATH, filename)
 
