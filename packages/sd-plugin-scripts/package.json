@@ -1,6 +1,6 @@
 {
   "name": "sd-plugin-scripts",
-  "version": "0.0.3",
+  "version": "0.0.2",
   "description": "",
   "bin": {
     "sd-plugin-scripts": "./lib/node/bin.js"
