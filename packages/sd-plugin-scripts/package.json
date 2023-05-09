@@ -1,12 +1,12 @@
 {
   "name": "sd-plugin-scripts",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "bin": {
     "sd-plugin-scripts": "./lib/node/bin.js"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=16.0.0"
   },
   "scripts": {
     "dev:client": "tsc -p src/client --watch",
@@ -61,6 +61,7 @@
     "@types/uuid": "^9.0.0",
     "@types/webpack": "^5.28.0",
     "@types/webpack-env": "^1.18.0",
+    "bumpp": "^9.1.0",
     "rimraf": "^4.1.2"
   }
 }
