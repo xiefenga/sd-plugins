@@ -41,17 +41,22 @@ const filename = `${pluginName}@${moment.format('YYYY-MM-DD HH:mm:ss')}.zip`
 
 const pluginPath = path.resolve(PLUGIN_PATH, filename)
 
-zip.writeZip(pluginPath)
+zip.writeZip(pluginPath, (error) => {
+  if (error) {
+    throw new Error('文件写入失败', { cause: error })
+  }
+  const pluginSize = fse.statSync(pluginPath).size
 
-const pluginSize = fse.statSync(pluginPath).size
+  console.log('插件构建完成🎉🎉🎉')
 
-console.log('插件构建完成🎉🎉🎉')
+  console.log(`
+  插件名: ${filename}
+  构建时间: ${moment.format('YYYY-MM-DD HH:mm:ss')}
+  大小: ${formatBytes(pluginSize)}
+  `)
+})
 
-console.log(`
-插件名: ${filename}
-构建时间: ${moment.format('YYYY-MM-DD HH:mm:ss')}
-大小: ${formatBytes(pluginSize)}
-`)
+
 
 
 
