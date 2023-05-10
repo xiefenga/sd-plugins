@@ -64,7 +64,7 @@ const UserTree: React.FC<UserTreeProps> = ({
     }
   }
 
-  const fetchhRootData = async () => {
+  const fetchRootData = async () => {
     try {
       const [{ office }] = await queryOfficeByOfficeId()
       const rootOfficeData: DataNode = {
@@ -86,7 +86,7 @@ const UserTree: React.FC<UserTreeProps> = ({
     setLoading(true)
 
     await Promise.all([
-      fetchhRootData(),
+      fetchRootData(),
       fetchUserData(),
     ])
 
@@ -124,7 +124,8 @@ const UserTree: React.FC<UserTreeProps> = ({
         title: office.name,
         children: [],
         disableCheckbox: true,
-        isLeaf: (office as unknown as NormalOffice).children.length === 0,
+        isLeaf: (office as unknown as NormalOffice).children.length === 0 && // 无子组织
+                (userList.filter(user => user.BDNM === office.code).length === 0), //无用户
       })).concat(userChildren)
 
     setOfficeData([rootOfficeData])
