@@ -14,7 +14,7 @@ export const detectLogin = async () => {
   if (err) {
     console.log('[detectLogin]', '检测登录状态失败')
     throw err
-  } 
+  }
   if (!loginStatus) {
     const err = await to(login({ account, password }))
     if (err) {

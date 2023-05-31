@@ -1,0 +1,44 @@
+.notification {
+  display: flex;
+  align-items: flex-start;
+
+  .notification-body {
+    flex: 1;
+
+    >div {
+      margin: 5px 0;
+    }
+
+    .notification-title p {
+      font-weight: 700;
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .notification-time {
+      color: rgb(153, 153, 153);
+      font-size: 14px;
+      padding: 5px 0;
+    }
+
+    .notification-link {
+      color: rgb(16, 110, 178);
+      text-decoration: none;
+    }
+
+    .notification-tag {
+      padding: 2px 5px;
+      color: #f5c065;
+      background-color: #fef9ed;
+      border-radius: 2px;
+    }
+  }
+
+  .notification-close {
+    width: 15px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 20px;
+  }
+
+}

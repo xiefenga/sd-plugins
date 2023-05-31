@@ -23,6 +23,7 @@ module.exports = {
       plugins: ['@typescript-eslint'],
       rules: {
         'no-undef': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
       },
     },
   ],

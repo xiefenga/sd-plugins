@@ -10,7 +10,7 @@ export const scriptRootDir = resolveScript('.')
 
 export const scriptSourceDiv = resolveScript('src')
 
-export const scriptEntry = resolveScript('src/index.tsx')
+export const scriptEntry = resolveScript('src/index.ts')
 
 export const webpackCache = resolveScript('node_modules/.cache')
 

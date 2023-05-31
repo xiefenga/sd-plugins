@@ -1,5 +1,5 @@
 
-const alertifyDefaults = <const>{
+const alertifyDefaults = {
   // dialogs defaults
   autoReset: true,
   basic: false,
@@ -92,6 +92,10 @@ interface Notification {
   ondismiss?: Func
 }
 
+type Mutable<T> = {
+  -readonly [p in keyof T]: T[p]
+}
+
 declare module 'alertifyjs' {
   export function alert()
 
@@ -111,7 +115,7 @@ declare module 'alertifyjs' {
 
   export function message(message, wait, callback)
 
-  export function notify(message: Content, type: string, wait: number, callback: Func): Notification
+  export function notify(message: Content, type: string, wait?: number, callback?: Func): Notification
 
   export function prompt()
 

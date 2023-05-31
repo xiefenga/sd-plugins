@@ -21,7 +21,6 @@
     },
     "isolatedModules": true,
     "resolveJsonModule": true,
-    // "jsxFactory": "render",
     "jsx": "react-jsx",
     "jsxImportSource": "@/render"
   },

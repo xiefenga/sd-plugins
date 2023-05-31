@@ -6,11 +6,12 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CleanTerminalPlugin from 'clean-terminal-webpack-plugin'
 // import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
+import { Env } from './types'
 import * as env from './env'
 import * as paths from './paths'
 import { PKG, proxy } from './files'
 
-const webpackEnv = env.raw.NODE_ENV
+const webpackEnv = env.raw.NODE_ENV as Env
 
 const shouldUseSourceMap = process.env.NO_SOURCEMAP !== 'true'
 
@@ -35,6 +36,7 @@ const devServerConfig: webpack.Configuration['devServer'] = {
 }
 
 const config: webpack.Configuration = {
+  mode: webpackEnv,
   entry: paths.scriptEntry,
   stats: 'errors-warnings',
   devtool: webpackDevtool,
@@ -45,13 +47,16 @@ const config: webpack.Configuration = {
     assetModuleFilename: 'static/[name].[hash][ext]',
   },
   resolve: {
-    extensions: ['.ts', '.js', '.json'],
+    extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
     alias: {
       '@': paths.scriptSourceDiv,
     },
   },
   experiments: {
     topLevelAwait: true,
+  },
+  performance: {
+    hints: false,
   },
   cache: {
     type: 'filesystem',
@@ -62,6 +67,10 @@ const config: webpack.Configuration = {
     rules: [
       {
         oneOf: [
+          {
+            type: 'asset/source',
+            resourceQuery: /raw/,
+          },
           {
             test: [/\.avif$/],
             type: 'asset',
@@ -108,7 +117,7 @@ const config: webpack.Configuration = {
             test: /\.tsx?$/,
             exclude: /node_modules/,
             use: [
-              { 
+              {
                 loader: 'babel-loader',
                 options: {
                   presets: [
@@ -123,7 +132,7 @@ const config: webpack.Configuration = {
                   plugins: [
                     '@babel/plugin-transform-runtime',
                   ],
-                }, 
+                },
               },
               {
                 loader: 'ts-loader',

@@ -1,0 +1,24 @@
+
+<div class="notification" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
+  <div class="notification-body">
+    <div class="notification-title">
+      <p>{{=it.title }}</p>
+    </div>
+    <div class="notification-time">
+      <span>{{=it.date }}</span>
+      <span>{{=it.time }}</span>
+    </div>
+    <div class="notification-content">
+      <span>{{=it.content }}</span>
+      {{? it.url }}
+        <span>
+          <a class="notification-link" href="{{=it.url}}" target="_blank">
+            {{=it.urlTitle }}
+          </a>
+        </span>
+      {{?}}
+      <span class="notification-tag">New</span>
+    </div>
+  </div>
+  <div class="notification-close" @click="handleClick">×</div>
+</div>
