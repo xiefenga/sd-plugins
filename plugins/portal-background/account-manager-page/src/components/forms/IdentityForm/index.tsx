@@ -6,7 +6,6 @@ import { Form, FormInstance, Input } from 'antd'
 
 import { OFFICE_RULES, ROLE_RULES } from './helper'
 import RoleModal from '@/components/modals/RoleModal'
-import OfficeModal from '@/components/modals/OfficeModal'
 import { useAntdUnableFocusRef } from '@/hooks/useUnableFocus'
 import { IdentityFormIns, IdentityFormValue } from '@/types/components'
 import './index.less'
@@ -23,7 +22,6 @@ const IdentityForm: React.FC<IdentityFormProsp> = (props) => {
 
   const { form, identityValue, identityList, setIdentityValue } = props
 
-  const officeInputRef = useAntdUnableFocusRef()
   const roleInputRef = useAntdUnableFocusRef()
 
   useMount(() => {
@@ -34,26 +32,6 @@ const IdentityForm: React.FC<IdentityFormProsp> = (props) => {
       role: roleNameList.join(','),
     })
   })
-
-  type Office = {
-    officeId: string
-    office_name: string
-  }
-
-  const openOfficeModal = () => {
-    const { officeId, office_name } = identityValue
-    NiceModal.show(OfficeModal, {
-      initValue: { officeId, office_name },
-      onConfirm(office: Office) {
-        const { office_name } = office
-        form.setFieldsValue({ office_name })
-        setIdentityValue({
-          ...identityValue,
-          ...office,
-        })
-      },
-    })
-  }
 
   type Role = {
     roleList: string[]
@@ -100,10 +78,7 @@ const IdentityForm: React.FC<IdentityFormProsp> = (props) => {
         <Input onChange={e => setIdentityValue({ ...identityValue, userName: e.target.value })} />
       </Form.Item>
       <Form.Item label='组织' name='office_name' rules={OFFICE_RULES}>
-        <Input 
-          ref={officeInputRef} 
-          onClick={openOfficeModal}
-        />
+        <Input disabled />
       </Form.Item>
       <Form.Item label='角色' name='role' rules={ROLE_RULES}>
         <Input 

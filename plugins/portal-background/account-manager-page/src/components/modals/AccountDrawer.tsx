@@ -6,10 +6,10 @@ import { useMount, useRequest } from 'ahooks'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import NiceModal, { useModal, antdDrawer } from '@ebay/nice-modal-react'
 
-
 import AccountForm from '../forms/AccountForm'
-import { createAccount, queryAccount, queryIdentity } from '@/api/account'
+import { createAccount, queryAccount, queryIdentity, queryOffice } from '@/api/account'
 import { AccountBaseValue, AccountFormMode, AccountFormSubmit, DrawerAccountValue, IdentityValue } from '@/types/components'
+import { Office } from '@/types'
 
 
 const IDENTITY_NECESSARY_KEYS = [
@@ -31,8 +31,20 @@ const CloseIcon = (
 
 interface AccountDrawerProps {
   accountCode?: string
+  loginName?: string
   mode: AccountFormMode
   afterClose: () => void
+}
+
+const getCurrentOffice = async (login_name: string): Promise<Office | null> => {
+  try {
+    const resp = await queryOffice(login_name)
+    const { office_id: officeId, office_name } = resp[0]
+    return { officeId, office_name } 
+  } catch (error) {
+    console.error(error)
+    return null
+  }
 }
 
 
@@ -40,7 +52,9 @@ const AccountDrawer: React.FC<AccountDrawerProps> = (props) => {
 
   const modal = useModal()
 
-  const { mode, afterClose, accountCode } = props
+  const [initOffice, setInitOffice] = useState<Office | null>(null)
+
+  const { mode, afterClose, accountCode, loginName: login_name } = props
 
   const drawerTitle = mode === 'add' ? '新增账户' : '修改账户'
 
@@ -50,10 +64,13 @@ const AccountDrawer: React.FC<AccountDrawerProps> = (props) => {
   })
 
   const service = async (code: string) => {
-    const [accountResp, identities] = await Promise.all([
+    const [accountResp, identities, office] = await Promise.all([
       queryAccount(code),
       queryIdentity(code),
+      login_name ? getCurrentOffice(login_name): Promise.resolve(null),
     ])
+
+    setInitOffice(office)
 
     const {
       account: loginName,
@@ -132,10 +149,10 @@ const AccountDrawer: React.FC<AccountDrawerProps> = (props) => {
             mode={mode}
             initValue={formValue}
             onCancel={modal.hide}
+            initOffice={initOffice}
             onSubmit={onAccountSubmit}
           />
         )}
-
       </Spin>
     </Drawer>
   )

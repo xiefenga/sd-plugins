@@ -3,7 +3,7 @@ import pick from 'lodash.pick'
 import { useState } from 'react'
 import NiceModal from '@ebay/nice-modal-react'
 import { PlusOutlined } from '@ant-design/icons'
-import { Form, Input, Space, Button } from 'antd'
+import { Form, Input, Space, Button, message } from 'antd'
 import { useBoolean, useMount, useSetState } from 'ahooks'
 
 import type { RuleObject } from 'antd/es/form'
@@ -16,12 +16,13 @@ import IdentityModal from '@/components/modals/IdentityModal'
 import HandoverModal from '@/components/modals/HandoverModal'
 import { LOGIN_NAME_RULES, MAIL_RULES, NAME_RULES, PASSWORD_RULES, PHONE_RULES } from './helper'
 import { AccountFormMode, IdentityValue, DrawerAccountValue, AccountFormValue, AccountFormSubmit, IdentityFormValue, DeleteUserMap } from '@/types/components'
-import { useAntdUnableFocusRef } from '@/hooks/useUnableFocus'
 import './index.less'
+import { Office, User } from '@/types'
 
 interface AccountFormProps {
   mode: AccountFormMode
   onCancel: () => void
+  initOffice: Office | null
   onSubmit: AccountFormSubmit
   initValue: DrawerAccountValue
 }
@@ -40,15 +41,13 @@ const NECESSARY_IDENTITY_KEYS = [
 
 const AccountFrom: React.FC<AccountFormProps> = (props) => {
 
-  const { mode, onSubmit, onCancel, initValue } = props
+  const { mode, onSubmit, onCancel, initValue, initOffice } = props
 
   const isAddMode = mode === 'add'
 
   const isUpdateMode = mode === 'update'
 
   const [form] = Form.useForm<AccountFormValue>()
-
-  const inputRef = useAntdUnableFocusRef()
 
   const [avatar, setAvatar] = useState('')
 
@@ -59,6 +58,8 @@ const AccountFrom: React.FC<AccountFormProps> = (props) => {
   const [deleteUserMap, setDeleteUserMap] = useSetState<DeleteUserMap>({})
 
   const [loading, { setTrue, setFalse }] = useBoolean(false)
+
+  const [office, setOffice] = useState<Office | null>(initOffice)
 
   useMount(() => {
     // 设置表单初始值
@@ -112,9 +113,9 @@ const AccountFrom: React.FC<AccountFormProps> = (props) => {
     setFalse()
   }
 
-  const openIdentityModal = (initValue?: IdentityFormValue) => {
+  const openIdentityModal = (init: { initValue: IdentityFormValue } | { selectedOffice: Office }) => {
     NiceModal.show(IdentityModal, {
-      initValue,
+      ...init,
       identityList,
       onConfirm(identityInfo: IdentityFormValue) {
         const identity: Identity = {
@@ -136,10 +137,21 @@ const AccountFrom: React.FC<AccountFormProps> = (props) => {
 
   const openUserMoal = () => {
     NiceModal.show(UserModal, {
-      onConfirm(name: string, no: string) {
-        form.setFieldsValue({ no, name })
+      onConfirm(office: Office, user: User) {
+        console.log(office, user)
+        setOffice(office)
+        form.setFieldsValue(user)
       },
     })
+  }
+
+  const addIdentity = () => {
+    if (!office) {
+      message.error('请先选择人员！')
+      form.validateFields(['name']) 
+      return
+    }
+    openIdentityModal({ selectedOffice: office })
   }
 
   return (
@@ -183,7 +195,7 @@ const AccountFrom: React.FC<AccountFormProps> = (props) => {
         htmlFor='account-name'
       >
         <Input
-          ref={inputRef}
+          readOnly
           id='account-name'
           onClick={openUserMoal}
           disabled={isUpdateMode}
@@ -224,7 +236,7 @@ const AccountFrom: React.FC<AccountFormProps> = (props) => {
               identityName={identity.userName}
               isDefault={identity.is_default === '1'}
               onEditClick={() => {
-                openIdentityModal(identity)
+                openIdentityModal({ initValue: identity })
               }}
               onDeleteClick={async () => {
                 if (identity.id) {
@@ -263,7 +275,7 @@ const AccountFrom: React.FC<AccountFormProps> = (props) => {
           <Button
             type='dashed'
             className='add-identity-button'
-            onClick={() => openIdentityModal()}
+            onClick={addIdentity}
           >
             <PlusOutlined />
             <span className="add-text">添加</span>

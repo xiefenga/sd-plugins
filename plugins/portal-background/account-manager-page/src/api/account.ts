@@ -175,3 +175,8 @@ export const getDeployMode = async () => {
   const resp = await request.get<string>('/system/authority/deployMode')
   return resp.data
 }
+
+export const queryOffice = async (login_name: string) => {
+  const resp = await request.post('service/dataapi/rest/mhwz-user-org', { login_name })
+  return resp.data
+}

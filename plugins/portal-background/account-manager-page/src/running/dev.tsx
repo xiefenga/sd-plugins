@@ -1,10 +1,15 @@
-import App from '@/App'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
+
+import App from '@/App'
+import { worker } from '@/mocks/browser'
+
 import '../index.css'
 import 'antd/dist/antd.css'
 
+
 export default () => {
+  worker.start()
   const root = createRoot(
     document.getElementById('root')!
   )

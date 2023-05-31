@@ -3,6 +3,7 @@ import { message, Spin, Tree } from 'antd'
 import { useEffect, useState } from 'react'
 import { EventDataNode, TreeProps } from 'antd/es/tree'
 
+import { Office } from '@/types'
 import PluginContext from '@/context/Plugin'
 import { BussinessUserResp, NormalOffice} from '@/types/api/account'
 import { queryBussinessUsers, queryOfficeByOfficeId } from '@/api/account'
@@ -32,8 +33,24 @@ const getNodeByKey = (node: DataNode, key: string): DataNode | null => {
   return null
 }
 
+const getParentByKey = (node: DataNode, key: string): DataNode | null => {
+  if (node.children.length > 0) {
+    for (const child of node.children) {
+      if (child.key === key) {
+        return node
+      } else {
+        const target = getParentByKey(child, key)
+        if (target) {
+          return target
+        }
+      }
+    }
+  }
+  return null
+}
+
 interface UserTreeProps {
-  onChoose?: (user: BussinessUserResp | null) => void
+  onChoose?: (choosed: { user: BussinessUserResp, office: Office } | null) => void
 }
 
 const UserTree: React.FC<UserTreeProps> = ({
@@ -131,16 +148,31 @@ const UserTree: React.FC<UserTreeProps> = ({
     setOfficeData([rootOfficeData])
   }
 
-  const onCheck: TreeProps['onCheck'] = (_, { checked, node }) => {
+  const onCheck: TreeProps['onCheck'] = (checkedKeys, e) => {
+    const { checked, node } = e
     setCheckedKeys(
       checked
         ? [node.key as string]
         : []
     )
 
+    const [rootOfficeData] = officeData
+
+    const parent = getParentByKey(rootOfficeData, (Array.isArray(checkedKeys) ? checkedKeys[0] : checkedKeys.checked[0]) as string)
+
+    if (parent === null) {
+      throw new Error('数据有误')
+    }
+
+    const { key,  title } = parent
+
+    const office = { officeId: key, office_name: title}
+
+    const user = (node as DataNode).meta!
+
     onChoose(
       checked
-        ? (node as DataNode).meta ?? null
+        ? { user, office }
         : null
     )
   }

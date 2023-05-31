@@ -23,7 +23,7 @@ export const PASSWORD_RULES = [
 ]
 
 export const NAME_RULES = [
-  { required: true, message: '请输入姓名！' },
+  { required: true, message: '请选择人员！' },
 ]
 
 export const PHONE_RULES = [

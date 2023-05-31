@@ -5,6 +5,7 @@ import NiceModal from '@ebay/nice-modal-react'
 import IdentityForm from '../forms/IdentityForm'
 import { IdentityFormIns, IdentityFormValue } from '@/types/components'
 import CommonModal from './CommonModal'
+import { Office } from '@/types'
 
 const DEFAULT_IDENTITY_VALUE = {
   officeId: '',
@@ -17,6 +18,7 @@ const DEFAULT_IDENTITY_VALUE = {
 interface IdentityModalProps {
   identityList: IdentityFormValue[]
   initValue?: IdentityFormValue
+  selectedOffice?: Office
   onConfirm?: (val: IdentityFormValue) => void
 }
 
@@ -26,7 +28,8 @@ const IdentityModal: React.FC<IdentityModalProps> = (props) => {
 
   const {
     identityList,
-    initValue = { ...DEFAULT_IDENTITY_VALUE, _key: uuidv4() },
+    selectedOffice = {},
+    initValue = { ...DEFAULT_IDENTITY_VALUE, ...selectedOffice, _key: uuidv4() },
     onConfirm = () => { },
   } = props
 

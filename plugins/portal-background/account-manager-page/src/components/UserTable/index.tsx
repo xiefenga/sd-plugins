@@ -96,9 +96,10 @@ const UserTable: React.FC<UserTableProps> = (props) => {
     })
   }
 
-  const openAccountDrawer = (mode: AccountFormMode, code?: string) => {
+  const openAccountDrawer = (mode: AccountFormMode, code?: string, loginName?: string) => {
     NiceModal.show(AccountDrawer, {
       mode,
+      loginName,
       accountCode: code,
       afterClose: refresh,
     })
@@ -110,7 +111,7 @@ const UserTable: React.FC<UserTableProps> = (props) => {
       const opText = record.loginFlag === '0' ? '禁用' : '启用'
 
       const showAccountInfo = () => {
-        openAccountDrawer('update', record.code)
+        openAccountDrawer('update', record.code, record.account)
       }
 
       const editAccountStatus = async () => {
