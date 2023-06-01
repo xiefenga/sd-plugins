@@ -25,7 +25,7 @@ export const baseUserTableColumns = [
     },
   },
   {
-    title: '工号',
+    title: '身份证',
     dataIndex: 'no',
   },
   {
