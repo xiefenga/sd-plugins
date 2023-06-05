@@ -10,8 +10,8 @@ const handler: Handler = (req, res, ctx) => {
       result: [
         {
           BDNM: 'ysmn09930',
-          MC: 'faaf',
-          SFZHM: 'xxx',
+          MC: '张三',
+          SFZHM: '440221199608234773',
           XH: 'xxx',
         },
       ],

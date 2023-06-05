@@ -5,6 +5,7 @@ import { DownOutlined, InfoCircleOutlined } from '@ant-design/icons'
 import { Form, Input, Select, Button, Table, Popconfirm, Divider, Upload, message, UploadProps, Dropdown, Menu, MenuProps } from 'antd'
 
 import { getCookie, download } from '@/util'
+import ConfirmModal from '../modals/ConfirmModal'
 import PasswordModal from '../modals/PasswordModal'
 import HandoverModal from '../modals/HandoverModal'
 import AccountDrawer from '../modals/AccountDrawer'
@@ -335,6 +336,10 @@ const UserTable: React.FC<UserTableProps> = (props) => {
     }
   }
 
+  const syncAccount = () => {
+    NiceModal.show(ConfirmModal)
+  }
+
   return (
     <div className='user-list-0x1461a0'>
       <div className='user-filter'>
@@ -374,6 +379,13 @@ const UserTable: React.FC<UserTableProps> = (props) => {
         </Form>
       </div>
       <div className='user-tools'>
+        <Button
+          type='primary'
+          className='user-tool'
+          onClick={syncAccount}
+        >
+          同步账户
+        </Button>
         <Button
           type='primary'
           className='user-tool'

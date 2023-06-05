@@ -5,26 +5,49 @@ import NiceModal from '@ebay/nice-modal-react'
 import { Office, User } from '@/types'
 import CommonModal from './CommonModal'
 import UserTree from '@/components/trees/UserTree'
-import { BussinessUserResp } from '@/types/api/account'
+import { queryExistedUser } from '@/api/account'
+import { useBoolean } from 'ahooks'
+
+interface BussinessUser {
+  MC: string
+   SFZHM: string
+}
 
 interface UserModalProsp {
+  user: BussinessUser | null
+  office: Office| null
   onConfirm: (office: Office, user: User) => void
 }
 
-const UserModal: React.FC<UserModalProsp> = ({ onConfirm }) => {
+const UserModal: React.FC<UserModalProsp> = ({ user, office, onConfirm }) => {
 
   const modal = NiceModal.useModal()
 
-  const userRef = useRef<BussinessUserResp | null>()
+  const userRef = useRef<BussinessUser | null>(user)
 
-  const officeRef = useRef<Office | null>()
+  const officeRef = useRef<Office | null>(office)
 
-  const onInnerConfirm = () => {
+  const [loading, { setTrue, setFalse }] = useBoolean(false)
+
+  const onInnerConfirm = async () => {
     if (userRef.current && officeRef.current) {
       const { MC: name, SFZHM: no } = userRef.current
-      const user = { name, no }
-      onConfirm(officeRef.current, user)
-      modal.remove()
+      try {
+        setTrue()
+        const users = await queryExistedUser(no)
+        if (users.length) {
+          message.error('当前用户已存在')
+        } else {
+          const user = { name, no }
+          onConfirm(officeRef.current, user)
+          modal.remove()
+        }
+      } catch (error) {
+        message.error('用户信息查询失败')
+        console.error(error)
+      } finally {
+        setFalse()
+      }
     } else {
       message.error('请选择用户！')
     }
@@ -35,11 +58,15 @@ const UserModal: React.FC<UserModalProsp> = ({ onConfirm }) => {
       title='用户选择'
       modal={modal}
       onOk={onInnerConfirm}
+      confirmLoading={loading}
     >
-      <UserTree onChoose={choose => {
-        userRef.current = choose?.user ?? null
-        officeRef.current = choose?.office ?? null
-      }} />
+      <UserTree 
+        initKey={user?.SFZHM}
+        onChoose={choose => {
+          userRef.current = choose?.user ?? null
+          officeRef.current = choose?.office ?? null
+        }}
+      />
     </CommonModal>
 
   )

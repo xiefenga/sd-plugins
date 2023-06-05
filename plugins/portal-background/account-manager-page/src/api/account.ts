@@ -2,13 +2,13 @@ import request from 'sd-plugin-request'
 import { EncryptPassword } from '@/util'
 import { AccountParam } from '@/types/params'
 import { SDPaginationResult } from '@/types/api/result'
-import { 
-  AccountResp, 
-  BussinessUserResp, 
-  IdentityResp, 
-  OfficeDelCreateMemberResp, 
-  OfficeResp, 
-  UserAllResp, 
+import {
+  AccountResp,
+  BussinessUserResp,
+  IdentityResp,
+  OfficeDelCreateMemberResp,
+  OfficeResp,
+  UserAllResp,
   UserResp,
   RoleResp,
   CurrentUserResp
@@ -79,7 +79,7 @@ export const queryOfficeDelCreateMember = async (id?: string) => {
   return resp.data as OfficeDelCreateMemberResp
 }
 
-export const handover =async (id: string, code: string | string[]) => {
+export const handover = async (id: string, code: string | string[]) => {
   await request({
     url: `/system/account/batchDeleteAccount?handover_person=${id}`,
     method: 'POST',
@@ -159,8 +159,7 @@ export const queryAllRoles = async () => {
 
 export const identifyPermission = async (identifyCode: string, menuId?: string) => {
   const resp = await request.get<string[]>(
-    `system/user/identifyPermission?identifyCode=${identifyCode}${
-      menuId ? '&menuId=' + menuId : ''
+    `system/user/identifyPermission?identifyCode=${identifyCode}${menuId ? '&menuId=' + menuId : ''
     }`
   )
   return resp.data
@@ -179,4 +178,13 @@ export const getDeployMode = async () => {
 export const queryOffice = async (login_name: string) => {
   const resp = await request.post('service/dataapi/rest/mhwz-user-org', { login_name })
   return resp.data
+}
+
+export const queryExistedUser = async (no: string) => {
+  const resp = await request.post('service/dataapi/rest/mhwz-user-exist', { no, del_flag: '0' })
+  return resp.data as any[]
+}
+
+export const syncAccount = async () => {
+  await request('28/syncUser/customizeUser')
 }

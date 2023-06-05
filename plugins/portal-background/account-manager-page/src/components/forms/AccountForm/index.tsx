@@ -136,7 +136,12 @@ const AccountFrom: React.FC<AccountFormProps> = (props) => {
   }
 
   const openUserMoal = () => {
+    const no = form.getFieldValue('no')
+    const name = form.getFieldValue('name')
+    const user = no && name ? { SFZHM: no, MC: name } : null
     NiceModal.show(UserModal, {
+      user,
+      office: office,
       onConfirm(office: Office, user: User) {
         console.log(office, user)
         setOffice(office)
