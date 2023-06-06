@@ -9,7 +9,7 @@ const handler: Handler = (req, res, ctx) => {
       message: '查询成功',
       result: [
         {
-          BDNM: 'ysmn09930',
+          BDNM: 'xfadsfafds',
           MC: '张三',
           SFZHM: '440221199608234773',
           XH: 'xxx',

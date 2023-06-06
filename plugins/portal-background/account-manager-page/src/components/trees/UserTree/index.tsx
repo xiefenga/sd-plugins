@@ -136,7 +136,6 @@ const UserTree: React.FC<UserTreeProps> = ({
     const userChildren = userList
       .filter(user => user.BDNM === code)
       .map(user => ({
-        // key: `${key}-${code}-${user.MC}-${user.BDNM}`,
         key: user.SFZHM,
         icon: <UserOutlined />,
         title: (
@@ -157,7 +156,10 @@ const UserTree: React.FC<UserTreeProps> = ({
     target.children = offices
       .map(({ office }) => {
 
-        const isLeaf = (office as unknown as NormalOffice).children.length === 0 || userChildren.length > 0
+        const hasOfficeChild = (office as unknown as NormalOffice).children.length !== 0
+
+        const hasUserChild = userList.some(user => user.BDNM === office.code)
+
         return {
           key: office.id,
           code: office.code,
@@ -165,7 +167,7 @@ const UserTree: React.FC<UserTreeProps> = ({
           children: [],
           icon: <TeamOutlined />,
           disableCheckbox: true,
-          isLeaf,
+          isLeaf: !hasOfficeChild && !hasUserChild,
           selectable: false,
         }
         // @ts-expect-error
