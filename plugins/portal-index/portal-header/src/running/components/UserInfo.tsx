@@ -49,7 +49,7 @@ const UserInfo: React.FC = () => {
         photo: avatar,
         name: userName,
         userName: identity,
-        companyName: organization,
+        office_name: organization,
       } = state.user
       return { organization, identity, avatar, userName }
     }
