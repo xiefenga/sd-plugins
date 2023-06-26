@@ -1,0 +1,49 @@
+{
+  "name": "app-authorization-page",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "refresh": "sd-plugin-scripts init",
+    "start": "sd-plugin-scripts start",
+    "setting": "sd-plugin-scripts setting",
+    "build": "sd-plugin-scripts build",
+    "plugin:build": "npm run build && sd-plugin-scripts pack"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.1.4",
+    "@ebay/nice-modal-react": "^1.2.8",
+    "ahooks": "^3.7.7",
+    "antd": "4.21.6",
+    "p-limit": "^4.0.0",
+    "sd-plugin-request": "workspace:*",
+    "styled-components": "^5.3.6"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.12",
+    "@types/react-dom": "^18.2.5",
+    "@types/styled-components": "^5.1.26",
+    "@types/webpack-env": "^1.18.0",
+    "msw": "^1.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sd-dev-login": "workspace:^*",
+    "sd-plugin-scripts": "workspace:^*",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^5.1.3"
+  },
+  "browserslist": {
+    "production": [
+      "firefox >= 72",
+      "> 0.25%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version"
+    ]
+  },
+  "msw": {
+    "workerDirectory": "public"
+  }
+}

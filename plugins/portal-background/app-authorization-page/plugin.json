@@ -1,0 +1,14 @@
+{
+  "id": "bab23a6a-45af-4dc3-9054-77d8f8bb1a26",
+  "name": "应用赋权页面",
+  "type": "app",
+  "main": "",
+  "version": "2",
+  "props": {
+    "type": "customize",
+    "customconf": [
+      "appAssetId",
+      "permissionAssetId"
+    ]
+  }
+}

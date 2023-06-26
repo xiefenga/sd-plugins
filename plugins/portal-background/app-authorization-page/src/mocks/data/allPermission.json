@@ -1,0 +1,53 @@
+{
+  "code": 10019001,
+  "message": "查询成功",
+  "result": [
+    [
+      {
+        "asset_id": "7e5a9acd-9024-4a78-95ef-4520f5951cb0",
+        "col_datatype": 0,
+        "col_index": 1,
+        "col_name": "id",
+        "displayed": 1,
+        "id": "807e6c33-4baf-4a23-b133-916307c9bc8e",
+        "import_flag": false,
+        "is_ciphertext": false,
+        "is_private": false,
+        "multipleComponentFlag": false,
+        "queryable": 1
+      },
+      {
+        "asset_id": "7e5a9acd-9024-4a78-95ef-4520f5951cb0",
+        "col_datatype": 0,
+        "col_index": 2,
+        "col_name": "name",
+        "displayed": 1,
+        "id": "4aa9cf8e-8b78-439f-add4-3d20207f842f",
+        "import_flag": false,
+        "is_ciphertext": false,
+        "is_private": false,
+        "multipleComponentFlag": false
+      }
+    ],
+    [
+      [
+        "0",
+        "查询"
+      ],
+      [
+        "1",
+        "维护"
+      ],
+      [
+        "2",
+        "审批"
+      ],
+      [
+        "3",
+        "全部"
+      ]
+    ],
+    1
+  ],
+  "status": 200
+}
